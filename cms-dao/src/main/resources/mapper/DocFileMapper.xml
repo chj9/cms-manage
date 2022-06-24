@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dliberty.cms.dao.mapper.DocFileMapper">
+  <resultMap id="BaseResultMap" type="com.dliberty.cms.dao.entity.DocFile">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="file_key" jdbcType="VARCHAR" property="fileKey" />
+    <result column="file_path" jdbcType="VARCHAR" property="filePath" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="is_deleted" jdbcType="CHAR" property="isDeleted" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="file_type" jdbcType="VARCHAR" property="fileType" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from doc_file
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dliberty.cms.dao.entity.DocFile">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into doc_file (file_key, file_path, file_name, 
+      is_deleted, create_time, update_time,file_type
+      )
+    values (#{fileKey,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+      #{isDeleted,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{fileType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.dliberty.cms.dao.entity.DocFile">
+    update doc_file
+    set file_key = #{fileKey,jdbcType=VARCHAR},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      is_deleted = #{isDeleted,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      file_type = #{fileType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, file_key, file_path, file_name, is_deleted, create_time, update_time,file_type
+    from doc_file
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, file_key, file_path, file_name, is_deleted, create_time, update_time,file_type
+    from doc_file
+  </select>
+  
+  <select id="selectByFileKey" resultMap="BaseResultMap">
+    select id, file_key, file_path, file_name, is_deleted, create_time, update_time,file_type
+    from doc_file where  file_key = #{fileKey,jdbcType=VARCHAR}
+  </select>
+</mapper>

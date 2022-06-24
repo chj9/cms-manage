@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dliberty.cms.dao.mapper.CmsMenuLabelMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.dliberty.cms.dao.entity.CmsMenuLabel">
+		<id column="id" property="id" />
+		<result column="label_name" property="labelName" />
+		<result column="label_img" property="labelImg" />
+		<result column="label_url" property="labelUrl" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="is_deleted" property="isDeleted" />
+	</resultMap>
+
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		id, label_name, label_img, label_url, create_time, update_time,is_deleted
+	</sql>
+
+	<select id="selectByMenuId" resultMap="BaseResultMap">
+		SELECT
+			l.*
+		from
+			cms_menu_label l
+		JOIN
+			cms_menu_label_relation r
+		on 
+			(r.label_id = l.id)
+		JOIN
+			cms_menu m
+		on 
+			(m.id = r.menu_id)
+		where
+			m.is_deleted = 0 and r.is_deleted = 0 and l.is_deleted = 0
+		and m.id = #{menuId}
+	</select>
+
+</mapper>

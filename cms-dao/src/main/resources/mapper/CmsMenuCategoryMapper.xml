@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dliberty.cms.dao.mapper.CmsMenuCategoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dliberty.cms.dao.entity.CmsMenuCategory">
+        <id column="id" property="id" />
+        <result column="category_name" property="categoryName" />
+        <result column="category_code" property="categoryCode" />
+        <result column="parent_id" property="parentId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="has_next" property="hasNext" />
+        <result column="sort" property="sort" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, category_name, category_code, parent_id, create_time, update_time, is_deleted,has_next,sort
+    </sql>
+
+</mapper>

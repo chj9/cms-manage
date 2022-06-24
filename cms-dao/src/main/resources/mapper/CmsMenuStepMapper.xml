@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dliberty.cms.dao.mapper.CmsMenuStepMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dliberty.cms.dao.entity.CmsMenuStep">
+        <id column="id" property="id" />
+        <result column="menu_id" property="menuId" />
+        <result column="step_index" property="stepIndex" />
+        <result column="step_desc" property="stepDesc" />
+        <result column="step_img" property="stepImg" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_deleted" property="isDeleted" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, menu_id, step_index, step_desc, step_img, create_time, update_time, is_deleted
+    </sql>
+
+</mapper>

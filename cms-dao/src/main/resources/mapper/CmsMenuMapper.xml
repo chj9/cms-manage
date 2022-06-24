@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dliberty.cms.dao.mapper.CmsMenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.dliberty.cms.dao.entity.CmsMenu">
+        <id column="id" property="id" />
+        <result column="menu_name" property="menuName" />
+        <result column="menu_desc" property="menuDesc" />
+        <result column="menu_img" property="menuImg" />
+        <result column="menu_auth" property="menuAuth" />
+        <result column="browse_num" property="browseNum" />
+        <result column="collect_num" property="collectNum" />
+        <result column="menu_tip" property="menuTip" />
+        <result column="category_id" property="categoryId" />
+        <result column="category_name" property="categoryName" />
+        <result column="ref_id" property="refId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_deleted" property="isDeleted" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, menu_name, menu_desc, menu_img, menu_auth, browse_num, collect_num, menu_tip,category_id, category_name,ref_id, create_time, update_time, is_deleted
+    </sql>
+    
+    <select id="selectCollectionByUserId" resultMap="BaseResultMap">
+    	SELECT 
+    	<include refid="Base_Column_List" />
+    	from 
+    		cms_menu a 
+    	where EXISTS 
+			(select menu_id from cms_menu_collection b where a.id = b.menu_id and  b.is_deleted = 0 and b.user_id = #{userId})
+    </select>
+    
+    <select id="listPage" resultMap="BaseResultMap">
+    	SELECT 
+    	<include refid="Base_Column_List" />
+    	from 
+    		cms_menu a 
+    	where 
+    		a.is_deleted = 0
+    	<if test="dto.keyword != null and dto.keyword != ''">
+    		and a.menu_name like CONCAT('%',#{dto.keyword},'%')
+    	</if>
+    </select>
+
+</mapper>
