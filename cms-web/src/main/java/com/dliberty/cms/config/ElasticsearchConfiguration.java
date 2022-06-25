@@ -8,7 +8,7 @@ import javax.annotation.PreDestroy;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.TransportAddress;
-import org.elasticsearch.transport.client.PreBuiltTransportClient;
+//import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,7 +29,7 @@ public class ElasticsearchConfiguration {
     public TransportClient init(){
         logger.info("Building ElasticSearch client");
         Settings settings = Settings.builder().put("cluster.name", clusterName).build();
-        client = new PreBuiltTransportClient(settings);
+//        client = new PreBuiltTransportClient(settings);
         try {
             if (!"".equals(clusterNodes)){
                 for (String nodes:clusterNodes.split(",")) {

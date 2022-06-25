@@ -9,7 +9,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>cms-web</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>cms-web Maven Webapp</name>
 	<url>https://maven.apache.org</url>
 	<properties>
@@ -30,11 +30,16 @@
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
-            <version>0.9.0</version>
+            <version>0.9.1</version>
         </dependency>
-        
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.2</version>
+			<scope>test</scope>
+		</dependency>
 
-        
+
 	</dependencies>
 	<build>
 		<finalName>cms-web</finalName>
@@ -42,7 +47,8 @@
 		  	<plugin>
 		  		<groupId>org.springframework.boot</groupId>
 		 		<artifactId>spring-boot-maven-plugin</artifactId>
-		  	</plugin>
+				<version>2.6.9</version>
+			</plugin>
 		</plugins>
 	</build>
 </project>
