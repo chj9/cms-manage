@@ -56,8 +56,8 @@ public class UmsAdminController extends BaseController {
 	public JsonBean getSessionKeyOropenid(String code) {
     	JsonBean jsonBean = new JsonBean();
 		String requestUrl = "https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code";
-		String turl = String.format(requestUrl, appId, secret, code);
-		String responseContent = HttpClientUtils.responseGet(turl);
+		String wxUrl = String.format(requestUrl, appId, secret, code);
+		String responseContent = HttpClientUtils.responseGet(wxUrl);
 		JSONObject json = JSONObject.parseObject(responseContent);
 		if (json != null) {
 			String openId = json.getString("openid");

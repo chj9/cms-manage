@@ -4,6 +4,8 @@ server:
     context-path: /cms-admin
 debug: false
 spring:
+  application:
+    name: menu
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/food?useUnicode=true&characterEncoding=utf8&useSSL=true&verifyServerCertificate=false
     username: root
@@ -32,7 +34,7 @@ jwt:
   secret: mySecret
   expiration: 86400
   tokenHead: Bearer 
-BASE_PATH: /export/static/file
+#BASE_PATH: /export/static/file
 oss:
   endpoint: 
   accessKeyId: 
@@ -42,3 +44,7 @@ app:
   weixin: 
     appid: 
     secret: 
+
+logging:
+  level:
+    root: info
