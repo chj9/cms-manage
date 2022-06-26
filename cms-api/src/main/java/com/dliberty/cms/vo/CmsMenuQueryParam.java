@@ -14,9 +14,9 @@ public class CmsMenuQueryParam extends BaseVo {
 
 	private String keyword;
 	
-	private Integer categoryId;
+	private String categoryId;
 	
-	private Integer labelId;
+	private String labelId;
 
 	public String getKeyword() {
 		return keyword;
@@ -26,23 +26,20 @@ public class CmsMenuQueryParam extends BaseVo {
 		this.keyword = keyword;
 	}
 
-	public Integer getCategoryId() {
+
+	public String getCategoryId() {
 		return categoryId;
 	}
 
-	public void setCategoryId(Integer categoryId) {
+	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
 
-	public Integer getLabelId() {
+	public String getLabelId() {
 		return labelId;
 	}
 
-	public void setLabelId(Integer labelId) {
+	public void setLabelId(String labelId) {
 		this.labelId = labelId;
 	}
-	
-	
-	
-	
 }

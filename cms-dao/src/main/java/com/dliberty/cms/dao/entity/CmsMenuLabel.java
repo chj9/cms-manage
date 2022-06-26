@@ -3,8 +3,6 @@ package com.dliberty.cms.dao.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -24,7 +22,6 @@ public class CmsMenuLabel implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @Field(type = FieldType.Text)
     private String labelName;
 
     private String labelImg;

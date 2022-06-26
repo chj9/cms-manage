@@ -2,6 +2,7 @@ package com.dliberty.cms.controller;
 
 import java.util.List;
 
+import com.dliberty.cms.service.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +14,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.dliberty.cms.dto.UmsAdminLoginParam;
 import com.dliberty.cms.exception.CommonException;
 import com.dliberty.cms.service.UmsRoleService;
-import com.dliberty.cms.service.UserLoginService;
 import com.dliberty.cms.utils.HttpClientUtils;
 import com.dliberty.cms.vo.JsonBean;
 
@@ -25,7 +25,7 @@ import com.dliberty.cms.vo.JsonBean;
 @RequestMapping("/admin")
 public class UmsAdminController extends BaseController {
 	@Autowired
-	private UserLoginService userLoginService; 
+	private UserLoginService myUserService;
     @Value("${jwt.header}")
     private String tokenHeader;
     @Value("${jwt.tokenHead}")
@@ -40,7 +40,7 @@ public class UmsAdminController extends BaseController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public JsonBean login(@RequestBody UmsAdminLoginParam umsAdminLoginParam) {
-        String token = userLoginService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());
+        String token = myUserService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());
         if (token == null) {
             throw new CommonException("用户名或密码错误");
         }
@@ -61,7 +61,7 @@ public class UmsAdminController extends BaseController {
 		JSONObject json = JSONObject.parseObject(responseContent);
 		if (json != null) {
 			String openId = json.getString("openid");
-			String token = userLoginService.loginWeixin(openId);
+			String token = myUserService.loginWeixin(openId);
 			jsonBean.put("token", token);
 			jsonBean.put("tokenHead", tokenHead);
 		}

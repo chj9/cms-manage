@@ -14,7 +14,7 @@ import com.dliberty.cms.dao.entity.CmsMenuCategory;
 import com.dliberty.cms.service.CmsMenuCategoryService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = SpringBootStartApplication.class)
+@SpringBootTest(classes = MenuApplication.class)
 public class CategoryTest {
 	
 	@Autowired

@@ -20,11 +20,11 @@ spring:
         max-idle: 100
         min-idle: 10
         max-wait:
-  elasticsearch:
-    uris: http://124.223.78.203:9200
-    username: elastic
-    password: XcxcPfKAaNdpBVIqTY9k
 
+elasticsearch:
+  hosts: 124.223.78.203:9200
+  username: elastic
+  password: XcxcPfKAaNdpBVIqTY9k
 
 jwt:
   header: Authorization

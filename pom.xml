@@ -27,7 +27,8 @@
 		<module>cms-app</module>
 		<module>cms-web</module>
     	<module>cms-admin</module>
-  	</modules>
+        <module>cms-core</module>
+    </modules>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

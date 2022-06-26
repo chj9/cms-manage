@@ -3,9 +3,6 @@ package com.dliberty.cms.dao.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 
@@ -26,7 +23,6 @@ public class CmsMenuMaterial implements Serializable {
 
     private Integer menuId;
 
-    @Field(type = FieldType.Text)
     private String materialName;
 
     private String materialDesc;

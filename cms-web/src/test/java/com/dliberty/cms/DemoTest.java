@@ -27,7 +27,7 @@ import com.dliberty.cms.service.FileService;
 import com.dliberty.cms.vo.CmsMenuParam;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = SpringBootStartApplication.class)
+@SpringBootTest(classes = MenuApplication.class)
 public class DemoTest {
 
 	@Autowired

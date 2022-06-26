@@ -5,26 +5,17 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import com.dliberty.cms.dao.entity.CmsMenuLabel;
 import com.dliberty.cms.dao.entity.CmsMenuMaterial;
 import com.dliberty.cms.dao.entity.CmsMenuStep;
 
-@Document(indexName = "cmsmenu")
 public class CmsMenuVo implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2996056237154364425L;
 
-	@Id
-	private Integer id;
+	private String id;
 
-	@Field(type = FieldType.Text)
     private String menuName;
 
     private String menuDesc;
@@ -43,25 +34,23 @@ public class CmsMenuVo implements Serializable {
     
     private String categoryName;
 
+
     private Date createTime;
 
     private Date updateTime;
     
     
-    @Field(type = FieldType.Object)
     private List<CmsMenuStep> stepList;
     
-    @Field(type = FieldType.Object)
     private List<CmsMenuMaterial> materialList;
     
-    @Field(type = FieldType.Object)
     private List<CmsMenuLabel> labels;
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -176,8 +165,5 @@ public class CmsMenuVo implements Serializable {
 	public void setMaterialList(List<CmsMenuMaterial> materialList) {
 		this.materialList = materialList;
 	}
-
-    
-    
 
 }

@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.dliberty.cms.service.ThreadPoolService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = SpringBootStartApplication.class)
+@SpringBootTest(classes = MenuApplication.class)
 public class ThreadPoolServiceTest {
 	 
 	@Autowired

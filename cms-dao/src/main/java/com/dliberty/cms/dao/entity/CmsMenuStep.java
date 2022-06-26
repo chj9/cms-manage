@@ -3,8 +3,6 @@ package com.dliberty.cms.dao.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -28,7 +26,6 @@ public class CmsMenuStep implements Serializable {
 
     private Integer stepIndex;
 
-    @Field(type = FieldType.Text)
     private String stepDesc;
 
     private String stepImg;

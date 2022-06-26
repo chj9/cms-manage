@@ -22,7 +22,7 @@ import com.dliberty.cms.service.CmsMenuStepService;
 import com.dliberty.cms.vo.CmsMenuVo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = SpringBootStartApplication.class)
+@SpringBootTest(classes = MenuApplication.class)
 public class CmsMenuServiceTest {
 
 	@Autowired
@@ -36,7 +36,7 @@ public class CmsMenuServiceTest {
 
 	@Test
 	public void deleteTest() {
-		cmsMenuEsService.deleteById(1);
+		cmsMenuEsService.deleteById(1+"");
 	}
 
 	@Test
@@ -50,7 +50,7 @@ public class CmsMenuServiceTest {
 
 		page.getRecords().stream().forEach(menu -> {
 
-			boolean existsById = cmsMenuEsService.existsById(menu.getId());
+			boolean existsById = cmsMenuEsService.existsById(menu.getId()+"");
 			if (!existsById) {
 
 				CmsMenuVo vo = new CmsMenuVo();
@@ -72,29 +72,29 @@ public class CmsMenuServiceTest {
 	@Test
 	public void getTest() {
 		//long count = cmsMenuEsService.count();
-		boolean existsById = cmsMenuEsService.existsById(1);
+		boolean existsById = cmsMenuEsService.existsById(1+"");
 		System.out.println(existsById);
 	}
 
-	@Test
-	public void queryPageTest() {
-		Page<CmsMenuVo> pageQuery = cmsMenuEsService.pageQuery(1, 20, "西兰花");
-		System.out.println(pageQuery);
-		
-	}
+//	@Test
+//	public void queryPageTest() {
+//		Page<CmsMenuVo> pageQuery = cmsMenuEsService.pageQuery(1, 20, "西兰花");
+//		System.out.println(pageQuery);
+//
+//	}
 	
-	@Test
-	public void getByIdsTest() {
-		List<CmsMenuVo> byIds = cmsMenuEsService.getByIds(java.util.Arrays.asList(14854,14855,14856));
-		System.out.println(byIds);
-	}
+//	@Test
+//	public void getByIdsTest() {
+//		List<CmsMenuVo> byIds = cmsMenuEsService.getByIds(java.util.Arrays.asList(14854,14855,14856));
+//		System.out.println(byIds);
+//	}
 	
-	@Test
-	public void queryPageCateTest() {
-		Page<CmsMenuVo> pageQuery = cmsMenuEsService.pageQueryByCateId(1, 20, 26);
-		System.out.println(pageQuery);
-		
-	}
+//	@Test
+//	public void queryPageCateTest() {
+//		Page<CmsMenuVo> pageQuery = cmsMenuEsService.pageQueryByCateId(1, 20, 26);
+//		System.out.println(pageQuery);
+//
+//	}
 	
 	@Test
 	public void selectCollectionByUserIdTest() {

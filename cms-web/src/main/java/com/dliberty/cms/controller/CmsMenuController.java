@@ -1,5 +1,6 @@
 package com.dliberty.cms.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,7 @@ public class CmsMenuController extends BaseController {
 	@GetMapping("list")
 	public RowsResultModel<CmsMenuVo> list(CmsMenuQueryParam param,PageInfo pageInfo) {
 		param.setPageInfo(pageInfo);
-		Page<CmsMenuVo> listPage = cmsMenuService.listPageEs(param);
+		PageDTO<CmsMenuVo> listPage = cmsMenuService.listPageEs(param);
 		return RowsResultModelBuilder.of(listPage);
 	}
 	

@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,20 +70,13 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> impl
 	private final ExecutorService executor = Executors.newCachedThreadPool();
 	
 	@Override
-	public Page<CmsMenuVo> listPageEs(CmsMenuQueryParam param) {
-		if (param.getCategoryId() != null) {
-			return cmsMenuEsService.pageQueryByCateId(param.getPageInfo().getPageNum(), param.getPageInfo().getPageSize(), param.getCategoryId());
-		} else if (param.getLabelId() != null){
-			return cmsMenuEsService.pageQueryByLabelId(param.getPageInfo().getPageNum(), param.getPageInfo().getPageSize(), param.getLabelId());
-		} else {
-			return cmsMenuEsService.pageQuery(param.getPageInfo().getPageNum(), param.getPageInfo().getPageSize(), param.getKeyword());
-		}
-		
+	public PageDTO<CmsMenuVo> listPageEs(CmsMenuQueryParam param) {
+		return cmsMenuEsService.pageQuery(param.getPageInfo().getPageNum(), param.getPageInfo().getPageSize(), param);
 	}
 	
 	@Override
 	public CmsMenuVo getPageEs(Integer id) {
-		return cmsMenuEsService.getById(id);
+		return cmsMenuEsService.getById(id+"");
 	}
 	
 	/**
@@ -96,7 +91,6 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> impl
 			wrapper.like(CmsMenu::getMenuName, param.getKeyword());
 		}
 		wrapper.eq(CmsMenu::getIsDeleted,Constants.COMMON_FLAG_NO);
-		
 		return baseMapper.selectPage(param.getPageInfo(), wrapper);
 	}
 	
@@ -182,7 +176,9 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> impl
 		if (userId == null) {
 			return new ArrayList<>();
 		}
-		List<Integer> ids = cmsMenuCollectionService.selectByUserId(userId);
+		List<String> ids = cmsMenuCollectionService.selectByUserId(userId).stream().map(item ->{
+			return String.valueOf(item);
+		}).collect(Collectors.toList());
 		final List<CmsMenuVo> menuList = new ArrayList<>();
 		Optional.ofNullable(ids).ifPresent(
 			(list) -> {
@@ -269,7 +265,7 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> impl
 		executor.execute(new Runnable() {
 			@Override
 			public void run() {
-				cmsMenuEsService.deleteById(id);
+				cmsMenuEsService.deleteById(id+"");
 			}
 		});
 		

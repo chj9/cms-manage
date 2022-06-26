@@ -2,6 +2,7 @@ package com.dliberty.cms.service;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import org.springframework.data.domain.Page;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -27,7 +28,7 @@ public interface CmsMenuService extends IService<CmsMenu> {
 	 * @param param
 	 * @return
 	 */
-	Page<CmsMenuVo> listPageEs(CmsMenuQueryParam param);
+	PageDTO<CmsMenuVo> listPageEs(CmsMenuQueryParam param);
 	
 	/**
 	 * 搜索引擎查询
