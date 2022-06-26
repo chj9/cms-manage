@@ -32,16 +32,21 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 	@Autowired
 	@Qualifier("myUserDetailsService")
 	private UserDetailsService myUserDetailsService;
+    private HttpServletRequest request;
 
-	@Override
+    @Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
 		
 		
 		String auth_token = request.getHeader(token_header);
-		
+        String uri = request.getRequestURI();
+
+        logger.info("请求处理");
+
+        logger.info(uri);
+
 		Enumeration<String> headerNames = request.getHeaderNames();
-		System.out.println(headerNames);
         final String auth_token_start = tokenHead;
         if (StringUtils.isNotEmpty(auth_token) && auth_token.startsWith(auth_token_start)) {
             auth_token = auth_token.substring(auth_token_start.length());

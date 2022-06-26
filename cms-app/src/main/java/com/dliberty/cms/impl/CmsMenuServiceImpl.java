@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,11 +91,11 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> impl
 	 */
 	@Override
 	public IPage<CmsMenu> listPage(CmsMenuQueryParam param) {
-		QueryWrapper<CmsMenu> wrapper = new QueryWrapper<>();
+		LambdaQueryWrapper<CmsMenu> wrapper = new LambdaQueryWrapper<>();
 		if (StringUtils.isNotEmpty(param.getKeyword())) {
-			wrapper.like("menu_name", param.getKeyword());
+			wrapper.like(CmsMenu::getMenuName, param.getKeyword());
 		}
-		wrapper.eq("is_deleted",Constants.COMMON_FLAG_NO);
+		wrapper.eq(CmsMenu::getIsDeleted,Constants.COMMON_FLAG_NO);
 		
 		return baseMapper.selectPage(param.getPageInfo(), wrapper);
 	}

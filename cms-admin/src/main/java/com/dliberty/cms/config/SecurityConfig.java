@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/hello/home","/favicon.ico","/admin/login","/admin/file/upload").permitAll()
+//                .antMatchers("/hello/home","/favicon.ico","/admin/file/upload").permitAll()
                 .anyRequest()// 除上面外的所有请求全部需要鉴权认证
                 .authenticated();
         // 禁用缓存

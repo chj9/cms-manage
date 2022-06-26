@@ -1,50 +1,79 @@
-server:
-  port: 8089
-  servlet:
-    context-path: /cms-admin
-debug: false
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: health, prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  endpoint:
+    health:
+      show-details: always
+      cache:
+        time-to-live: 1m
+      status:
+        http-mapping:
+          up: 200
+          down: 503
+  health.redis.enabled: true
+
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml, classpath*:mapper/**/*.xml
+  type-aliases-package: com.dliberty.cms.dao.entity
+  configuration:
+    call-setters-on-nulls: on
 spring:
   application:
-    name: menu
-  datasource:
-    url: jdbc:mysql://127.0.0.1:3306/food?useUnicode=true&characterEncoding=utf8&useSSL=true&verifyServerCertificate=false
-    username: root
-    password: Mysql1234!@#
-    driver-class-name: com.mysql.jdbc.Driver
-  redis:
-    database: 0
-    host: localhost
-    port: 6379
-    password: redismima1234
-    pool: 
-      max-active: 100
-      max-wait: -1
-      max-idle: 20
-      min-idle: 10
-    timeout: 2000
-  data:
-    elasticsearch:
-      cluster-name: docker-cluster
-      cluster-nodes: 127.0.0.1:9300
-mybatis-plus:
-  mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.dliberty.cms.dao.entity
-jwt:
-  header: Authorization
-  secret: mySecret
-  expiration: 86400
-  tokenHead: Bearer 
-#BASE_PATH: /export/static/file
-oss:
-  endpoint: 
-  accessKeyId: 
-  accessKeySecret: 
-  bucketName: 
-app: 
-  weixin: 
-    appid: 
-    secret: 
+    name: menu-manage
+  # 允许循环调用，后期记得优化
+  main:
+    allow-circular-references: true
+  profiles:
+    group:
+      default:
+        - dev
+      testing:
+        - dev
+      prod:
+        - prod
+    active: default
+  session:
+    store-type: redis
+  mvc:
+    throw-exception-if-no-handler-found: true
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
+      write_date_timestamps_as_nanoseconds: false
+    deserialization:
+      read_date_timestamps_as_nanoseconds: false
+    mapper:
+      accept_case_insensitive_properties: true
+  pid:
+    fail-on-write-error: true
+  task:
+    execution:
+      pool:
+        queue-capacity: 640
+    scheduling:
+      pool:
+        size: 64
+  aop:
+    # 使用cglib动态代理
+    proxy-target-class: true
+
+
 
 logging:
   level:
     root: info
+
+server:
+  forward-headers-strategy: native
+
+xss:
+  filter:
+    enabled: false
+    excludes:
