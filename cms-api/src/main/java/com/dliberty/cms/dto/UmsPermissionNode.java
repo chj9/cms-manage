@@ -2,12 +2,12 @@ package com.dliberty.cms.dto;
 
 import java.util.List;
 
-import com.dliberty.cms.dao.entity.UmsPermission;
+import com.dliberty.cms.entity.UmsPermissionEntity;
 
 /**
  * Created by macro on 2018/9/30.
  */
-public class UmsPermissionNode extends UmsPermission {
+public class UmsPermissionNode extends UmsPermissionEntity {
     /**
 	 * 
 	 */

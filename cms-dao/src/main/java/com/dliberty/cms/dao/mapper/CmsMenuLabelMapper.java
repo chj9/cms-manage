@@ -26,5 +26,5 @@ public interface CmsMenuLabelMapper extends BaseMapper<CmsMenuLabel> {
 	 * @param menuId
 	 * @return
 	 */
-	List<CmsMenuLabel> selectByMenuId(@Param("menuId")Integer menuId);
+	List<CmsMenuLabel> selectByMenuId(@Param("menuId")Long menuId);
 }

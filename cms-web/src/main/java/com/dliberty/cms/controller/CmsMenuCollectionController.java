@@ -16,51 +16,55 @@ import com.dliberty.cms.vo.JsonBean;
 
 /**
  * 收藏
- * @author LG
  *
+ * @author LG
  */
 @RestController
 @RequestMapping("/menu/collection")
 public class CmsMenuCollectionController extends BaseController {
 
-	@Autowired
-	private CmsMenuCollectionService cmsMenuCollectionService;
-	@Autowired
-	private CmsMenuService cmsMenuService;
+    private final CmsMenuCollectionService cmsMenuCollectionService;
+    private final CmsMenuService cmsMenuService;
 
-	@GetMapping(value = "/add/{menuId}")
-	public JsonBean collection(@PathVariable("menuId") Integer menuId){
-		Long userId = getUserId();
-		CmsMenuCollection collection = cmsMenuCollectionService.collection(userId, menuId);
-		JsonBean json = new JsonBean();
-		json.put("collection", collection);
-		return json;
-	}
-	
-	@GetMapping(value = "/remove/{menuId}")
-	public JsonBean removeCollection(@PathVariable("menuId") Integer menuId){
-		Long userId = getUserId();
-		cmsMenuCollectionService.removeCollection(userId, menuId);
-		return new JsonBean();
-	}
-	
-	@GetMapping(value = "/view")
-	public JsonBean view(){
-		Long userId = getUserId();
-		List<CmsMenuVo> menuList = cmsMenuService.selectCollectionByUserId(userId);
-		JsonBean json = new JsonBean();
-		json.put("menuList", menuList);
-		return json;
-	}
-	
-	@GetMapping(value = "/{menuId}")
-	public JsonBean get(@PathVariable("menuId") Integer menuId){
-		Long userId = getUserId();
-		List<CmsMenuCollection> collections = cmsMenuCollectionService.selectByMenuId(userId, menuId);
-		JsonBean json = new JsonBean();
-		json.put("collections", collections);
-		return json;
-	}
-	
-	
+    @Autowired
+    public CmsMenuCollectionController(CmsMenuCollectionService cmsMenuCollectionService, CmsMenuService cmsMenuService) {
+        this.cmsMenuCollectionService = cmsMenuCollectionService;
+        this.cmsMenuService = cmsMenuService;
+    }
+
+    @GetMapping(value = "/add/{menuId}")
+    public JsonBean collection(@PathVariable("menuId") Integer menuId) {
+        Long userId = getUserId();
+        CmsMenuCollection collection = cmsMenuCollectionService.collection(userId, menuId);
+        JsonBean json = new JsonBean();
+        json.put("collection", collection);
+        return json;
+    }
+
+    @GetMapping(value = "/remove/{menuId}")
+    public JsonBean removeCollection(@PathVariable("menuId") Integer menuId) {
+        Long userId = getUserId();
+        cmsMenuCollectionService.removeCollection(userId, menuId);
+        return new JsonBean();
+    }
+
+    @GetMapping(value = "/view")
+    public JsonBean view() {
+        Long userId = getUserId();
+        List<CmsMenuVo> menuList = cmsMenuService.selectCollectionByUserId(userId);
+        JsonBean json = new JsonBean();
+        json.put("menuList", menuList);
+        return json;
+    }
+
+    @GetMapping(value = "/{menuId}")
+    public JsonBean get(@PathVariable("menuId") Integer menuId) {
+        Long userId = getUserId();
+        List<CmsMenuCollection> collections = cmsMenuCollectionService.selectByMenuId(userId, menuId);
+        JsonBean json = new JsonBean();
+        json.put("collections", collections);
+        return json;
+    }
+
+
 }

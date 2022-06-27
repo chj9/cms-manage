@@ -4,7 +4,7 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.dliberty</groupId>
+		<groupId>com.chen9</groupId>
 		<artifactId>cms</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
@@ -22,16 +22,15 @@
             <scope>test</scope>
         </dependency>
 		<dependency>
-			<groupId>com.dliberty</groupId>
-			<artifactId>cms-app</artifactId>
+			<groupId>com.chen9</groupId>
+			<artifactId>cms-service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
-        </dependency>
+		<dependency>
+			<groupId>com.chen9.core</groupId>
+			<artifactId>web</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
