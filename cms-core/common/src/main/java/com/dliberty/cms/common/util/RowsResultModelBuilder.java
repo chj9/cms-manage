@@ -1,8 +1,8 @@
 package com.dliberty.cms.common.util;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.dliberty.cms.vo.PageInfo;
-import com.dliberty.cms.vo.RowsResultModel;
+import com.dliberty.cms.common.vo.PageInfo;
+import com.dliberty.cms.common.vo.RowsResultModel;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public class RowsResultModelBuilder {
      * @param iPage
      * @return
      */
-    public static <T>RowsResultModel<T> of(IPage<T> iPage){
+    public static <T> RowsResultModel<T> of(IPage<T> iPage){
         return new RowsResultModel<>(
                 iPage.getRecords(),
                 new PageInfo((int)iPage.getTotal(),(int)iPage.getCurrent(),(int)iPage.getSize())

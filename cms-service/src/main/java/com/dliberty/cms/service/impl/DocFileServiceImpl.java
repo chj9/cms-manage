@@ -1,10 +1,10 @@
 package com.dliberty.cms.service.impl;
 
 
-import com.dliberty.cms.dao.entity.DocFile;
 import com.dliberty.cms.dao.mapper.DocFileMapper;
-import com.dliberty.cms.lang.data.StringUtils;
+import com.dliberty.cms.entity.DocFileEntity;
 import com.dliberty.cms.service.DocFileService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +19,7 @@ public class DocFileServiceImpl implements DocFileService {
 	private DocFileMapper docFileMapper;
 	
 	@Override
-	public DocFile save(DocFile file) {
+	public DocFileEntity save(DocFileEntity file) {
 		file.setCreateTime(new Date());
 		file.setUpdateTime(new Date());
 		file.setIsDeleted("0");
@@ -28,7 +28,7 @@ public class DocFileServiceImpl implements DocFileService {
 	}
 
 	@Override
-	public DocFile selectByFileKey(String fileKey) {
+	public DocFileEntity selectByFileKey(String fileKey) {
 		if (StringUtils.isEmpty(fileKey)) {
 			return null;
 		}
@@ -36,14 +36,14 @@ public class DocFileServiceImpl implements DocFileService {
 	}
 
 	@Override
-	public DocFile update(DocFile file) {
+	public DocFileEntity update(DocFileEntity file) {
 		file.setUpdateTime(new Date());
 		docFileMapper.updateByPrimaryKey(file);
 		return file;
 	}
 
 	@Override
-	public DocFile selectById(Integer id) {
+	public DocFileEntity selectById(Integer id) {
 		return docFileMapper.selectByPrimaryKey(id);
 	}
 

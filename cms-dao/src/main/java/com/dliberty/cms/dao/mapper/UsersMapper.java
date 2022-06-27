@@ -1,7 +1,7 @@
 package com.dliberty.cms.dao.mapper;
 
-import com.dliberty.cms.dao.entity.Users;
-import com.dliberty.cms.dao.base.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dliberty.cms.entity.UsersEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface UsersMapper extends BaseMapper<Users> {
+public interface UsersMapper extends BaseMapper<UsersEntity> {
 
 }

@@ -3,19 +3,19 @@ package com.dliberty.cms;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dliberty.cms.entity.CmsMenuEntity;
+import com.dliberty.cms.entity.CmsMenuMaterialEntity;
+import com.dliberty.cms.entity.CmsMenuStepEntity;
+import com.dliberty.cms.service.CmsMenuEsService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.dliberty.cms.dao.entity.CmsMenu;
-import com.dliberty.cms.dao.entity.CmsMenuMaterial;
-import com.dliberty.cms.dao.entity.CmsMenuStep;
-import com.dliberty.cms.es.CmsMenuEsService;
 import com.dliberty.cms.service.CmsMenuMaterialService;
 import com.dliberty.cms.service.CmsMenuService;
 import com.dliberty.cms.service.CmsMenuStepService;
@@ -44,9 +44,9 @@ public class CmsMenuServiceTest {
 
 		List<CmsMenuVo> list = new ArrayList<>();
 		
-		IPage<CmsMenu> ipage = new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>(11, 5000);
+		IPage<CmsMenuEntity> ipage = new Page<>(11, 5000);
 
-		IPage<CmsMenu> page = cmsMenuService.page(ipage);
+		IPage<CmsMenuEntity> page = cmsMenuService.page(ipage);
 
 		page.getRecords().stream().forEach(menu -> {
 
@@ -55,9 +55,9 @@ public class CmsMenuServiceTest {
 
 				CmsMenuVo vo = new CmsMenuVo();
 				BeanUtils.copyProperties(menu, vo);
-				List<CmsMenuStep> stepList = cmsMenuStepService.selectByMenuId(menu.getId());
+				List<CmsMenuStepEntity> stepList = cmsMenuStepService.selectByMenuId(menu.getId());
 				vo.setStepList(stepList);
-				List<CmsMenuMaterial> materialList = cmsMenuMaterialService.selectByMenuId(menu.getId());
+				List<CmsMenuMaterialEntity> materialList = cmsMenuMaterialService.selectByMenuId(menu.getId());
 				vo.setMaterialList(materialList);
 
 				list.add(vo);
@@ -104,7 +104,7 @@ public class CmsMenuServiceTest {
 	
 	@Test
 	public void browseTest() {
-		cmsMenuService.browse(1);
+		cmsMenuService.browse(1L);
 	}
 
 }

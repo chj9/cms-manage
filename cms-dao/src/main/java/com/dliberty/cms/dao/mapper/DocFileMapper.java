@@ -3,24 +3,25 @@ package com.dliberty.cms.dao.mapper;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dliberty.cms.entity.DocFileEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.dliberty.cms.dao.entity.DocFile;
 import org.springframework.stereotype.Repository;
 
 @Mapper
 @Repository
-public interface DocFileMapper {
+public interface DocFileMapper extends BaseMapper<DocFileEntity> {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(DocFile record);
+    int insert(DocFileEntity record);
 
-    DocFile selectByPrimaryKey(Integer id);
+    DocFileEntity selectByPrimaryKey(Integer id);
 
-    List<DocFile> selectAll();
+    List<DocFileEntity> selectAll();
 
-    int updateByPrimaryKey(DocFile record);
-    
-    DocFile selectByFileKey(@Param("fileKey")String fileKey);
+    int updateByPrimaryKey(DocFileEntity record);
+
+    DocFileEntity selectByFileKey(@Param("fileKey")String fileKey);
 }

@@ -2,6 +2,7 @@ package com.dliberty.cms;
 
 import java.util.Date;
 
+import com.dliberty.cms.entity.CmsMenuCategoryEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.dliberty.cms.dao.entity.CmsMenuCategory;
 import com.dliberty.cms.service.CmsMenuCategoryService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -645,14 +645,14 @@ public class CategoryTest {
 			JSONObject json2 = showapi_res_body.getJSONObject(key);
 			System.out.println(key);
 			
-			CmsMenuCategory cate1 = save(key, -1,0);
+			CmsMenuCategoryEntity cate1 = save(key, -1,0);
 			
 			if (json2 != null) {
 				json2.keySet().forEach(key2 -> {
 					System.out.println("2----------"+key2);
 					JSONArray json3 = json2.getJSONArray(key2);
 					if (json3 != null) {
-						CmsMenuCategory cate2 = save(key2, cate1.getId(),0);
+						CmsMenuCategoryEntity cate2 = save(key2, cate1.getId(),0);
 						json3.forEach(key3 -> {
 							System.out.println("3------------"+key3);
 							save(key3.toString(), cate2.getId(),1);
@@ -666,8 +666,8 @@ public class CategoryTest {
 		
 	}
 	
-	public CmsMenuCategory save(String name,Integer parntId,Integer hasNext) {
-		CmsMenuCategory category = new CmsMenuCategory();
+	public CmsMenuCategoryEntity save(String name, Integer parntId, Integer hasNext) {
+		CmsMenuCategoryEntity category = new CmsMenuCategoryEntity();
 		category.setCategoryName(name);
 		category.setIsDeleted(0);
 		category.setParentId(parntId);

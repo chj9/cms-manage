@@ -2,37 +2,38 @@ package com.dliberty.cms.dao.mapper;
 
 import java.util.List;
 
+import com.dliberty.cms.entity.UmsRoleEntity;
+import com.dliberty.cms.entity.UmsRoleExampleEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.dliberty.cms.dao.entity.UmsRole;
-import com.dliberty.cms.dao.entity.UmsRoleExample;
+
 import org.springframework.stereotype.Repository;
 
 @Mapper
 @Repository
 public interface UmsRoleMapper {
-    int countByExample(UmsRoleExample example);
+    int countByExample(UmsRoleExampleEntity example);
 
-    int deleteByExample(UmsRoleExample example);
+    int deleteByExample(UmsRoleExampleEntity example);
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(UmsRole record);
+    int insert(UmsRoleEntity record);
 
-    int insertSelective(UmsRole record);
+    int insertSelective(UmsRoleEntity record);
 
-    List<UmsRole> selectByExample(UmsRoleExample example);
+    List<UmsRoleEntity> selectByExample(UmsRoleExampleEntity example);
 
-    UmsRole selectByPrimaryKey(Long id);
+    UmsRoleEntity selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") UmsRole record, @Param("example") UmsRoleExample example);
+    int updateByExampleSelective(@Param("record") UmsRoleEntity record, @Param("example") UmsRoleExampleEntity example);
 
-    int updateByExample(@Param("record") UmsRole record, @Param("example") UmsRoleExample example);
+    int updateByExample(@Param("record") UmsRoleEntity record, @Param("example") UmsRoleExampleEntity example);
 
-    int updateByPrimaryKeySelective(UmsRole record);
+    int updateByPrimaryKeySelective(UmsRoleEntity record);
 
-    int updateByPrimaryKey(UmsRole record);
+    int updateByPrimaryKey(UmsRoleEntity record);
     
     /**
      * 根据用户查询用户的角色code

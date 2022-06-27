@@ -1,5 +1,7 @@
 package com.dliberty.cms.vo;
 
+import com.dliberty.cms.common.vo.BaseVo;
+
 /**
  * 查询参数
  * @author LG

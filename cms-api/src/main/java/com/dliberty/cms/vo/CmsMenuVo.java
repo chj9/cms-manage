@@ -1,14 +1,13 @@
 package com.dliberty.cms.vo;
 
+import com.dliberty.cms.entity.CmsMenuLabelEntity;
+import com.dliberty.cms.entity.CmsMenuMaterialEntity;
+import com.dliberty.cms.entity.CmsMenuStepEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
-
-import com.dliberty.cms.dao.entity.CmsMenuLabel;
-import com.dliberty.cms.dao.entity.CmsMenuMaterial;
-import com.dliberty.cms.dao.entity.CmsMenuStep;
 
 public class CmsMenuVo implements Serializable {
 
@@ -40,11 +39,11 @@ public class CmsMenuVo implements Serializable {
     private Date updateTime;
     
     
-    private List<CmsMenuStep> stepList;
+    private List<CmsMenuStepEntity> stepList;
     
-    private List<CmsMenuMaterial> materialList;
+    private List<CmsMenuMaterialEntity> materialList;
     
-    private List<CmsMenuLabel> labels;
+    private List<CmsMenuLabelEntity> labels;
 
 	public String getId() {
 		return id;
@@ -142,27 +141,27 @@ public class CmsMenuVo implements Serializable {
 		this.updateTime = updateTime;
 	}
 
-	public List<CmsMenuLabel> getLabels() {
+	public List<CmsMenuLabelEntity> getLabels() {
 		return labels;
 	}
 
-	public void setLabels(List<CmsMenuLabel> labels) {
+	public void setLabels(List<CmsMenuLabelEntity> labels) {
 		this.labels = labels;
 	}
 
-	public List<CmsMenuStep> getStepList() {
+	public List<CmsMenuStepEntity> getStepList() {
 		return stepList;
 	}
 
-	public void setStepList(List<CmsMenuStep> stepList) {
+	public void setStepList(List<CmsMenuStepEntity> stepList) {
 		this.stepList = stepList;
 	}
 
-	public List<CmsMenuMaterial> getMaterialList() {
+	public List<CmsMenuMaterialEntity> getMaterialList() {
 		return materialList;
 	}
 
-	public void setMaterialList(List<CmsMenuMaterial> materialList) {
+	public void setMaterialList(List<CmsMenuMaterialEntity> materialList) {
 		this.materialList = materialList;
 	}
 

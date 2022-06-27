@@ -2,14 +2,14 @@ package com.dliberty.cms.dao.mapper;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dliberty.cms.dto.CmsMenuQueryDto;
+import com.dliberty.cms.entity.CmsMenuEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.dliberty.cms.dao.base.BaseMapper;
-import com.dliberty.cms.dao.dto.CmsMenuQueryDto;
-import com.dliberty.cms.dao.entity.CmsMenu;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -22,19 +22,19 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface CmsMenuMapper extends BaseMapper<CmsMenu> {
+public interface CmsMenuMapper extends BaseMapper<CmsMenuEntity> {
 
 	/**
 	 * 查询用户收藏
 	 * @param userId
 	 * @return
 	 */
-	List<CmsMenu> selectCollectionByUserId(@Param("userId") Long userId);
+	List<CmsMenuEntity> selectCollectionByUserId(@Param("userId") Long userId);
 	
 	/**
 	 * 分页查询数据
 	 * @param page
 	 * @return
 	 */
-	IPage<CmsMenu> listPage(Page<CmsMenu> page,@Param("dto")CmsMenuQueryDto dto);
+	IPage<CmsMenuEntity> listPage(Page<CmsMenuEntity> page,@Param("dto") CmsMenuQueryDto dto);
 }

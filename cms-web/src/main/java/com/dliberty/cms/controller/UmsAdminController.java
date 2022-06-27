@@ -2,6 +2,9 @@ package com.dliberty.cms.controller;
 
 import java.util.List;
 
+import com.dliberty.cms.common.exception.CommonException;
+import com.dliberty.cms.common.util.HttpClientUtils;
+import com.dliberty.cms.common.vo.JsonBean;
 import com.dliberty.cms.service.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,10 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dliberty.cms.dto.UmsAdminLoginParam;
-import com.dliberty.cms.exception.CommonException;
 import com.dliberty.cms.service.UmsRoleService;
-import com.dliberty.cms.utils.HttpClientUtils;
-import com.dliberty.cms.vo.JsonBean;
 
 /**
  * 后台用户管理

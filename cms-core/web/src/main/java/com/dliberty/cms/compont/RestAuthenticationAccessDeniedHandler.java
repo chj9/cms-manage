@@ -1,7 +1,7 @@
 package com.dliberty.cms.compont;
 
 import com.alibaba.fastjson.JSONObject;
-import com.dliberty.cms.vo.JsonBean;
+import com.dliberty.cms.common.vo.JsonBean;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;

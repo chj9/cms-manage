@@ -1,7 +1,7 @@
 package com.dliberty.cms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.dliberty.cms.dao.entity.CmsMenuStep;
+import com.dliberty.cms.entity.CmsMenuStepEntity;
 import com.dliberty.cms.vo.CmsMenuStepParam;
 
 import java.util.List;
@@ -14,21 +14,21 @@ import java.util.List;
  * @author LG
  * @since 2019-06-13
  */
-public interface CmsMenuStepService extends IService<CmsMenuStep> {
+public interface CmsMenuStepService extends IService<CmsMenuStepEntity> {
 
 	/**
 	 * 保存步骤信息
 	 * @param stepList
 	 * @param menuId
 	 */
-	void saveStep(List<CmsMenuStep> stepList,Long menuId);
+	void saveStep(List<CmsMenuStepEntity> stepList,Long menuId);
 	
 	/**
 	 * 查询步骤
 	 * @param menuId
 	 * @return
 	 */
-	List<CmsMenuStep> selectByMenuId(Long menuId);
+	List<CmsMenuStepEntity> selectByMenuId(Long menuId);
 	
 	/**
 	 * 根据menuId 删除

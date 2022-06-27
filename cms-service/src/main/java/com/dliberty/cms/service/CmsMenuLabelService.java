@@ -1,7 +1,9 @@
 package com.dliberty.cms.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dliberty.cms.common.page.PageParam;
 import com.dliberty.cms.entity.CmsMenuLabelEntity;
 import com.dliberty.cms.vo.CmsMenuLabelParam;
 import com.dliberty.cms.vo.CmsMenuLabelQueryParam;
@@ -35,7 +37,7 @@ public interface CmsMenuLabelService extends IService<CmsMenuLabelEntity> {
 	 * 查询所有分页
 	 * @return
 	 */
-	IPage<CmsMenuLabelEntity> listPage(CmsMenuLabelQueryParam param);
+	PageDTO<CmsMenuLabelEntity> listPage(PageParam pageParam, CmsMenuLabelQueryParam param);
 	
 	/**
 	 * 创建

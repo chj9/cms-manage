@@ -1,7 +1,7 @@
 package com.dliberty.cms.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.dliberty.cms.dao.entity.CmsMenuMaterial;
+import com.dliberty.cms.entity.CmsMenuMaterialEntity;
 import com.dliberty.cms.vo.CmsMenuMaterialParam;
 
 import java.util.List;
@@ -14,21 +14,21 @@ import java.util.List;
  * @author LG
  * @since 2019-06-13
  */
-public interface CmsMenuMaterialService extends IService<CmsMenuMaterial> {
+public interface CmsMenuMaterialService extends IService<CmsMenuMaterialEntity> {
 
 	/**
 	 * 保存用料
 	 * @param material
 	 * @param menuId
 	 */
-	void saveMaterial(List<CmsMenuMaterial> materialList,Long menuId);
+	void saveMaterial(List<CmsMenuMaterialEntity> materialList,Long menuId);
 	
 	/**
 	 * 查询材料
 	 * @param menuId
 	 * @return
 	 */
-	List<CmsMenuMaterial> selectByMenuId(Long menuId);
+	List<CmsMenuMaterialEntity> selectByMenuId(Long menuId);
 	
 	/**
 	 * 根据menuId删除

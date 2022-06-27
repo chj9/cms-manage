@@ -3,9 +3,9 @@ package com.dliberty.cms.dto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.dliberty.cms.common.vo.BaseVo;
 import org.hibernate.validator.constraints.Length;
 
-import com.dliberty.cms.vo.BaseVo;
 
 public class CmsStudentParam extends BaseVo {
 

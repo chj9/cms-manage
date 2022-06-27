@@ -1,5 +1,6 @@
 package com.dliberty.cms.controller;
 
+import com.dliberty.cms.entity.CmsMenuBannerEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class CmsMenuBannerController {
 	private CmsMenuBannerService cmsMenuBannerService;
 	
 	@GetMapping("/list")
-	public RowsResultModel<CmsMenuBanner> list(CmsMenuBannerQueryParam param,PageInfo pageInfo) {
+	public RowsResultModel<CmsMenuBannerEntity> list(CmsMenuBannerQueryParam param, PageInfo pageInfo) {
 		param.setPageInfo(pageInfo);
 		IPage<CmsMenuBanner> listPage = cmsMenuBannerService.listPage(param);
 		return RowsResultModelBuilder.of(listPage);

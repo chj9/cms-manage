@@ -3,7 +3,7 @@
 <mapper namespace="com.dliberty.cms.dao.mapper.CmsMenuBannerMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.dliberty.cms.dao.mapper.CmsMenuBannerMapper">
+    <resultMap id="BaseResultMap" type="com.dliberty.cms.entity.CmsMenuBannerEntity">
         <id column="id" property="id" />
         <result column="banner_name" property="bannerName" />
         <result column="banner_url" property="bannerUrl" />

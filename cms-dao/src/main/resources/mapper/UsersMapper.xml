@@ -3,7 +3,7 @@
 <mapper namespace="com.dliberty.cms.dao.mapper.UsersMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.dliberty.cms.dao.entity.Users">
+    <resultMap id="BaseResultMap" type="com.dliberty.cms.entity.UsersEntity">
         <id column="id" property="id" />
         <result column="username" property="username" />
         <result column="password" property="password" />

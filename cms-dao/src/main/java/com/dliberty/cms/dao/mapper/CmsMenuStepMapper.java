@@ -1,7 +1,8 @@
 package com.dliberty.cms.dao.mapper;
 
-import com.dliberty.cms.dao.entity.CmsMenuStep;
-import com.dliberty.cms.dao.base.BaseMapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dliberty.cms.entity.CmsMenuStepEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +16,6 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface CmsMenuStepMapper extends BaseMapper<CmsMenuStep> {
+public interface CmsMenuStepMapper extends BaseMapper<CmsMenuStepEntity> {
 
 }

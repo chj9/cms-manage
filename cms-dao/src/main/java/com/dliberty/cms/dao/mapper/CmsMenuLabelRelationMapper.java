@@ -1,7 +1,8 @@
 package com.dliberty.cms.dao.mapper;
 
-import com.dliberty.cms.dao.entity.CmsMenuLabelRelation;
-import com.dliberty.cms.dao.base.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import com.dliberty.cms.entity.CmsMenuLabelRelationEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +16,6 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface CmsMenuLabelRelationMapper extends BaseMapper<CmsMenuLabelRelation> {
+public interface CmsMenuLabelRelationMapper extends BaseMapper<CmsMenuLabelRelationEntity> {
 
 }

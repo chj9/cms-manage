@@ -3,6 +3,11 @@ package com.dliberty.cms;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dliberty.cms.entity.CmsMenuCategoryEntity;
+import com.dliberty.cms.entity.CmsMenuEntity;
+import com.dliberty.cms.entity.CmsMenuMaterialEntity;
+import com.dliberty.cms.entity.CmsMenuStepEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +21,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.dliberty.cms.dao.entity.CmsMenu;
-import com.dliberty.cms.dao.entity.CmsMenuCategory;
-import com.dliberty.cms.dao.entity.CmsMenuMaterial;
-import com.dliberty.cms.dao.entity.CmsMenuStep;
-import com.dliberty.cms.lang.data.StringUtils;
 import com.dliberty.cms.service.CmsMenuCategoryService;
 import com.dliberty.cms.service.CmsMenuService;
 import com.dliberty.cms.service.FileService;
@@ -102,7 +102,7 @@ public class DemoTest {
 			try {
 
 				JSONObject obj = (JSONObject) object;
-				List<CmsMenu> selectByRefId = cmsMenuService.selectByRefId(obj.getString("id"));
+				List<CmsMenuEntity> selectByRefId = cmsMenuService.selectByRefId(obj.getString("id"));
 				if (selectByRefId == null || selectByRefId.size() > 0) {
 					continue;
 				}
@@ -114,7 +114,7 @@ public class DemoTest {
 				param.setMenuTip(obj.getString("tip"));
 				param.setRefId(obj.getString("id"));
 				// 保存分类
-				List<CmsMenuCategory> cateList = cmsMenuCategoryService.selectLastCategory(obj.getString("type_v3"));
+				List<CmsMenuCategoryEntity> cateList = cmsMenuCategoryService.selectLastCategory(obj.getString("type_v3"));
 
 				if (cateList != null && cateList.size() > 0) {
 					param.setCategoryId(cateList.get(0).getId());
@@ -122,11 +122,11 @@ public class DemoTest {
 				}
 				JSONArray steps = (JSONArray) obj.get("steps");
 				// 保存步骤
-				List<CmsMenuStep> stepList = saveStep(steps);
+				List<CmsMenuStepEntity> stepList = saveStep(steps);
 				param.setStepList(stepList);
 				// 保存材料
 				JSONArray yls = (JSONArray) obj.get("yl");
-				List<CmsMenuMaterial> materialList = saveMaterial(yls);
+				List<CmsMenuMaterialEntity> materialList = saveMaterial(yls);
 				param.setMaterialList(materialList);
 				cmsMenuService.createMenu(param);
 			} catch (Exception e) {
@@ -136,14 +136,14 @@ public class DemoTest {
 		}
 	}
 
-	public CmsMenuCategory saveCate(String type1, String type2, String type3) {
-		CmsMenuCategory cate = new CmsMenuCategory();
+	public CmsMenuCategoryEntity saveCate(String type1, String type2, String type3) {
+		CmsMenuCategoryEntity cate = new CmsMenuCategoryEntity();
 		// 三级 二级都不为空
 		if (StringUtils.isNotEmpty(type3) && StringUtils.isNotEmpty(type2) && StringUtils.isNotEmpty(type1)) {
 			// 先保存一级
-			CmsMenuCategory cate1 = cmsMenuCategoryService.save(type1, -1);
+			CmsMenuCategoryEntity cate1 = cmsMenuCategoryService.save(type1, -1);
 			if (cate1 != null) {
-				CmsMenuCategory cate2 = cmsMenuCategoryService.save(type2, cate1.getId());
+				CmsMenuCategoryEntity cate2 = cmsMenuCategoryService.save(type2, cate1.getId());
 				if (cate2 != null) {
 					return cmsMenuCategoryService.save(type3, cate2.getId());
 				}
@@ -152,7 +152,7 @@ public class DemoTest {
 		}
 		if (StringUtils.isEmpty(type3) && StringUtils.isNotEmpty(type2) && StringUtils.isNotEmpty(type1)) {
 			// 先保存一级
-			CmsMenuCategory cate1 = cmsMenuCategoryService.save(type1, -1);
+			CmsMenuCategoryEntity cate1 = cmsMenuCategoryService.save(type1, -1);
 			if (cate1 != null) {
 				return cmsMenuCategoryService.save(type2, cate1.getId());
 			}
@@ -164,15 +164,15 @@ public class DemoTest {
 		return cate;
 	}
 
-	public List<CmsMenuStep> saveStep(JSONArray steps) {
-		List<CmsMenuStep> stepList = new ArrayList<>();
+	public List<CmsMenuStepEntity> saveStep(JSONArray steps) {
+		List<CmsMenuStepEntity> stepList = new ArrayList<>();
 		for (Object obj : steps) {
 			JSONObject step = (JSONObject) obj;
 			String imgUrl = step.getString("imgUrl");
 			Integer orderNum = step.getInteger("orderNum");
 			String content = step.getString("content");
 
-			CmsMenuStep menuStep = new CmsMenuStep();
+			CmsMenuStepEntity menuStep = new CmsMenuStepEntity();
 			menuStep.setStepDesc(content);
 			menuStep.setStepIndex(orderNum);
 			menuStep.setStepImg(getImg(imgUrl, "step" + orderNum));
@@ -182,14 +182,14 @@ public class DemoTest {
 		return stepList;
 	}
 
-	public List<CmsMenuMaterial> saveMaterial(JSONArray yls) {
-		List<CmsMenuMaterial> materialList = new ArrayList<>();
+	public List<CmsMenuMaterialEntity> saveMaterial(JSONArray yls) {
+		List<CmsMenuMaterialEntity> materialList = new ArrayList<>();
 		for (Object obj : yls) {
 			JSONObject step = (JSONObject) obj;
 			String ylUnit = step.getString("ylUnit");
 			String ylName = step.getString("ylName");
 
-			CmsMenuMaterial material = new CmsMenuMaterial();
+			CmsMenuMaterialEntity material = new CmsMenuMaterialEntity();
 			material.setMaterialName(ylName);
 			material.setMaterialDesc(ylUnit);
 			materialList.add(material);

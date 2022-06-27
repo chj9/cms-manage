@@ -23,7 +23,7 @@ public class CmsMenuCollectionEntity implements Serializable {
 
     private Long userId;
 
-    private Integer menuId;
+    private Long menuId;
 
     private Date createTime;
 
@@ -45,11 +45,11 @@ public class CmsMenuCollectionEntity implements Serializable {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-    public Integer getMenuId() {
+    public Long getMenuId() {
         return menuId;
     }
 
-    public void setMenuId(Integer menuId) {
+    public void setMenuId(Long menuId) {
         this.menuId = menuId;
     }
     public Date getCreateTime() {

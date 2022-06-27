@@ -2,9 +2,9 @@ package com.dliberty.cms.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dliberty.cms.constants.Constants;
-import com.dliberty.cms.dao.entity.CmsMenuMaterial;
+import com.dliberty.cms.common.constants.Constants;
 import com.dliberty.cms.dao.mapper.CmsMenuMaterialMapper;
+import com.dliberty.cms.entity.CmsMenuMaterialEntity;
 import com.dliberty.cms.service.CmsMenuMaterialService;
 import com.dliberty.cms.vo.CmsMenuMaterialParam;
 import org.springframework.stereotype.Service;
@@ -23,10 +23,10 @@ import java.util.List;
  * @since 2019-06-13
  */
 @Service
-public class CmsMenuMaterialServiceImpl extends ServiceImpl<CmsMenuMaterialMapper, CmsMenuMaterial> implements CmsMenuMaterialService {
+public class CmsMenuMaterialServiceImpl extends ServiceImpl<CmsMenuMaterialMapper, CmsMenuMaterialEntity> implements CmsMenuMaterialService {
 
 	@Override
-	public void saveMaterial(List<CmsMenuMaterial> materialList, Long menuId) {
+	public void saveMaterial(List<CmsMenuMaterialEntity> materialList, Long menuId) {
 		if (materialList == null || materialList.size() == 0 || menuId == null) {
 			return;
 		}
@@ -40,17 +40,17 @@ public class CmsMenuMaterialServiceImpl extends ServiceImpl<CmsMenuMaterialMappe
 	}
 
 	@Override
-	public List<CmsMenuMaterial> selectByMenuId(Long menuId) {
-		QueryWrapper<CmsMenuMaterial> queryWrapper = new QueryWrapper<>();
+	public List<CmsMenuMaterialEntity> selectByMenuId(Long menuId) {
+		QueryWrapper<CmsMenuMaterialEntity> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq("menu_id", menuId);
 		queryWrapper.eq("is_deleted", Constants.COMMON_FLAG_NO);
-		List<CmsMenuMaterial> materialList = baseMapper.selectList(queryWrapper);
+		List<CmsMenuMaterialEntity> materialList = baseMapper.selectList(queryWrapper);
 		return materialList;
 	}
 	
 	@Override
 	public void deleteByMenuId(Long menuId) {
-		List<CmsMenuMaterial> materialList = selectByMenuId(menuId);
+		List<CmsMenuMaterialEntity> materialList = selectByMenuId(menuId);
 		materialList.stream().forEach(item -> {
 			item.setIsDeleted(Constants.COMMON_FLAG_YES);
 			item.setUpdateTime(new Date());
@@ -69,9 +69,9 @@ public class CmsMenuMaterialServiceImpl extends ServiceImpl<CmsMenuMaterialMappe
 		}
 		//删除之前
 		deleteByMenuId(menuId);
-		List<CmsMenuMaterial> materialList = new ArrayList<CmsMenuMaterial>();
+		List<CmsMenuMaterialEntity> materialList = new ArrayList<CmsMenuMaterialEntity>();
 		param.getMaterialList().forEach(item -> {
-			CmsMenuMaterial material = new CmsMenuMaterial();
+			CmsMenuMaterialEntity material = new CmsMenuMaterialEntity();
 			material.setIsDeleted(Constants.COMMON_FLAG_NO);
 			material.setMenuId(menuId);
 			material.setMaterialName(item.getMaterialName());

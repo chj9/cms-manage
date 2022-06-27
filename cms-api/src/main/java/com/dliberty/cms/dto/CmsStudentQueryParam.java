@@ -1,6 +1,7 @@
 package com.dliberty.cms.dto;
 
-import com.dliberty.cms.vo.BaseVo;
+
+import com.dliberty.cms.common.vo.BaseVo;
 
 public class CmsStudentQueryParam extends BaseVo {
 

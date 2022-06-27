@@ -2,8 +2,8 @@ package com.dliberty.cms.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dliberty.cms.dao.entity.Users;
 import com.dliberty.cms.dao.mapper.UsersMapper;
+import com.dliberty.cms.entity.UsersEntity;
 import com.dliberty.cms.service.UsersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,16 +24,16 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements UsersService {
+public class UsersServiceImpl extends ServiceImpl<UsersMapper, UsersEntity> implements UsersService {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Override
-	public Users selectUserByOpenId(String userName) {
-		QueryWrapper<Users> queryWrapper = new QueryWrapper<>();
+	public UsersEntity selectUserByOpenId(String userName) {
+		QueryWrapper<UsersEntity> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq("username", userName);
 		queryWrapper.orderByDesc("id");
-		List<Users> selectList = baseMapper.selectList(queryWrapper);
+		List<UsersEntity> selectList = baseMapper.selectList(queryWrapper);
 		if (selectList.size() > 0) {
 			return selectList.get(0);
 		}
@@ -41,13 +41,13 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 	}
 
 	@Override
-	public Users register(String userName,String password) {
+	public UsersEntity register(String userName, String password) {
 		try {
-			Users users = selectUserByOpenId(userName);
+			UsersEntity users = selectUserByOpenId(userName);
 			if (users != null) {
 				return users;
 			}
-			users = new Users();
+			users = new UsersEntity();
 			users.setUsername(userName);
 			users.setCreateTime(new Date());
 			users.setUpdateTime(new Date());

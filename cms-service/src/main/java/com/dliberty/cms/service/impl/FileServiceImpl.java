@@ -3,10 +3,10 @@ package com.dliberty.cms.service.impl;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.OSSObject;
-import com.dliberty.cms.dao.entity.DocFile;
-import com.dliberty.cms.lang.data.StringUtils;
+import com.dliberty.cms.entity.DocFileEntity;
 import com.dliberty.cms.service.DocFileService;
 import com.dliberty.cms.service.FileService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,7 +119,7 @@ public class FileServiceImpl implements FileService {
 	}
 	
 	public String saveDocFile(String fileName) {
-		DocFile file = new DocFile();
+		DocFileEntity file = new DocFileEntity();
 		file.setFileName(fileName);
 		String key = "doc_file" + System.currentTimeMillis();
 		String encodeToString = Base64Utils.encodeToString(key.getBytes());
@@ -135,7 +135,7 @@ public class FileServiceImpl implements FileService {
 	@Override
 	public void delFile(String fileKey) {
 		try {
-			DocFile docFile = docFileService.selectByFileKey(fileKey);
+			DocFileEntity docFile = docFileService.selectByFileKey(fileKey);
 			if (docFile == null) {
 				return;
 			}
@@ -156,12 +156,12 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public DocFile getFile(String fileKey) {
+	public DocFileEntity getFile(String fileKey) {
 		if (StringUtils.isEmpty(fileKey)) {
 			return null;
 		}
 		try {
-			DocFile docFile = docFileService.selectByFileKey(fileKey);
+			DocFileEntity docFile = docFileService.selectByFileKey(fileKey);
 			if (docFile == null) {
 				return null;
 			}

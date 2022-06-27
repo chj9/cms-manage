@@ -2,11 +2,11 @@ package com.dliberty.cms.dao.mapper;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dliberty.cms.entity.CmsMenuCollectionEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.dliberty.cms.dao.base.BaseMapper;
-import com.dliberty.cms.dao.entity.CmsMenuCollection;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface CmsMenuCollectionMapper extends BaseMapper<CmsMenuCollection> {
+public interface CmsMenuCollectionMapper extends BaseMapper<CmsMenuCollectionEntity> {
 
 	List<Integer> selectByUserId(@Param("userId")Long userId);
 }

@@ -1,11 +1,14 @@
 package com.dliberty.cms.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dliberty.cms.constants.Constants;
-import com.dliberty.cms.dao.entity.CmsMenuLabel;
+import com.dliberty.cms.common.constants.Constants;
+import com.dliberty.cms.common.page.PageParam;
 import com.dliberty.cms.dao.mapper.CmsMenuLabelMapper;
+import com.dliberty.cms.entity.CmsMenuLabelEntity;
 import com.dliberty.cms.service.CmsMenuLabelService;
 import com.dliberty.cms.vo.CmsMenuLabelParam;
 import com.dliberty.cms.vo.CmsMenuLabelQueryParam;
@@ -25,34 +28,34 @@ import java.util.List;
  * @since 2019-06-13
  */
 @Service
-public class CmsMenuLabelServiceImpl extends ServiceImpl<CmsMenuLabelMapper, CmsMenuLabel> implements CmsMenuLabelService {
+public class CmsMenuLabelServiceImpl extends ServiceImpl<CmsMenuLabelMapper, CmsMenuLabelEntity> implements CmsMenuLabelService {
 
 	@Override
-	public List<CmsMenuLabel> selectByMenuId(Long menuId) {
+	public List<CmsMenuLabelEntity> selectByMenuId(Long menuId) {
 		return baseMapper.selectByMenuId(menuId);
 	}
 	
 	@Override
-	public List<CmsMenuLabel> listAll() {
-		QueryWrapper<CmsMenuLabel> wrapper = new QueryWrapper<>();
+	public List<CmsMenuLabelEntity> listAll() {
+		QueryWrapper<CmsMenuLabelEntity> wrapper = new QueryWrapper<>();
 		wrapper.eq("is_deleted", Constants.COMMON_FLAG_NO);
 		return baseMapper.selectList(wrapper);
 	}
 
 	@Override
-	public IPage<CmsMenuLabel> listPage(CmsMenuLabelQueryParam param) {
-		QueryWrapper<CmsMenuLabel> wrapper = new QueryWrapper<>();
+	public PageDTO<CmsMenuLabelEntity> listPage(PageParam pageParam, CmsMenuLabelQueryParam param) {
+		LambdaQueryWrapper<CmsMenuLabelEntity> wrapper = new LambdaQueryWrapper<>();
 		if (StringUtils.isNotEmpty(param.getKeyword())) {
-			wrapper.like("label_name", param.getKeyword());
+			wrapper.like(CmsMenuLabelEntity::getLabelName, param.getKeyword());
 		}
-		wrapper.eq("is_deleted", Constants.COMMON_FLAG_NO);
+		wrapper.eq(CmsMenuLabelEntity::getIsDeleted, Constants.COMMON_FLAG_NO);
 		
-		return baseMapper.selectPage(param.getPageInfo(), wrapper);
+		return baseMapper.selectPage(new PageDTO<>(pageParam.getCurrent(), pageParam.getSize()), wrapper);
 	}
 
 	@Override
-	public CmsMenuLabel create(CmsMenuLabelParam param) {
-		CmsMenuLabel label = new CmsMenuLabel();
+	public CmsMenuLabelEntity create(CmsMenuLabelParam param) {
+		CmsMenuLabelEntity label = new CmsMenuLabelEntity();
 		BeanUtils.copyProperties(param, label);
 		label.setUpdateTime(new Date());
 		label.setCreateTime(new Date());
@@ -62,11 +65,10 @@ public class CmsMenuLabelServiceImpl extends ServiceImpl<CmsMenuLabelMapper, Cms
 	}
 
 	@Override
-	public CmsMenuLabel update(Integer id, CmsMenuLabelParam param) {
-		CmsMenuLabel label = getById(id);
+	public CmsMenuLabelEntity update(Integer id, CmsMenuLabelParam param) {
+		CmsMenuLabelEntity label = getById(id);
 		if (label != null) {
 			BeanUtils.copyProperties(param, label);
-			label.setUpdateTime(new Date());
 			updateById(label);
 		}
 		return label;
@@ -74,9 +76,8 @@ public class CmsMenuLabelServiceImpl extends ServiceImpl<CmsMenuLabelMapper, Cms
 
 	@Override
 	public void delete(Integer id) {
-		CmsMenuLabel label = getById(id);
+		CmsMenuLabelEntity label = getById(id);
 		if (label != null) {
-			label.setUpdateTime(new Date());
 			label.setIsDeleted(Constants.COMMON_FLAG_YES);
 			updateById(label);
 			

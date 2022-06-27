@@ -4,12 +4,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.dliberty.cms.entity.UmsPermissionEntity;
+import com.dliberty.cms.entity.UsersEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import com.dliberty.cms.dao.entity.UmsPermission;
-import com.dliberty.cms.dao.entity.Users;
 
 /**
  * SpringSecurity需要的用户详情
@@ -21,9 +20,9 @@ public class AdminUserDetails implements UserDetails {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Users users;
-    private List<UmsPermission> permissionList;
-    public AdminUserDetails(Users users,List<UmsPermission> permissionList) {
+	private UsersEntity users;
+    private List<UmsPermissionEntity> permissionList;
+    public AdminUserDetails(UsersEntity users,List<UmsPermissionEntity> permissionList) {
         this.users = users;
         this.permissionList = permissionList;
     }

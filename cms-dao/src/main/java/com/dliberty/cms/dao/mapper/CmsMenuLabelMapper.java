@@ -2,11 +2,11 @@ package com.dliberty.cms.dao.mapper;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.dliberty.cms.entity.CmsMenuLabelEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.dliberty.cms.dao.base.BaseMapper;
-import com.dliberty.cms.dao.entity.CmsMenuLabel;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -19,12 +19,12 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface CmsMenuLabelMapper extends BaseMapper<CmsMenuLabel> {
+public interface CmsMenuLabelMapper extends BaseMapper<CmsMenuLabelEntity> {
 
 	/**
 	 * 根据menuId 查询所属标签列表
 	 * @param menuId
 	 * @return
 	 */
-	List<CmsMenuLabel> selectByMenuId(@Param("menuId")Long menuId);
+	List<CmsMenuLabelEntity> selectByMenuId(@Param("menuId")Long menuId);
 }

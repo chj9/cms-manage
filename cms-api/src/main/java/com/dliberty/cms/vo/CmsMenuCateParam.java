@@ -1,5 +1,7 @@
 package com.dliberty.cms.vo;
 
+import com.dliberty.cms.common.vo.BaseVo;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 

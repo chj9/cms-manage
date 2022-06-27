@@ -1,11 +1,11 @@
 package com.dliberty.cms.controller;
 
+import com.dliberty.cms.entity.UsersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 
-import com.dliberty.cms.dao.entity.Users;
 import com.dliberty.cms.service.UsersService;
 
 @Controller
@@ -16,7 +16,7 @@ public class BaseController {
 
 	public Long getUserId() {
 		String userName = getUserName();
-		Users users = usersService.selectUserByOpenId(userName);
+		UsersEntity users = usersService.selectUserByOpenId(userName);
 		if (users != null) {
 			return users.getId();
 		}

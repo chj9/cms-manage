@@ -3,7 +3,7 @@
 <mapper namespace="com.dliberty.cms.dao.mapper.CmsMenuLabelMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.dliberty.cms.dao.entity.CmsMenuLabel">
+	<resultMap id="BaseResultMap" type="com.dliberty.cms.entity.CmsMenuLabelEntity">
 		<id column="id" property="id" />
 		<result column="label_name" property="labelName" />
 		<result column="label_img" property="labelImg" />

@@ -1,7 +1,7 @@
 package com.dliberty.cms.service;
 
-import com.dliberty.cms.dao.entity.UmsPermission;
 import com.dliberty.cms.dto.UmsPermissionNode;
+import com.dliberty.cms.entity.UmsPermissionEntity;
 
 import java.util.List;
 
@@ -13,12 +13,12 @@ public interface UmsPermissionService {
     /**
      * 添加权限
      */
-    int create(UmsPermission permission);
+    int create(UmsPermissionEntity permission);
 
     /**
      * 修改权限
      */
-    int update(Long id,UmsPermission permission);
+    int update(Long id,UmsPermissionEntity permission);
 
     /**
      * 批量删除权限
@@ -33,5 +33,5 @@ public interface UmsPermissionService {
     /**
      * 获取所有权限
      */
-    List<UmsPermission> list();
+    List<UmsPermissionEntity> list();
 }

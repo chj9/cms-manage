@@ -2,9 +2,10 @@ package com.dliberty.cms.vo;
 
 import java.util.List;
 
-import com.dliberty.cms.dao.entity.CmsMenuLabel;
-import com.dliberty.cms.dao.entity.CmsMenuMaterial;
-import com.dliberty.cms.dao.entity.CmsMenuStep;
+import com.dliberty.cms.common.vo.BaseVo;
+import com.dliberty.cms.entity.CmsMenuLabelEntity;
+import com.dliberty.cms.entity.CmsMenuMaterialEntity;
+import com.dliberty.cms.entity.CmsMenuStepEntity;
 
 public class CmsMenuParam extends BaseVo {
 
@@ -33,11 +34,11 @@ public class CmsMenuParam extends BaseVo {
 
 	private String refId;
 	
-	private List<CmsMenuStep> stepList;
+	private List<CmsMenuStepEntity> stepList;
 	
-	private List<CmsMenuMaterial> materialList;
+	private List<CmsMenuMaterialEntity> materialList;
 	
-	private List<CmsMenuLabel> labelList;
+	private List<CmsMenuLabelEntity> labelList;
 
 	public String getMenuName() {
 		return menuName;
@@ -103,27 +104,27 @@ public class CmsMenuParam extends BaseVo {
 		this.refId = refId;
 	}
 
-	public List<CmsMenuStep> getStepList() {
+	public List<CmsMenuStepEntity> getStepList() {
 		return stepList;
 	}
 
-	public void setStepList(List<CmsMenuStep> stepList) {
+	public void setStepList(List<CmsMenuStepEntity> stepList) {
 		this.stepList = stepList;
 	}
 
-	public List<CmsMenuMaterial> getMaterialList() {
+	public List<CmsMenuMaterialEntity> getMaterialList() {
 		return materialList;
 	}
 
-	public void setMaterialList(List<CmsMenuMaterial> materialList) {
+	public void setMaterialList(List<CmsMenuMaterialEntity> materialList) {
 		this.materialList = materialList;
 	}
 
-	public List<CmsMenuLabel> getLabelList() {
+	public List<CmsMenuLabelEntity> getLabelList() {
 		return labelList;
 	}
 
-	public void setLabelList(List<CmsMenuLabel> labelList) {
+	public void setLabelList(List<CmsMenuLabelEntity> labelList) {
 		this.labelList = labelList;
 	}
 

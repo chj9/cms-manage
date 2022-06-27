@@ -1,7 +1,7 @@
 package com.dliberty.cms.service;
 
 
-import com.dliberty.cms.dao.entity.DocFile;
+import com.dliberty.cms.entity.DocFileEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -71,7 +71,7 @@ public interface FileService {
 	 * @param fileKey
 	 * @return
 	 */
-	public DocFile getFile(String fileKey);
+	public DocFileEntity getFile(String fileKey);
 	
 	
 }

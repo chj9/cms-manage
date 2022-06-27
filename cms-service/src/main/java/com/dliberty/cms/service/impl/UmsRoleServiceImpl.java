@@ -1,13 +1,9 @@
 package com.dliberty.cms.service.impl;
 
-import com.dliberty.cms.dao.entity.UmsPermission;
-import com.dliberty.cms.dao.entity.UmsRole;
-import com.dliberty.cms.dao.entity.UmsRoleExample;
-import com.dliberty.cms.dao.entity.UmsRolePermissionRelation;
-import com.dliberty.cms.dao.entity.UmsRolePermissionRelationExample;
 import com.dliberty.cms.dao.mapper.UmsPermissionMapper;
 import com.dliberty.cms.dao.mapper.UmsRoleMapper;
 import com.dliberty.cms.dao.mapper.UmsRolePermissionRelationMapper;
+import com.dliberty.cms.entity.*;
 import com.dliberty.cms.service.UmsRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +24,9 @@ public class UmsRoleServiceImpl implements UmsRoleService {
     private UmsRolePermissionRelationMapper rolePermissionRelationMapper;
     @Autowired
     private UmsPermissionMapper umsPermissionMapper;
+
     @Override
-    public int create(UmsRole role) {
+    public int create(UmsRoleEntity role) {
         role.setCreateTime(new Date());
         role.setStatus(1);
         role.setAdminCount(0);
@@ -38,38 +35,38 @@ public class UmsRoleServiceImpl implements UmsRoleService {
     }
 
     @Override
-    public int update(Long id, UmsRole role) {
+    public int update(Long id, UmsRoleEntity role) {
         role.setId(id);
         return roleMapper.updateByPrimaryKey(role);
     }
 
     @Override
     public int delete(List<Long> ids) {
-        UmsRoleExample example = new UmsRoleExample();
+        UmsRoleExampleEntity example = new UmsRoleExampleEntity();
         example.createCriteria().andIdIn(ids);
         return roleMapper.deleteByExample(example);
     }
 
     @Override
-    public List<UmsPermission> getPermissionList(Long roleId) {
+    public List<UmsPermissionEntity> getPermissionList(Long roleId) {
         return umsPermissionMapper.getPermissionList(roleId);
     }
-    
+
     @Override
-    public List<UmsPermission> getPermissionListByAdminId(Long adminId) {
+    public List<UmsPermissionEntity> getPermissionListByAdminId(Long adminId) {
         return umsPermissionMapper.getPermissionListByAdminId(adminId);
     }
 
     @Override
     public int updatePermission(Long roleId, List<Long> permissionIds) {
         //先删除原有关系
-        UmsRolePermissionRelationExample example=new UmsRolePermissionRelationExample();
+        UmsRolePermissionRelationExampleEntity example = new UmsRolePermissionRelationExampleEntity();
         example.createCriteria().andRoleIdEqualTo(roleId);
         rolePermissionRelationMapper.deleteByExample(example);
         //批量插入新关系
-        List<UmsRolePermissionRelation> relationList = new ArrayList<>();
+        List<UmsRolePermissionRelationEntity> relationList = new ArrayList<>();
         for (Long permissionId : permissionIds) {
-            UmsRolePermissionRelation relation = new UmsRolePermissionRelation();
+            UmsRolePermissionRelationEntity relation = new UmsRolePermissionRelationEntity();
             relation.setRoleId(roleId);
             relation.setPermissionId(permissionId);
             relationList.add(relation);
@@ -78,12 +75,12 @@ public class UmsRoleServiceImpl implements UmsRoleService {
     }
 
     @Override
-    public List<UmsRole> list() {
-        return roleMapper.selectByExample(new UmsRoleExample());
+    public List<UmsRoleEntity> list() {
+        return roleMapper.selectByExample(new UmsRoleExampleEntity());
     }
 
-	@Override
-	public List<String> selectCode(Long adminId) {
-		return roleMapper.selectCode(adminId);
-	}
+    @Override
+    public List<String> selectCode(Long adminId) {
+        return roleMapper.selectCode(adminId);
+    }
 }

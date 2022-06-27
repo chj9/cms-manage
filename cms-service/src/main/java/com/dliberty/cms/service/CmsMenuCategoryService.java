@@ -1,7 +1,9 @@
 package com.dliberty.cms.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dliberty.cms.common.page.PageParam;
 import com.dliberty.cms.entity.CmsMenuCategoryEntity;
 import com.dliberty.cms.vo.CmsMenuCateParam;
 import com.dliberty.cms.vo.CmsMenuCategoryQueryParam;
@@ -54,7 +56,7 @@ public interface CmsMenuCategoryService extends IService<CmsMenuCategoryEntity> 
 	 * @param param
 	 * @return
 	 */
-	IPage<CmsMenuCategoryEntity> listPage(Integer parentId,CmsMenuCategoryQueryParam param);
+	public PageDTO<CmsMenuCategoryEntity> listPage(Integer parentId, PageParam pageParam, CmsMenuCategoryQueryParam param);
 	
 	/**
 	 * 删除

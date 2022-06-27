@@ -2,7 +2,7 @@ package com.dliberty.cms.dto;
 
 import javax.validation.constraints.NotNull;
 
-import com.dliberty.cms.vo.BaseVo;
+import com.dliberty.cms.common.vo.BaseVo;
 
 public class CmsStudentImportParam extends BaseVo {
 

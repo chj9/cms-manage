@@ -3,7 +3,7 @@
 <mapper namespace="com.dliberty.cms.dao.mapper.CmsMenuCollectionMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.dliberty.cms.dao.entity.CmsMenuCollection">
+    <resultMap id="BaseResultMap" type="com.dliberty.cms.entity.CmsMenuCollectionEntity">
         <id column="id" property="id" />
         <result column="user_id" property="userId" />
         <result column="menu_id" property="menuId" />

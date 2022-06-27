@@ -37,11 +37,6 @@
 			<version>4.13.2</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.codehaus.janino</groupId>
-			<artifactId>janino</artifactId>
-			<version>3.1.7</version>
-		</dependency>
 
 	</dependencies>
 	<build>

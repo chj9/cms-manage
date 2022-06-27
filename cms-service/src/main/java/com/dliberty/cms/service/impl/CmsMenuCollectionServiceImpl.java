@@ -2,10 +2,10 @@ package com.dliberty.cms.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dliberty.cms.constants.Constants;
-import com.dliberty.cms.dao.entity.CmsMenuCollection;
+import com.dliberty.cms.common.constants.Constants;
+import com.dliberty.cms.common.exception.CommonException;
 import com.dliberty.cms.dao.mapper.CmsMenuCollectionMapper;
-import com.dliberty.cms.exception.CommonException;
+import com.dliberty.cms.entity.CmsMenuCollectionEntity;
 import com.dliberty.cms.service.CmsMenuCollectionService;
 import com.dliberty.cms.service.CmsMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import java.util.List;
  * @since 2019-06-14
  */
 @Service
-public class CmsMenuCollectionServiceImpl extends ServiceImpl<CmsMenuCollectionMapper, CmsMenuCollection> implements CmsMenuCollectionService {
+public class CmsMenuCollectionServiceImpl extends ServiceImpl<CmsMenuCollectionMapper, CmsMenuCollectionEntity> implements CmsMenuCollectionService {
 
     private final CmsMenuService cmsMenuService;
 
@@ -33,12 +33,12 @@ public class CmsMenuCollectionServiceImpl extends ServiceImpl<CmsMenuCollectionM
     }
 
     @Override
-    public CmsMenuCollection collection(Long userId, Integer menuId) {
-        List<CmsMenuCollection> collList = selectByMenuId(userId, menuId);
+    public CmsMenuCollectionEntity collection(Long userId, Long menuId) {
+        List<CmsMenuCollectionEntity> collList = selectByMenuId(userId, menuId);
         if (collList != null && collList.size() > 0) {
             throw new CommonException("已经收藏，不能重复收藏");
         }
-        CmsMenuCollection coll = new CmsMenuCollection();
+        CmsMenuCollectionEntity coll = new CmsMenuCollectionEntity();
         coll.setMenuId(menuId);
         coll.setUserId(userId);
         coll.setCreateTime(new Date());
@@ -50,8 +50,8 @@ public class CmsMenuCollectionServiceImpl extends ServiceImpl<CmsMenuCollectionM
     }
 
     @Override
-    public void removeCollection(Long userId, Integer menuId) {
-        List<CmsMenuCollection> collList = selectByMenuId(userId, menuId);
+    public void removeCollection(Long userId, Long menuId) {
+        List<CmsMenuCollectionEntity> collList = selectByMenuId(userId, menuId);
         if (collList != null && collList.size() > 0) {
             collList.forEach(item -> {
                 item.setUpdateTime(new Date());
@@ -63,11 +63,11 @@ public class CmsMenuCollectionServiceImpl extends ServiceImpl<CmsMenuCollectionM
     }
 
     @Override
-    public List<CmsMenuCollection> selectByMenuId(Long userId, Integer menuId) {
-        LambdaQueryWrapper<CmsMenuCollection> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(CmsMenuCollection::getMenuId, menuId);
-        queryWrapper.eq(CmsMenuCollection::getUserId, userId);
-        queryWrapper.eq(CmsMenuCollection::getIsDeleted, Constants.COMMON_FLAG_NO);
+    public List<CmsMenuCollectionEntity> selectByMenuId(Long userId, Long menuId) {
+        LambdaQueryWrapper<CmsMenuCollectionEntity> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(CmsMenuCollectionEntity::getMenuId, menuId);
+        queryWrapper.eq(CmsMenuCollectionEntity::getUserId, userId);
+        queryWrapper.eq(CmsMenuCollectionEntity::getIsDeleted, Constants.COMMON_FLAG_NO);
         return baseMapper.selectList(queryWrapper);
     }
 

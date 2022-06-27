@@ -1,5 +1,7 @@
 package com.dliberty.cms.vo;
 
+import com.dliberty.cms.common.vo.BaseVo;
+
 public class CmsMenuMaterialItemVo extends BaseVo {
 
 	/**

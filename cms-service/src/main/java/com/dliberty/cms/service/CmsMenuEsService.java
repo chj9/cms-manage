@@ -1,6 +1,7 @@
 package com.dliberty.cms.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
+import com.dliberty.cms.common.page.PageParam;
 import com.dliberty.cms.vo.CmsMenuQueryParam;
 import com.dliberty.cms.vo.CmsMenuVo;
 
@@ -38,5 +39,5 @@ public interface CmsMenuEsService {
      * @param kw
      * @return
      */
-    PageDTO<CmsMenuVo> pageQuery(Integer pageNo, Integer pageSize, CmsMenuQueryParam param);
+    PageDTO<CmsMenuVo> pageQuery(PageParam pageParam, CmsMenuQueryParam param);
 }

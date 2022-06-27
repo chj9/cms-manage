@@ -2,15 +2,15 @@ package com.dliberty.cms.controller;
 
 import java.util.List;
 
+import com.dliberty.cms.common.vo.JsonBean;
+import com.dliberty.cms.entity.CmsMenuMaterialEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dliberty.cms.dao.entity.CmsMenuMaterial;
 import com.dliberty.cms.service.CmsMenuMaterialService;
-import com.dliberty.cms.vo.JsonBean;
 
 /**
  * 材料
@@ -31,9 +31,9 @@ public class CmsMenuMaterialController extends BaseController {
 	 * @return
 	 */
 	@GetMapping(value = "/view/{menuId}")
-	public JsonBean view(@PathVariable("menuId") Integer menuId) {
+	public JsonBean view(@PathVariable("menuId") Long menuId) {
 		JsonBean json = new JsonBean();
-		List<CmsMenuMaterial> materialList = cmsMenuMaterialService.selectByMenuId(menuId);
+		List<CmsMenuMaterialEntity> materialList = cmsMenuMaterialService.selectByMenuId(menuId);
 		json.put("materialList", materialList);
 		return json;
 	}

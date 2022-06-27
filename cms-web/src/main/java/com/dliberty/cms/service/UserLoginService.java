@@ -1,9 +1,9 @@
 package com.dliberty.cms.service;
 
-import com.dliberty.cms.dao.entity.Users;
-import com.dliberty.cms.exception.CommonException;
-import com.dliberty.cms.lang.data.StringUtils;
-import com.dliberty.cms.util.JwtTokenUtil;
+import com.dliberty.cms.common.exception.CommonException;
+import com.dliberty.cms.common.util.JwtTokenUtil;
+import com.dliberty.cms.entity.UsersEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,7 @@ public class UserLoginService {
 	public String login(String username,String password) {
 		String token = null;
         //密码需要客户端加密后传递
-		Users users = usersService.selectUserByOpenId(username);
+		UsersEntity users = usersService.selectUserByOpenId(username);
 		if (null == users) {
 			throw new CommonException("用户名不存在");
 		}

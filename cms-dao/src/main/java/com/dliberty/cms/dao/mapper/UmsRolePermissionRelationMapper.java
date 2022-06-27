@@ -2,41 +2,41 @@ package com.dliberty.cms.dao.mapper;
 
 import java.util.List;
 
+import com.dliberty.cms.entity.UmsRolePermissionRelationEntity;
+import com.dliberty.cms.entity.UmsRolePermissionRelationExampleEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.dliberty.cms.dao.entity.UmsRolePermissionRelation;
-import com.dliberty.cms.dao.entity.UmsRolePermissionRelationExample;
 import org.springframework.stereotype.Repository;
 
 @Mapper
 @Repository
 public interface UmsRolePermissionRelationMapper {
-    int countByExample(UmsRolePermissionRelationExample example);
+    int countByExample(UmsRolePermissionRelationExampleEntity example);
 
-    int deleteByExample(UmsRolePermissionRelationExample example);
+    int deleteByExample(UmsRolePermissionRelationExampleEntity example);
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(UmsRolePermissionRelation record);
+    int insert(UmsRolePermissionRelationEntity record);
 
-    int insertSelective(UmsRolePermissionRelation record);
+    int insertSelective(UmsRolePermissionRelationEntity record);
 
-    List<UmsRolePermissionRelation> selectByExample(UmsRolePermissionRelationExample example);
+    List<UmsRolePermissionRelationEntity> selectByExample(UmsRolePermissionRelationExampleEntity example);
 
-    UmsRolePermissionRelation selectByPrimaryKey(Long id);
+    UmsRolePermissionRelationEntity selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") UmsRolePermissionRelation record, @Param("example") UmsRolePermissionRelationExample example);
+    int updateByExampleSelective(@Param("record") UmsRolePermissionRelationEntity record, @Param("example") UmsRolePermissionRelationExampleEntity example);
 
-    int updateByExample(@Param("record") UmsRolePermissionRelation record, @Param("example") UmsRolePermissionRelationExample example);
+    int updateByExample(@Param("record") UmsRolePermissionRelationEntity record, @Param("example") UmsRolePermissionRelationExampleEntity example);
 
-    int updateByPrimaryKeySelective(UmsRolePermissionRelation record);
+    int updateByPrimaryKeySelective(UmsRolePermissionRelationEntity record);
 
-    int updateByPrimaryKey(UmsRolePermissionRelation record);
+    int updateByPrimaryKey(UmsRolePermissionRelationEntity record);
     /**
      * 批量插入角色和权限关系
      */
-    int insertList(@Param("list")List<UmsRolePermissionRelation> list);
+    int insertList(@Param("list")List<UmsRolePermissionRelationEntity> list);
 
     
 }

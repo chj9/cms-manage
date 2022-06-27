@@ -2,17 +2,17 @@ package com.dliberty.cms.controller;
 
 import java.util.List;
 
+import com.dliberty.cms.common.vo.JsonBean;
+import com.dliberty.cms.entity.CmsMenuCollectionEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dliberty.cms.dao.entity.CmsMenuCollection;
 import com.dliberty.cms.service.CmsMenuCollectionService;
 import com.dliberty.cms.service.CmsMenuService;
 import com.dliberty.cms.vo.CmsMenuVo;
-import com.dliberty.cms.vo.JsonBean;
 
 /**
  * 收藏
@@ -33,16 +33,16 @@ public class CmsMenuCollectionController extends BaseController {
     }
 
     @GetMapping(value = "/add/{menuId}")
-    public JsonBean collection(@PathVariable("menuId") Integer menuId) {
+    public JsonBean collection(@PathVariable("menuId") Long menuId) {
         Long userId = getUserId();
-        CmsMenuCollection collection = cmsMenuCollectionService.collection(userId, menuId);
+        CmsMenuCollectionEntity collection = cmsMenuCollectionService.collection(userId, menuId);
         JsonBean json = new JsonBean();
         json.put("collection", collection);
         return json;
     }
 
     @GetMapping(value = "/remove/{menuId}")
-    public JsonBean removeCollection(@PathVariable("menuId") Integer menuId) {
+    public JsonBean removeCollection(@PathVariable("menuId") Long menuId) {
         Long userId = getUserId();
         cmsMenuCollectionService.removeCollection(userId, menuId);
         return new JsonBean();
@@ -58,9 +58,9 @@ public class CmsMenuCollectionController extends BaseController {
     }
 
     @GetMapping(value = "/{menuId}")
-    public JsonBean get(@PathVariable("menuId") Integer menuId) {
+    public JsonBean get(@PathVariable("menuId") Long menuId) {
         Long userId = getUserId();
-        List<CmsMenuCollection> collections = cmsMenuCollectionService.selectByMenuId(userId, menuId);
+        List<CmsMenuCollectionEntity> collections = cmsMenuCollectionService.selectByMenuId(userId, menuId);
         JsonBean json = new JsonBean();
         json.put("collections", collections);
         return json;

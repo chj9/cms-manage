@@ -2,45 +2,45 @@ package com.dliberty.cms.dao.mapper;
 
 import java.util.List;
 
+import com.dliberty.cms.entity.UmsPermissionEntity;
+import com.dliberty.cms.entity.UmsPermissionExampleEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.dliberty.cms.dao.entity.UmsPermission;
-import com.dliberty.cms.dao.entity.UmsPermissionExample;
 import org.springframework.stereotype.Repository;
 
 @Mapper
 @Repository
 public interface UmsPermissionMapper {
-    int countByExample(UmsPermissionExample example);
+    int countByExample(UmsPermissionExampleEntity example);
 
-    int deleteByExample(UmsPermissionExample example);
+    int deleteByExample(UmsPermissionExampleEntity example);
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(UmsPermission record);
+    int insert(UmsPermissionEntity record);
 
-    int insertSelective(UmsPermission record);
+    int insertSelective(UmsPermissionEntity record);
 
-    List<UmsPermission> selectByExample(UmsPermissionExample example);
+    List<UmsPermissionEntity> selectByExample(UmsPermissionExampleEntity example);
 
-    UmsPermission selectByPrimaryKey(Long id);
+    UmsPermissionEntity selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") UmsPermission record, @Param("example") UmsPermissionExample example);
+    int updateByExampleSelective(@Param("record") UmsPermissionEntity record, @Param("example") UmsPermissionExampleEntity example);
 
-    int updateByExample(@Param("record") UmsPermission record, @Param("example") UmsPermissionExample example);
+    int updateByExample(@Param("record") UmsPermissionEntity record, @Param("example") UmsPermissionExampleEntity example);
 
-    int updateByPrimaryKeySelective(UmsPermission record);
+    int updateByPrimaryKeySelective(UmsPermissionEntity record);
 
-    int updateByPrimaryKey(UmsPermission record);
+    int updateByPrimaryKey(UmsPermissionEntity record);
     
     /**
      * 根据角色获取权限
      */
-    List<UmsPermission> getPermissionList(@Param("roleId") Long roleId);
+    List<UmsPermissionEntity> getPermissionList(@Param("roleId") Long roleId);
     
     /**
      * 获取用户所有权限(包括+-权限)
      */
-    List<UmsPermission> getPermissionListByAdminId(@Param("adminId") Long adminId);
+    List<UmsPermissionEntity> getPermissionListByAdminId(@Param("adminId") Long adminId);
 }

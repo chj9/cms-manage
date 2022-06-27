@@ -12,10 +12,11 @@ import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.TotalHits;
 import co.elastic.clients.elasticsearch.core.search.TotalHitsRelation;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
-import com.dliberty.cms.elasticsearch.model.vo.IndexDataToSave;
+import com.dliberty.cms.common.logging.SouthernQuietLogger;
+import com.dliberty.cms.common.logging.SouthernQuietLoggerFactory;
+import com.dliberty.cms.common.page.PageParam;
 import com.dliberty.cms.elasticsearch.service.EsService;
-import com.dliberty.cms.logging.SouthernQuietLogger;
-import com.dliberty.cms.logging.SouthernQuietLoggerFactory;
+import com.dliberty.cms.elasticsearch.vo.IndexDataToSave;
 import com.dliberty.cms.service.CmsMenuEsService;
 import com.dliberty.cms.vo.CmsMenuQueryParam;
 import com.dliberty.cms.vo.CmsMenuVo;
@@ -136,20 +137,19 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
     }
 
     @Override
-    public PageDTO<CmsMenuVo> pageQuery(Integer pageNo, Integer pageSize, CmsMenuQueryParam param) {
+    public PageDTO<CmsMenuVo> pageQuery(PageParam pageParam, CmsMenuQueryParam param) {
         LOGGER.message("Query")
-                .context("pageNo", pageNo)
-                .context("pageSize", pageSize)
+                .context("pageNo", pageParam.getCurrent())
+                .context("pageSize", pageParam.getSize())
                 .context("CmsMenuVo", param)
                 .info();
         try {
-            PageRequest page = PageRequest.of(pageNo, pageSize);
             Query finalSearchTextQuery = handleQuery(param);
             SearchRequest searchRequest = SearchRequest.of(r -> r
                     .index(WRITE_ALIAS_NAME)
                     .query(finalSearchTextQuery)
-                    .from(page.getPageNumber())
-                    .size(page.getPageSize())
+                    .from(pageParam.getOffset())
+                    .size(pageParam.getSize())
                     .sort(handleSort())
             );
             SearchResponse<JsonNode> response = esService.search(searchRequest);
@@ -162,8 +162,8 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
             }
             List<CmsMenuVo> esOrderServiceList = esService.esDataTModelList(response.hits().hits(), CmsMenuVo.class);
             PageDTO<CmsMenuVo> pageDTO = new PageDTO<>();
-            pageDTO.setCurrent(pageNo);
-            pageDTO.setSize(pageSize);
+            pageDTO.setCurrent(pageParam.getCurrent());
+            pageDTO.setSize(pageParam.getSize());
             pageDTO.setTotal(totalNum);
             pageDTO.setRecords(esOrderServiceList);
             return pageDTO;

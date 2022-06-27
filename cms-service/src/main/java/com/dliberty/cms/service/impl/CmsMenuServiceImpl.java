@@ -5,22 +5,18 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dliberty.cms.constants.Constants;
-import com.dliberty.cms.dao.entity.CmsMenu;
-import com.dliberty.cms.dao.entity.CmsMenuLabel;
-import com.dliberty.cms.dao.entity.CmsMenuMaterial;
-import com.dliberty.cms.dao.entity.CmsMenuStep;
+import com.dliberty.cms.common.constants.Constants;
+import com.dliberty.cms.common.exception.CommonException;
+import com.dliberty.cms.common.page.PageParam;
+import com.dliberty.cms.common.util.data.IntUtils;
+import com.dliberty.cms.dao.mapper.CmsMenuCollectionMapper;
 import com.dliberty.cms.dao.mapper.CmsMenuMapper;
 import com.dliberty.cms.dao.mapper.CmsMenuStepMapper;
-import com.dliberty.cms.es.CmsMenuEsService;
-import com.dliberty.cms.exception.CommonException;
-import com.dliberty.cms.lang.data.IntUtils;
-import com.dliberty.cms.service.CmsMenuCollectionService;
-import com.dliberty.cms.service.CmsMenuLabelRelationService;
-import com.dliberty.cms.service.CmsMenuLabelService;
-import com.dliberty.cms.service.CmsMenuMaterialService;
-import com.dliberty.cms.service.CmsMenuService;
-import com.dliberty.cms.service.FileService;
+import com.dliberty.cms.entity.CmsMenuEntity;
+import com.dliberty.cms.entity.CmsMenuLabelEntity;
+import com.dliberty.cms.entity.CmsMenuMaterialEntity;
+import com.dliberty.cms.entity.CmsMenuStepEntity;
+import com.dliberty.cms.service.*;
 import com.dliberty.cms.vo.CmsMenuAddOrModifyParam;
 import com.dliberty.cms.vo.CmsMenuParam;
 import com.dliberty.cms.vo.CmsMenuQueryParam;
@@ -48,12 +44,12 @@ import java.util.stream.Collectors;
  * @since 2019-06-13
  */
 @Service
-public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> implements CmsMenuService {
+public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenuEntity> implements CmsMenuService {
 
     private final CmsMenuStepMapper cmsMenuStepMapper;
     private final CmsMenuMaterialService cmsMenuMaterialService;
     private final CmsMenuEsService cmsMenuEsService;
-    private final CmsMenuCollectionService cmsMenuCollectionService;
+    private final CmsMenuCollectionMapper cmsMenuCollectionMapper;
     private final FileService fileService;
     private final CmsMenuLabelService cmsMenuLabelService;
     private final CmsMenuLabelRelationService cmsMenuLabelRelationService;
@@ -63,26 +59,26 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> impl
     @Autowired
     public CmsMenuServiceImpl(CmsMenuMaterialService cmsMenuMaterialService,
                               CmsMenuEsService cmsMenuEsService,
-                              CmsMenuCollectionService cmsMenuCollectionService,
                               FileService fileService,
                               CmsMenuLabelService cmsMenuLabelService,
                               CmsMenuLabelRelationService cmsMenuLabelRelationService,
-                              CmsMenuStepMapper cmsMenuStepMapper) {
+                              CmsMenuStepMapper cmsMenuStepMapper,
+                              CmsMenuCollectionMapper cmsMenuCollectionMapper) {
 
         this.cmsMenuMaterialService = cmsMenuMaterialService;
         this.cmsMenuEsService = cmsMenuEsService;
-        this.cmsMenuCollectionService = cmsMenuCollectionService;
         this.fileService = fileService;
         this.cmsMenuLabelService = cmsMenuLabelService;
         this.cmsMenuLabelRelationService = cmsMenuLabelRelationService;
         this.cmsMenuStepMapper = cmsMenuStepMapper;
+        this.cmsMenuCollectionMapper = cmsMenuCollectionMapper;
 
     }
 
 
     @Override
-    public PageDTO<CmsMenuVo> listPageEs(CmsMenuQueryParam param) {
-        return cmsMenuEsService.pageQuery(param.getPageInfo().getPageNum(), param.getPageInfo().getPageSize(), param);
+    public PageDTO<CmsMenuVo> listPageEs(CmsMenuQueryParam queryParam, PageParam pageParam) {
+        return cmsMenuEsService.pageQuery(pageParam, queryParam);
     }
 
     @Override
@@ -97,45 +93,45 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> impl
      * @return
      */
     @Override
-    public IPage<CmsMenu> listPage(CmsMenuQueryParam param) {
-        LambdaQueryWrapper<CmsMenu> wrapper = new LambdaQueryWrapper<>();
+    public IPage<CmsMenuEntity> listPage(CmsMenuQueryParam param,PageParam pageParam) {
+        LambdaQueryWrapper<CmsMenuEntity> wrapper = new LambdaQueryWrapper<>();
         if (StringUtils.isNotEmpty(param.getKeyword())) {
-            wrapper.like(CmsMenu::getMenuName, param.getKeyword());
+            wrapper.like(CmsMenuEntity::getMenuName, param.getKeyword());
         }
-        wrapper.eq(CmsMenu::getIsDeleted, Constants.COMMON_FLAG_NO);
-        return baseMapper.selectPage(param.getPageInfo(), wrapper);
+        wrapper.eq(CmsMenuEntity::getIsDeleted, Constants.COMMON_FLAG_NO);
+        return baseMapper.selectPage(new PageDTO<>(pageParam.getCurrent(), pageParam.getSize()), wrapper);
     }
 
 
     @Override
     @Transactional
-    public CmsMenu createMenu(CmsMenuParam param) {
-        List<CmsMenu> selectByRefId = selectByRefId(param.getRefId());
+    public CmsMenuEntity createMenu(CmsMenuParam param) {
+        List<CmsMenuEntity> selectByRefId = selectByRefId(param.getRefId());
         if (selectByRefId == null || selectByRefId.size() > 0) {
             return null;
         }
-        CmsMenu menu = new CmsMenu();
+        CmsMenuEntity menu = new CmsMenuEntity();
         BeanUtils.copyProperties(param, menu);
         menu.setBrowseNum(0);
         menu.setCollectNum(0);
         save(menu);
 
         //保存步骤
-        List<CmsMenuStep> cmsMenuStepList = param.getStepList();
-        if (!CollectionUtils.isEmpty(cmsMenuStepList)){
-            cmsMenuStepList.forEach(item ->{
-                item.setMenuId( menu.getId());
+        List<CmsMenuStepEntity> cmsMenuStepList = param.getStepList();
+        if (!CollectionUtils.isEmpty(cmsMenuStepList)) {
+            cmsMenuStepList.forEach(item -> {
+                item.setMenuId(menu.getId());
                 cmsMenuStepMapper.insert(item);
             });
         }
         //保存用料
-        cmsMenuMaterialService.saveMaterial(param.getMaterialList(),menu.getId());
+        cmsMenuMaterialService.saveMaterial(param.getMaterialList(), menu.getId());
         return menu;
     }
 
     @Override
-    public List<CmsMenu> selectByRefId(String refId) {
-        QueryWrapper<CmsMenu> queryWrapper = new QueryWrapper<>();
+    public List<CmsMenuEntity> selectByRefId(String refId) {
+        QueryWrapper<CmsMenuEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("ref_id", refId);
         queryWrapper.eq("is_deleted", Constants.COMMON_FLAG_NO);
         return baseMapper.selectList(queryWrapper);
@@ -150,7 +146,7 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> impl
                 if (menuId == null) {
                     return;
                 }
-                CmsMenu menu = getById(menuId);
+                CmsMenuEntity menu = getById(menuId);
                 menu.setBrowseNum(IntUtils.defaultInt(menu.getBrowseNum(), 0) + 1);
                 updateById(menu);
 
@@ -168,7 +164,7 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> impl
                 if (menuId == null || num == null) {
                     return;
                 }
-                CmsMenu menu = getById(menuId);
+                CmsMenuEntity menu = getById(menuId);
                 if (menu == null) {
                     return;
                 }
@@ -186,7 +182,7 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> impl
         if (userId == null) {
             return new ArrayList<>();
         }
-        List<String> ids = cmsMenuCollectionService.selectByUserId(userId).stream().map(String::valueOf).collect(Collectors.toList());
+        List<String> ids = cmsMenuCollectionMapper.selectByUserId(userId).stream().map(String::valueOf).collect(Collectors.toList());
         final List<CmsMenuVo> menuList = new ArrayList<>();
         Optional.of(ids).ifPresent(
                 (list) -> {
@@ -197,7 +193,7 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> impl
     }
 
     @Override
-    public void updateEs(CmsMenu menu) {
+    public void updateEs(CmsMenuEntity menu) {
         if (menu == null) {
             return;
         }
@@ -208,16 +204,16 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> impl
                 CmsMenuVo vo = new CmsMenuVo();
                 BeanUtils.copyProperties(menu, vo);
 
-                LambdaQueryWrapper<CmsMenuStep> queryWrapper = new LambdaQueryWrapper<>();
-                queryWrapper.eq(CmsMenuStep::getMenuId, menu.getId());
-                queryWrapper.eq(CmsMenuStep::getIsDeleted, Constants.COMMON_FLAG_NO);
-                queryWrapper.orderByAsc(CmsMenuStep::getStepIndex);
-                List<CmsMenuStep> stepList = cmsMenuStepMapper.selectList(queryWrapper);
+                LambdaQueryWrapper<CmsMenuStepEntity> queryWrapper = new LambdaQueryWrapper<>();
+                queryWrapper.eq(CmsMenuStepEntity::getMenuId, menu.getId());
+                queryWrapper.eq(CmsMenuStepEntity::getIsDeleted, Constants.COMMON_FLAG_NO);
+                queryWrapper.orderByAsc(CmsMenuStepEntity::getStepIndex);
+                List<CmsMenuStepEntity> stepList = cmsMenuStepMapper.selectList(queryWrapper);
                 vo.setStepList(stepList);
 
-                List<CmsMenuMaterial> materialList = cmsMenuMaterialService.selectByMenuId(menu.getId());
+                List<CmsMenuMaterialEntity> materialList = cmsMenuMaterialService.selectByMenuId(menu.getId());
                 vo.setMaterialList(materialList);
-                List<CmsMenuLabel> labelList = cmsMenuLabelService.selectByMenuId(menu.getId());
+                List<CmsMenuLabelEntity> labelList = cmsMenuLabelService.selectByMenuId(menu.getId());
                 vo.setLabels(labelList);
 
                 cmsMenuEsService.save(vo);
@@ -229,7 +225,7 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> impl
 
     @Override
     public void delete(Integer id) {
-        CmsMenu menu = getById(id);
+        CmsMenuEntity menu = getById(id);
         if (menu == null) {
             throw new CommonException("删除失败，删除数据不存在");
         }
@@ -251,7 +247,7 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> impl
      * @param menu
      */
     @SuppressWarnings("unused")
-    private void deleteImg(CmsMenu menu) {
+    private void deleteImg(CmsMenuEntity menu) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -259,11 +255,11 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> impl
                 if (StringUtils.isNotEmpty(menu.getMenuImg())) {
                     fileService.delFile(menu.getMenuImg());
                 }
-                LambdaQueryWrapper<CmsMenuStep> queryWrapper = new LambdaQueryWrapper<>();
-                queryWrapper.eq(CmsMenuStep::getMenuId, menu.getId());
-                queryWrapper.eq(CmsMenuStep::getIsDeleted, Constants.COMMON_FLAG_NO);
-                queryWrapper.orderByAsc(CmsMenuStep::getStepIndex);
-                List<CmsMenuStep> stepList =  cmsMenuStepMapper.selectList(queryWrapper);
+                LambdaQueryWrapper<CmsMenuStepEntity> queryWrapper = new LambdaQueryWrapper<>();
+                queryWrapper.eq(CmsMenuStepEntity::getMenuId, menu.getId());
+                queryWrapper.eq(CmsMenuStepEntity::getIsDeleted, Constants.COMMON_FLAG_NO);
+                queryWrapper.orderByAsc(CmsMenuStepEntity::getStepIndex);
+                List<CmsMenuStepEntity> stepList = cmsMenuStepMapper.selectList(queryWrapper);
                 if (stepList != null && stepList.size() > 0) {
                     stepList.forEach(step -> {
                         Optional.ofNullable(step.getStepImg()).ifPresent(fileService::delFile);
@@ -289,8 +285,8 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> impl
 
     @Override
     @Transactional
-    public CmsMenu update(Integer id, CmsMenuAddOrModifyParam param) {
-        CmsMenu menu = getById(id);
+    public CmsMenuEntity update(Integer id, CmsMenuAddOrModifyParam param) {
+        CmsMenuEntity menu = getById(id);
         if (menu != null) {
             BeanUtils.copyProperties(param, menu);
             updateById(menu);

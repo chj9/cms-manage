@@ -2,9 +2,9 @@ package com.dliberty.cms.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dliberty.cms.constants.Constants;
-import com.dliberty.cms.dao.entity.CmsMenuStep;
+import com.dliberty.cms.common.constants.Constants;
 import com.dliberty.cms.dao.mapper.CmsMenuStepMapper;
+import com.dliberty.cms.entity.CmsMenuStepEntity;
 import com.dliberty.cms.service.CmsMenuService;
 import com.dliberty.cms.service.CmsMenuStepService;
 import com.dliberty.cms.vo.CmsMenuStepItemVo;
@@ -25,7 +25,7 @@ import java.util.List;
  * @since 2019-06-13
  */
 @Service
-public class CmsMenuStepServiceImpl extends ServiceImpl<CmsMenuStepMapper, CmsMenuStep> implements CmsMenuStepService {
+public class CmsMenuStepServiceImpl extends ServiceImpl<CmsMenuStepMapper, CmsMenuStepEntity> implements CmsMenuStepService {
 
     private final CmsMenuService cmsMenuService;
 
@@ -35,7 +35,7 @@ public class CmsMenuStepServiceImpl extends ServiceImpl<CmsMenuStepMapper, CmsMe
     }
 
     @Override
-    public void saveStep(List<CmsMenuStep> stepList, Long menuId) {
+    public void saveStep(List<CmsMenuStepEntity> stepList, Long menuId) {
         if (stepList == null || stepList.size() == 0 || menuId == null) {
             return;
         }
@@ -46,17 +46,17 @@ public class CmsMenuStepServiceImpl extends ServiceImpl<CmsMenuStepMapper, CmsMe
     }
 
     @Override
-    public List<CmsMenuStep> selectByMenuId(Long menuId) {
-        LambdaQueryWrapper<CmsMenuStep> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(CmsMenuStep::getMenuId, menuId);
-        queryWrapper.eq(CmsMenuStep::getIsDeleted, Constants.COMMON_FLAG_NO);
-        queryWrapper.orderByAsc(CmsMenuStep::getStepIndex);
+    public List<CmsMenuStepEntity> selectByMenuId(Long menuId) {
+        LambdaQueryWrapper<CmsMenuStepEntity> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(CmsMenuStepEntity::getMenuId, menuId);
+        queryWrapper.eq(CmsMenuStepEntity::getIsDeleted, Constants.COMMON_FLAG_NO);
+        queryWrapper.orderByAsc(CmsMenuStepEntity::getStepIndex);
         return baseMapper.selectList(queryWrapper);
     }
 
     @Override
     public void delete(Long menuId) {
-        List<CmsMenuStep> stepList = selectByMenuId(menuId);
+        List<CmsMenuStepEntity> stepList = selectByMenuId(menuId);
         stepList.forEach(item -> {
             item.setIsDeleted(Constants.COMMON_FLAG_YES);
         });
@@ -75,10 +75,10 @@ public class CmsMenuStepServiceImpl extends ServiceImpl<CmsMenuStepMapper, CmsMe
         //先删除之前的步骤
         delete(menuId);
         //新增
-        List<CmsMenuStep> stepList = new ArrayList<CmsMenuStep>();
+        List<CmsMenuStepEntity> stepList = new ArrayList<CmsMenuStepEntity>();
         int i = 1;
         for (CmsMenuStepItemVo vo : param.getStepList()) {
-            CmsMenuStep step = new CmsMenuStep();
+            CmsMenuStepEntity step = new CmsMenuStepEntity();
             step.setMenuId(menuId);
             step.setStepIndex(i);
             step.setStepDesc(vo.getStepDesc());

@@ -2,35 +2,34 @@ package com.dliberty.cms.dao.mapper;
 
 import java.util.List;
 
+import com.dliberty.cms.entity.UmsAdminPermissionRelationEntity;
+import com.dliberty.cms.entity.UmsAdminPermissionRelationExampleEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
-import com.dliberty.cms.dao.entity.UmsAdminPermissionRelation;
-import com.dliberty.cms.dao.entity.UmsAdminPermissionRelationExample;
 import org.springframework.stereotype.Repository;
 
 @Mapper
 @Repository
 public interface UmsAdminPermissionRelationMapper {
-    int countByExample(UmsAdminPermissionRelationExample example);
+    int countByExample(UmsAdminPermissionRelationExampleEntity example);
 
-    int deleteByExample(UmsAdminPermissionRelationExample example);
+    int deleteByExample(UmsAdminPermissionRelationExampleEntity example);
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(UmsAdminPermissionRelation record);
+    int insert(UmsAdminPermissionRelationExampleEntity record);
 
-    int insertSelective(UmsAdminPermissionRelation record);
+    int insertSelective(UmsAdminPermissionRelationEntity record);
 
-    List<UmsAdminPermissionRelation> selectByExample(UmsAdminPermissionRelationExample example);
+    List<UmsAdminPermissionRelationEntity> selectByExample(UmsAdminPermissionRelationExampleEntity example);
 
-    UmsAdminPermissionRelation selectByPrimaryKey(Long id);
+    UmsAdminPermissionRelationEntity selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") UmsAdminPermissionRelation record, @Param("example") UmsAdminPermissionRelationExample example);
+    int updateByExampleSelective(@Param("record") UmsAdminPermissionRelationEntity record, @Param("example") UmsAdminPermissionRelationExampleEntity example);
 
-    int updateByExample(@Param("record") UmsAdminPermissionRelation record, @Param("example") UmsAdminPermissionRelationExample example);
+    int updateByExample(@Param("record") UmsAdminPermissionRelationEntity record, @Param("example") UmsAdminPermissionRelationExampleEntity example);
 
-    int updateByPrimaryKeySelective(UmsAdminPermissionRelation record);
+    int updateByPrimaryKeySelective(UmsAdminPermissionRelationEntity record);
 
-    int updateByPrimaryKey(UmsAdminPermissionRelation record);
+    int updateByPrimaryKey(UmsAdminPermissionRelationEntity record);
 }

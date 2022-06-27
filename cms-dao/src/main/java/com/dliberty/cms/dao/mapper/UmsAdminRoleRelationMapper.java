@@ -1,36 +1,37 @@
 package com.dliberty.cms.dao.mapper;
 
-import java.util.List;
 
+import com.dliberty.cms.entity.UmsAdminRoleRelationEntity;
+import com.dliberty.cms.entity.UmsAdminRoleRelationExampleEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.dliberty.cms.dao.entity.UmsAdminRoleRelation;
-import com.dliberty.cms.dao.entity.UmsAdminRoleRelationExample;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Mapper
 @Repository
 public interface UmsAdminRoleRelationMapper {
-    int countByExample(UmsAdminRoleRelationExample example);
+    int countByExample(UmsAdminRoleRelationExampleEntity example);
 
-    int deleteByExample(UmsAdminRoleRelationExample example);
+    int deleteByExample(UmsAdminRoleRelationExampleEntity example);
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(UmsAdminRoleRelation record);
+    int insert(UmsAdminRoleRelationEntity record);
 
-    int insertSelective(UmsAdminRoleRelation record);
+    int insertSelective(UmsAdminRoleRelationEntity record);
 
-    List<UmsAdminRoleRelation> selectByExample(UmsAdminRoleRelationExample example);
+    List<UmsAdminRoleRelationEntity> selectByExample(UmsAdminRoleRelationExampleEntity example);
 
-    UmsAdminRoleRelation selectByPrimaryKey(Long id);
+    UmsAdminRoleRelationEntity selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") UmsAdminRoleRelation record, @Param("example") UmsAdminRoleRelationExample example);
+    int updateByExampleSelective(@Param("record") UmsAdminRoleRelationEntity record, @Param("example") UmsAdminRoleRelationExampleEntity example);
 
-    int updateByExample(@Param("record") UmsAdminRoleRelation record, @Param("example") UmsAdminRoleRelationExample example);
+    int updateByExample(@Param("record") UmsAdminRoleRelationEntity record, @Param("example") UmsAdminRoleRelationExampleEntity example);
 
-    int updateByPrimaryKeySelective(UmsAdminRoleRelation record);
+    int updateByPrimaryKeySelective(UmsAdminRoleRelationEntity record);
 
-    int updateByPrimaryKey(UmsAdminRoleRelation record);
+    int updateByPrimaryKey(UmsAdminRoleRelationEntity record);
 }

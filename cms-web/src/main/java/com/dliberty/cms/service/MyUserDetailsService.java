@@ -1,9 +1,9 @@
 package com.dliberty.cms.service;
 
-import com.dliberty.cms.dao.entity.UmsPermission;
-import com.dliberty.cms.dao.entity.Users;
+import com.dliberty.cms.common.exception.CommonException;
 import com.dliberty.cms.dto.AdminUserDetails;
-import com.dliberty.cms.exception.CommonException;
+import com.dliberty.cms.entity.UmsPermissionEntity;
+import com.dliberty.cms.entity.UsersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,11 +23,11 @@ public class MyUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		Users users = usersService.selectUserByOpenId(username);
+		UsersEntity users = usersService.selectUserByOpenId(username);
 		if (null == users) {
 			throw new CommonException("用户名不存在");
 		}
-		List<UmsPermission> permissionList = umsRoleService.getPermissionListByAdminId(users.getId());
+		List<UmsPermissionEntity> permissionList = umsRoleService.getPermissionListByAdminId(users.getId());
 		return new AdminUserDetails(users,permissionList);
 		
 	}
