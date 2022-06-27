@@ -2,6 +2,7 @@ package com.dliberty.cms.dao.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -9,6 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dliberty.cms.dao.base.BaseMapper;
 import com.dliberty.cms.dao.dto.CmsMenuQueryDto;
 import com.dliberty.cms.dao.entity.CmsMenu;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -18,6 +20,8 @@ import com.dliberty.cms.dao.entity.CmsMenu;
  * @author LG
  * @since 2019-06-13
  */
+@Mapper
+@Repository
 public interface CmsMenuMapper extends BaseMapper<CmsMenu> {
 
 	/**

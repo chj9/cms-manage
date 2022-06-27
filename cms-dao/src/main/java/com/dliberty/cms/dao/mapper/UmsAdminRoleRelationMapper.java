@@ -2,11 +2,15 @@ package com.dliberty.cms.dao.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.dliberty.cms.dao.entity.UmsAdminRoleRelation;
 import com.dliberty.cms.dao.entity.UmsAdminRoleRelationExample;
+import org.springframework.stereotype.Repository;
 
+@Mapper
+@Repository
 public interface UmsAdminRoleRelationMapper {
     int countByExample(UmsAdminRoleRelationExample example);
 

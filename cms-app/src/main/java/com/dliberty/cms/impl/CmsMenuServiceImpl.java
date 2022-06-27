@@ -75,8 +75,8 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> impl
 	}
 	
 	@Override
-	public CmsMenuVo getPageEs(Integer id) {
-		return cmsMenuEsService.getById(id+"");
+	public CmsMenuVo getPageEs(String id) {
+		return cmsMenuEsService.getById(id);
 	}
 	
 	/**
@@ -124,9 +124,7 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenu> impl
 		QueryWrapper<CmsMenu> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq("ref_id", refId);
 		queryWrapper.eq("is_deleted", Constants.COMMON_FLAG_NO);
-		
-		List<CmsMenu> selectList = baseMapper.selectList(queryWrapper);
-		return selectList;
+		return baseMapper.selectList(queryWrapper);
 	}
 
 	@Override

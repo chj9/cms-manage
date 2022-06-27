@@ -52,7 +52,6 @@ public class MenuApplication extends SpringBootServletInitializer {
 		// 3、在convert 中添加配置信息
 		fastConverter.setFastJsonConfig(fastJsonConfig);
 		// 4、将convert 添加到converters当中
-		HttpMessageConverter<?> converter = fastConverter;
-		return new HttpMessageConverters(converter);
+		return new HttpMessageConverters(fastConverter);
 	}
 }

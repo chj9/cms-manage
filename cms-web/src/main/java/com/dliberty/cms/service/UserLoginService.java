@@ -34,11 +34,9 @@ public class UserLoginService {
 	
 	/**
 	 * 注册
-	 * @param openId
-	 * @return
 	 */
-	public Users register(String userName,String password) {
-		return usersService.register(userName,password);
+	public void register(String userName, String password) {
+		usersService.register(userName, password);
 	}
 	
 	

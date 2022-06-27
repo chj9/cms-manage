@@ -3,10 +3,14 @@ package com.dliberty.cms.dao.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.dliberty.cms.dao.entity.DocFile;
+import org.springframework.stereotype.Repository;
 
+@Mapper
+@Repository
 public interface DocFileMapper {
     int deleteByPrimaryKey(Integer id);
 

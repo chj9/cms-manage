@@ -20,24 +20,24 @@ import com.dliberty.cms.vo.RowsResultModel;
 @RequestMapping("/menu")
 public class CmsMenuController extends BaseController {
 
-	@Autowired
-	private CmsMenuService cmsMenuService;
-	
-	@GetMapping("list")
-	public RowsResultModel<CmsMenuVo> list(CmsMenuQueryParam param,PageInfo pageInfo) {
-		param.setPageInfo(pageInfo);
-		PageDTO<CmsMenuVo> listPage = cmsMenuService.listPageEs(param);
-		return RowsResultModelBuilder.of(listPage);
-	}
-	
-	@GetMapping(value = "/view/{id}")
-	public JsonBean view(@PathVariable("id") Integer id) {
-		CmsMenuVo menuVo = cmsMenuService.getPageEs(id);
-		cmsMenuService.browse(id);
-		JsonBean json = new JsonBean();
-		json.put("menuVo", menuVo);
-		return json;
-	}
-	
-	
+    @Autowired
+    private CmsMenuService cmsMenuService;
+
+    @GetMapping("list")
+    public RowsResultModel<CmsMenuVo> list(CmsMenuQueryParam param, PageInfo pageInfo) {
+        param.setPageInfo(pageInfo);
+        PageDTO<CmsMenuVo> listPage = cmsMenuService.listPageEs(param);
+        return RowsResultModelBuilder.of(listPage);
+    }
+
+    @GetMapping(value = "/view/{id}")
+    public JsonBean view(@PathVariable("id") String id) {
+        CmsMenuVo menuVo = cmsMenuService.getPageEs(id);
+        cmsMenuService.browse(Integer.valueOf(id));
+        JsonBean json = new JsonBean();
+        json.put("menuVo", menuVo);
+        return json;
+    }
+
+
 }

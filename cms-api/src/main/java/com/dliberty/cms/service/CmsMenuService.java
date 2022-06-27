@@ -35,7 +35,7 @@ public interface CmsMenuService extends IService<CmsMenu> {
 	 * @param id
 	 * @return
 	 */
-	CmsMenuVo getPageEs(Integer id);
+	CmsMenuVo getPageEs(String id);
 	
 	/**
 	 * 分页查询

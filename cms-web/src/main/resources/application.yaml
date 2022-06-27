@@ -16,8 +16,6 @@ management:
         http-mapping:
           up: 200
           down: 503
-  health.redis.enabled: true
-
 
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml, classpath*:mapper/**/*.xml

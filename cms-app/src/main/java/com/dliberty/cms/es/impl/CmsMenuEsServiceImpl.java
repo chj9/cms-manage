@@ -3,7 +3,6 @@ package com.dliberty.cms.es.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import co.elastic.clients.elasticsearch._types.FieldValue;
@@ -18,15 +17,13 @@ import co.elastic.clients.elasticsearch.core.search.TotalHits;
 import co.elastic.clients.elasticsearch.core.search.TotalHitsRelation;
 import com.dliberty.cms.elasticsearch.model.vo.IndexDataToSave;
 import com.dliberty.cms.elasticsearch.service.EsService;
+import com.dliberty.cms.logging.SouthernQuietLogger;
+import com.dliberty.cms.logging.SouthernQuietLoggerFactory;
 import com.dliberty.cms.vo.CmsMenuQueryParam;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.apache.commons.collections4.IteratorUtils;
 import org.apache.commons.lang3.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -37,11 +34,11 @@ import org.springframework.util.CollectionUtils;
 @Service
 public class CmsMenuEsServiceImpl implements CmsMenuEsService {
 
-    private static final Logger logger = LoggerFactory.getLogger(CmsMenuEsServiceImpl.class);
+    private static final SouthernQuietLogger LOGGER = SouthernQuietLoggerFactory.getLogger(CmsMenuEsServiceImpl.class);
 
-    private EsService<CmsMenuVo> esService;
+    private final EsService<CmsMenuVo> esService;
 
-    private String WRITE_ALIAS_NAME = "menu";
+    private final String WRITE_ALIAS_NAME = "menu";
 
     @Autowired
     public CmsMenuEsServiceImpl(EsService<CmsMenuVo> esService) {
@@ -53,10 +50,9 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
         try {
             return esService.countDocument(WRITE_ALIAS_NAME, handleQuery(null));
         } catch (Exception e) {
-//            LOGGER.message("查询失败")
-//                    .context("orderId", orderId)
-//                    .exception(e)
-//                    .error();
+            LOGGER.message("查询失败")
+                    .exception(e)
+                    .error();
         }
         return 0L;
     }
@@ -66,10 +62,9 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
         try {
             esService.save(WRITE_ALIAS_NAME, vo);
         } catch (Exception e) {
-//            LOGGER.message("查询失败")
-//                    .context("orderId", orderId)
-//                    .exception(e)
-//                    .error();
+            LOGGER.message("查询失败")
+                    .exception(e)
+                    .error();
         }
     }
 
@@ -77,15 +72,13 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
     public void saveAll(List<CmsMenuVo> list) {
         try {
             List<IndexDataToSave> saveList = list.stream().map(item -> {
-                IndexDataToSave indexDataToSave = new IndexDataToSave(item.getId(), item);
-                return indexDataToSave;
+                return new IndexDataToSave(item.getId(), item);
             }).collect(Collectors.toList());
             esService.saveBatch(WRITE_ALIAS_NAME, saveList);
         } catch (Exception e) {
-//            LOGGER.message("查询失败")
-//                    .context("orderId", orderId)
-//                    .exception(e)
-//                    .error();
+            LOGGER.message("查询失败")
+                    .exception(e)
+                    .error();
         }
     }
 
@@ -95,10 +88,9 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
         try {
             esService.deleteDocumentByQuery(WRITE_ALIAS_NAME, handleQuery(param), true);
         } catch (Exception e) {
-//            LOGGER.message("查询失败")
-//                    .context("orderId", orderId)
-//                    .exception(e)
-//                    .error();
+            LOGGER.message("查询失败")
+                    .exception(e)
+                    .error();
         }
     }
 
@@ -107,10 +99,9 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
         try {
             esService.deleteDocumentByQuery(WRITE_ALIAS_NAME, handleQuery(null), true);
         } catch (Exception e) {
-//            LOGGER.message("查询失败")
-//                    .context("orderId", orderId)
-//                    .exception(e)
-//                    .error();
+            LOGGER.message("查询失败")
+                    .exception(e)
+                    .error();
         }
     }
 
@@ -119,10 +110,9 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
         try {
             esService.deleteDocumentById(WRITE_ALIAS_NAME, id);
         } catch (Exception e) {
-//            LOGGER.message("查询失败")
-//                    .context("orderId", orderId)
-//                    .exception(e)
-//                    .error();
+            LOGGER.message("查询失败")
+                    .exception(e)
+                    .error();
         }
     }
 
@@ -148,8 +138,11 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
 
     @Override
     public PageDTO<CmsMenuVo> pageQuery(Integer pageNo, Integer pageSize, CmsMenuQueryParam param) {
-
-        logger.info("pageNo={},pageSize={},CmsMenuVo={}", pageNo, pageSize, param);
+        LOGGER.message("Query")
+                .context("pageNo", pageNo)
+                .context("pageSize", pageSize)
+                .context("CmsMenuVo", param)
+                .info();
         try {
             PageRequest page = PageRequest.of(pageNo, pageSize);
             Query finalSearchTextQuery = handleQuery(param);
@@ -163,7 +156,7 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
             SearchResponse<JsonNode> response = esService.search(searchRequest);
             TotalHits totalHits = response.hits().total();
             long totalNum;
-            if (totalHits.relation() == TotalHitsRelation.Eq) {
+            if (totalHits != null && totalHits.relation() == TotalHitsRelation.Eq) {
                 totalNum = totalHits.value();
             } else {
                 totalNum = esService.countDocument(WRITE_ALIAS_NAME, finalSearchTextQuery);
@@ -176,14 +169,12 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
             pageDTO.setRecords(esOrderServiceList);
             return pageDTO;
         } catch (Exception e) {
-//            LOGGER.message("查询失败")
-//                    .context("orderId", orderId)
-//                    .exception(e)
-//                    .error();
+            LOGGER.message("查询失败")
+                    .exception(e)
+                    .error();
         }
         return null;
     }
-
 
 
     /**
@@ -200,7 +191,11 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
      * 查询处理器
      */
     private Query handleQuery(CmsMenuQueryParam param) {
-
+        if (param == null) {
+            return Query.of(query -> query.matchAll(
+                    all -> all.boost(1.0F)
+            ));
+        }
         List<Query> queryList = new ArrayList<>();
         if (StringUtils.isEmpty(param.getKeyword())) {
             Query query = MultiMatchQuery.of(m -> m
@@ -209,13 +204,13 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
             )._toQuery();
             queryList.add(query);
         }
-        if (StringUtils.isEmpty(param.getCategoryId())){
+        if (StringUtils.isEmpty(param.getCategoryId())) {
             Query query = TermQuery.of(m -> m
                     .field("categoryId").value(value -> value.stringValue(param.getCategoryId()))
             )._toQuery();
             queryList.add(query);
         }
-        if (StringUtils.isEmpty(param.getLabelId())){
+        if (StringUtils.isEmpty(param.getLabelId())) {
             Query query = TermQuery.of(m -> m
                     .field("labels.id").value(value -> value.stringValue(param.getLabelId()))
             )._toQuery();

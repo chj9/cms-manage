@@ -2,11 +2,15 @@ package com.dliberty.cms.dao.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.dliberty.cms.dao.entity.UmsPermission;
 import com.dliberty.cms.dao.entity.UmsPermissionExample;
+import org.springframework.stereotype.Repository;
 
+@Mapper
+@Repository
 public interface UmsPermissionMapper {
     int countByExample(UmsPermissionExample example);
 
