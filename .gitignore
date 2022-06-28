@@ -2,6 +2,8 @@
 /.settings/
 /logs/
 .classpath
+cms.iml
+/cms*.iml
 .project
 *.iml
 .idea

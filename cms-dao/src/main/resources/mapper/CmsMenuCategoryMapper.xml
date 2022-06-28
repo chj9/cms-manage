@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dliberty.cms.dao.mapper.CmsMenuCategoryMapper">
+<mapper namespace="com.chj9.cms.dao.mapper.CmsMenuCategoryMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.dliberty.cms.entity.CmsMenuCategoryEntity">
+    <resultMap id="BaseResultMap" type="com.chj9.cms.api.entity.CmsMenuCategoryEntity">
         <id column="id" property="id" />
         <result column="category_name" property="categoryName" />
         <result column="category_code" property="categoryCode" />
