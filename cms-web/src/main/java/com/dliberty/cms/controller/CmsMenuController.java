@@ -25,11 +25,11 @@ public class CmsMenuController extends BaseController {
     private CmsMenuService cmsMenuService;
 
     @GetMapping("list")
-    public PageResult<CmsMenuVo> list(CmsMenuQueryParam queryParam, PageParam pageParam) {
+    public RowsResultModel<CmsMenuVo> list(CmsMenuQueryParam queryParam, PageParam pageParam) {
         PageDTO<CmsMenuVo> listPage = cmsMenuService.listPageEs(queryParam, pageParam);
-        PageResult<CmsMenuVo> pageResult =
-                new PageResult<>(pageParam, listPage.getRecords(), listPage.getTotal(), listPage.getPages());
-        return pageResult;
+//        PageResult<CmsMenuVo> pageResult =
+//                new PageResult<>(pageParam, listPage.getRecords(), listPage.getTotal(), listPage.getPages());
+        return RowsResultModelBuilder.of(listPage);
     }
 
     @GetMapping(value = "/view/{id}")

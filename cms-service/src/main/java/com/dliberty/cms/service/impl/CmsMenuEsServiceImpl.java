@@ -125,6 +125,13 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
 
     @Override
     public CmsMenuVo getById(String id) {
+        try {
+            return esService.searchById(WRITE_ALIAS_NAME, id, CmsMenuVo.class);
+        } catch (Exception e) {
+            LOGGER.message("查询失败")
+                    .exception(e)
+                    .error();
+        }
         return null;
     }
 
