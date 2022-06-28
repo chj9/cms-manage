@@ -49,8 +49,6 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, UsersEntity> impl
 			}
 			users = new UsersEntity();
 			users.setUsername(userName);
-			users.setCreateTime(new Date());
-			users.setUpdateTime(new Date());
 			users.setStatus(1);
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			String encode = encoder.encode(password);

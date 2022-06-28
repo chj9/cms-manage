@@ -2,6 +2,7 @@ package com.dliberty.cms.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.dliberty.cms.base.IdEntity;
+import com.dliberty.cms.common.constants.Constants;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
@@ -25,7 +26,7 @@ public class CmsMenuStepEntity extends IdEntity {
 
     private String stepImg;
 
-    private Integer isDeleted = 0;
+    private Integer isDeleted = Constants.COMMON_FLAG_NO;
 
     public Long getMenuId() {
         return menuId;

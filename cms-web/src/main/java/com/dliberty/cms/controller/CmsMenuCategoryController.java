@@ -22,7 +22,7 @@ public class CmsMenuCategoryController extends BaseController {
 	
 	
 	@GetMapping(value = "/view/{parentId}")
-	public JsonBean view(@PathVariable("parentId") Integer parentId) {
+	public JsonBean view(@PathVariable("parentId") Long parentId) {
 		List<CmsMenuCategoryEntity> cates = cmsMenuCategoryService.selectByParentId(parentId);
 		JsonBean json = new JsonBean();
 		json.put("cates", cates);

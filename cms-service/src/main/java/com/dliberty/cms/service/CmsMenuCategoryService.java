@@ -27,21 +27,21 @@ public interface CmsMenuCategoryService extends IService<CmsMenuCategoryEntity> 
 	 * @param parentId
 	 * @return
 	 */
-	CmsMenuCategoryEntity selectByNameAndParentId(String cateName,Integer parentId);
+	CmsMenuCategoryEntity selectByNameAndParentId(String cateName,Long parentId);
 	/**
 	 * 保存类别
 	 * @param cate
 	 * @param parentId
 	 * @return
 	 */
-	CmsMenuCategoryEntity save(String cateName,Integer parentId);
+	CmsMenuCategoryEntity save(String cateName,Long parentId);
 	
 	/**
 	 * 根据parentId查询
 	 * @param parentId
 	 * @return
 	 */
-	List<CmsMenuCategoryEntity> selectByParentId(Integer parentId);
+	List<CmsMenuCategoryEntity> selectByParentId(Long parentId);
 	
 	/**
 	 * 根据cateName 查询最底级的数据

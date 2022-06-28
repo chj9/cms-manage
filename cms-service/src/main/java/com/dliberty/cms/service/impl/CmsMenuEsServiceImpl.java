@@ -4,7 +4,9 @@ package com.dliberty.cms.service.impl;
 import co.elastic.clients.elasticsearch._types.FieldValue;
 import co.elastic.clients.elasticsearch._types.SortOptions;
 import co.elastic.clients.elasticsearch._types.SortOrder;
+import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.MultiMatchQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.NestedQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
 import co.elastic.clients.elasticsearch.core.SearchRequest;
@@ -71,9 +73,9 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
     @Override
     public void saveAll(List<CmsMenuVo> list) {
         try {
-            List<IndexDataToSave> saveList = list.stream().map(item -> {
-                return new IndexDataToSave(item.getId(), item);
-            }).collect(Collectors.toList());
+            List<IndexDataToSave> saveList = list.stream()
+                    .map(item -> new IndexDataToSave(item.getId(), item))
+                    .collect(Collectors.toList());
             esService.saveBatch(WRITE_ALIAS_NAME, saveList);
         } catch (Exception e) {
             LOGGER.message("查询失败")
@@ -196,24 +198,28 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
             ));
         }
         List<Query> queryList = new ArrayList<>();
-        if (StringUtils.isEmpty(param.getKeyword())) {
-            Query query = MultiMatchQuery.of(m -> m
-                    .fields(List.of("menuName", "menuDesc", "categoryName", "stepList.stepDesc", "materialList.materialName", "labelList.labelName"))
-                    .query(String.valueOf(FieldValue.of(param.getKeyword())))
+        if (StringUtils.isNotEmpty(param.getKeyword())) {
+            Query searchTextQuery = MatchQuery.of(m -> m
+                    .field("searchText")
+                    .query(param.getKeyword().trim())
             )._toQuery();
-            queryList.add(query);
+            queryList.add(searchTextQuery);
         }
-        if (StringUtils.isEmpty(param.getCategoryId())) {
+        if (StringUtils.isNotEmpty(param.getCategoryId())) {
             Query query = TermQuery.of(m -> m
                     .field("categoryId").value(value -> value.stringValue(param.getCategoryId()))
             )._toQuery();
             queryList.add(query);
         }
-        if (StringUtils.isEmpty(param.getLabelId())) {
-            Query query = TermQuery.of(m -> m
-                    .field("labels.id").value(value -> value.stringValue(param.getLabelId()))
+        if (StringUtils.isNotEmpty(param.getLabelId())) {
+            Query childQuery1 = TermQuery.of(m -> m
+                    .field("labelList.id").value(value -> value.stringValue(param.getLabelId()))
             )._toQuery();
-            queryList.add(query);
+            Query query1 = NestedQuery.of(m -> m
+                    .path("labelList").query(childQuery1)
+            )._toQuery();
+
+            queryList.add(query1);
         }
         if (CollectionUtils.isEmpty(queryList)) {
             return Query.of(query -> query.matchAll(
@@ -223,7 +229,7 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
         // 在同一个 boolQuery 中 must 会将 should 覆盖
         return Query.of(query -> query.bool(
                 boolQuery -> boolQuery
-                        .must(queryList)
+                        .filter(queryList)
         ));
     }
 }

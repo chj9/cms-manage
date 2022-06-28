@@ -64,7 +64,6 @@ public class CmsMenuBannerServiceImpl extends ServiceImpl<CmsMenuBannerMapper, C
         CmsMenuBannerEntity banner = getById(id);
         if (banner != null) {
             BeanUtils.copyProperties(param, banner);
-            banner.setUpdateTime(new Date());
             updateById(banner);
         }
         return banner;
@@ -74,7 +73,6 @@ public class CmsMenuBannerServiceImpl extends ServiceImpl<CmsMenuBannerMapper, C
     public void delete(Integer id) {
         CmsMenuBannerEntity banner = getById(id);
         if (banner != null) {
-            banner.setUpdateTime(new Date());
             banner.setIsDeleted(Constants.COMMON_FLAG_YES);
             updateById(banner);
 

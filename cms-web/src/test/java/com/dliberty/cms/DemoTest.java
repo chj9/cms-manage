@@ -141,7 +141,7 @@ public class DemoTest {
 		// 三级 二级都不为空
 		if (StringUtils.isNotEmpty(type3) && StringUtils.isNotEmpty(type2) && StringUtils.isNotEmpty(type1)) {
 			// 先保存一级
-			CmsMenuCategoryEntity cate1 = cmsMenuCategoryService.save(type1, -1);
+			CmsMenuCategoryEntity cate1 = cmsMenuCategoryService.save(type1, -1L);
 			if (cate1 != null) {
 				CmsMenuCategoryEntity cate2 = cmsMenuCategoryService.save(type2, cate1.getId());
 				if (cate2 != null) {
@@ -152,14 +152,14 @@ public class DemoTest {
 		}
 		if (StringUtils.isEmpty(type3) && StringUtils.isNotEmpty(type2) && StringUtils.isNotEmpty(type1)) {
 			// 先保存一级
-			CmsMenuCategoryEntity cate1 = cmsMenuCategoryService.save(type1, -1);
+			CmsMenuCategoryEntity cate1 = cmsMenuCategoryService.save(type1, -1L);
 			if (cate1 != null) {
 				return cmsMenuCategoryService.save(type2, cate1.getId());
 			}
 		}
 		if (StringUtils.isEmpty(type3) && StringUtils.isEmpty(type2) && StringUtils.isNotEmpty(type1)) {
 			// 先保存一级
-			return cmsMenuCategoryService.save(type1, -1);
+			return cmsMenuCategoryService.save(type1, -1L);
 		}
 		return cate;
 	}

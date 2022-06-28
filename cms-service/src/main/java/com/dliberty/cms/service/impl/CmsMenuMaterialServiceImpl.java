@@ -32,9 +32,6 @@ public class CmsMenuMaterialServiceImpl extends ServiceImpl<CmsMenuMaterialMappe
 		}
 		materialList.forEach(item -> {
 			item.setMenuId(menuId);
-			item.setCreateTime(new Date());
-			item.setUpdateTime(new Date());
-			item.setIsDeleted(Constants.COMMON_FLAG_NO);
 		});
 		saveBatch(materialList);
 	}
@@ -51,9 +48,8 @@ public class CmsMenuMaterialServiceImpl extends ServiceImpl<CmsMenuMaterialMappe
 	@Override
 	public void deleteByMenuId(Long menuId) {
 		List<CmsMenuMaterialEntity> materialList = selectByMenuId(menuId);
-		materialList.stream().forEach(item -> {
+		materialList.forEach(item -> {
 			item.setIsDeleted(Constants.COMMON_FLAG_YES);
-			item.setUpdateTime(new Date());
 		});
 		updateBatchById(materialList);
 	}
@@ -72,12 +68,9 @@ public class CmsMenuMaterialServiceImpl extends ServiceImpl<CmsMenuMaterialMappe
 		List<CmsMenuMaterialEntity> materialList = new ArrayList<CmsMenuMaterialEntity>();
 		param.getMaterialList().forEach(item -> {
 			CmsMenuMaterialEntity material = new CmsMenuMaterialEntity();
-			material.setIsDeleted(Constants.COMMON_FLAG_NO);
 			material.setMenuId(menuId);
 			material.setMaterialName(item.getMaterialName());
 			material.setMaterialDesc(item.getMaterialDesc());
-			material.setCreateTime(new Date());
-			material.setUpdateTime(new Date());
 			materialList.add(material);
 		});
 		saveBatch(materialList);

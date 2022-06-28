@@ -41,11 +41,8 @@ public class CmsMenuLabelRelationServiceImpl extends ServiceImpl<CmsMenuLabelRel
 		List<CmsMenuLabelRelationEntity> list = new ArrayList<CmsMenuLabelRelationEntity>();
 		labels.forEach(id -> {
 			CmsMenuLabelRelationEntity r = new CmsMenuLabelRelationEntity();
-			r.setIsDeleted(Constants.COMMON_FLAG_NO);
 			r.setMenuId(menuId);
 			r.setLabelId(id);
-			r.setCreateTime(new Date());
-			r.setUpdateTime(new Date());
 			list.add(r);
 		});
 		saveBatch(list);

@@ -2,44 +2,36 @@ package com.dliberty.cms.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.dliberty.cms.base.IdEntity;
+import com.dliberty.cms.common.constants.Constants;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author LG
  * @since 2019-06-13
  */
-public class CmsMenuLabelEntity implements Serializable {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@TableName(value = "cms_menu_label", autoResultMap = true)
+public class CmsMenuLabelEntity extends IdEntity {
 
-    private static final long serialVersionUID = 1L;
-
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
 
     private String labelName;
 
     private String labelImg;
 
     private String labelUrl;
-    
-    private Date createTime;
 
-    private Date updateTime;
-    
-    private Integer isDeleted;
 
-    public Integer getId() {
-        return id;
-    }
+    private Integer isDeleted = Constants.COMMON_FLAG_NO;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
     public String getLabelName() {
         return labelName;
     }
@@ -47,6 +39,7 @@ public class CmsMenuLabelEntity implements Serializable {
     public void setLabelName(String labelName) {
         this.labelName = labelName;
     }
+
     public String getLabelImg() {
         return labelImg;
     }
@@ -54,6 +47,7 @@ public class CmsMenuLabelEntity implements Serializable {
     public void setLabelImg(String labelImg) {
         this.labelImg = labelImg;
     }
+
     public String getLabelUrl() {
         return labelUrl;
     }
@@ -61,28 +55,14 @@ public class CmsMenuLabelEntity implements Serializable {
     public void setLabelUrl(String labelUrl) {
         this.labelUrl = labelUrl;
     }
-    public Date getCreateTime() {
-        return createTime;
+
+    public Integer getIsDeleted() {
+        return isDeleted;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-    public Date getUpdateTime() {
-        return updateTime;
+    public void setIsDeleted(Integer isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 
-	public Integer getIsDeleted() {
-		return isDeleted;
-	}
-
-	public void setIsDeleted(Integer isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-
-    
 }

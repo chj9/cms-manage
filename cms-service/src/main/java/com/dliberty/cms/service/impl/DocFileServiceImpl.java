@@ -20,9 +20,6 @@ public class DocFileServiceImpl implements DocFileService {
 	
 	@Override
 	public DocFileEntity save(DocFileEntity file) {
-		file.setCreateTime(new Date());
-		file.setUpdateTime(new Date());
-		file.setIsDeleted("0");
 		docFileMapper.insert(file);
 		return file;
 	}
@@ -37,7 +34,6 @@ public class DocFileServiceImpl implements DocFileService {
 
 	@Override
 	public DocFileEntity update(DocFileEntity file) {
-		file.setUpdateTime(new Date());
 		docFileMapper.updateByPrimaryKey(file);
 		return file;
 	}

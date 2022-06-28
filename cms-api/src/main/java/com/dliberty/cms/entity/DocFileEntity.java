@@ -1,11 +1,16 @@
 package com.dliberty.cms.entity;
 
 
-import java.io.InputStream;
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.dliberty.cms.base.IdEntity;
+import com.dliberty.cms.common.constants.Constants;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-public class DocFileEntity {
-    private Integer id;
+import java.io.InputStream;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@TableName(value = "doc_file", autoResultMap = true)
+public class DocFileEntity extends IdEntity {
 
     private String fileKey;
 
@@ -13,23 +18,13 @@ public class DocFileEntity {
 
     private String fileName;
 
-    private String isDeleted;
+    private Integer isDeleted = Constants.COMMON_FLAG_NO;
 
-    private Date createTime;
 
-    private Date updateTime;
-    
     private String fileType;
-    
+
     private InputStream inputStream;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getFileKey() {
         return fileKey;
@@ -55,47 +50,28 @@ public class DocFileEntity {
         this.fileName = fileName;
     }
 
-    public String getIsDeleted() {
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public InputStream getInputStream() {
+        return inputStream;
+    }
+
+    public void setInputStream(InputStream inputStream) {
+        this.inputStream = inputStream;
+    }
+
+    public Integer getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(String isDeleted) {
+    public void setIsDeleted(Integer isDeleted) {
         this.isDeleted = isDeleted;
     }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-	public String getFileType() {
-		return fileType;
-	}
-
-	public void setFileType(String fileType) {
-		this.fileType = fileType;
-	}
-
-
-	public InputStream getInputStream() {
-		return inputStream;
-	}
-
-	public void setInputStream(InputStream inputStream) {
-		this.inputStream = inputStream;
-	}
-
-
-	
 }

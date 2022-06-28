@@ -1,8 +1,13 @@
 package com.dliberty.cms.entity;
 
-import java.io.Serializable;
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
+import java.time.Instant;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@TableName(value = "ums_permission", autoResultMap = true)
 public class UmsPermissionEntity implements Serializable {
     private Long id;
 
@@ -60,7 +65,7 @@ public class UmsPermissionEntity implements Serializable {
      *
      * @mbggenerated
      */
-    private Date createTime;
+    private Instant createTime;
 
     /**
      * 排序
@@ -135,20 +140,20 @@ public class UmsPermissionEntity implements Serializable {
         this.status = status;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
     public Integer getSort() {
         return sort;
     }
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public Instant getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Instant createTime) {
+        this.createTime = createTime;
     }
 
     @Override

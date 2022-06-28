@@ -57,9 +57,6 @@ public class CmsMenuLabelServiceImpl extends ServiceImpl<CmsMenuLabelMapper, Cms
 	public CmsMenuLabelEntity create(CmsMenuLabelParam param) {
 		CmsMenuLabelEntity label = new CmsMenuLabelEntity();
 		BeanUtils.copyProperties(param, label);
-		label.setUpdateTime(new Date());
-		label.setCreateTime(new Date());
-		label.setIsDeleted(Constants.COMMON_FLAG_NO);
 		save(label);
 		return label;
 	}

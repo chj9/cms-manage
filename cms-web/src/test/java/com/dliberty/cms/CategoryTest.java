@@ -645,7 +645,7 @@ public class CategoryTest {
 			JSONObject json2 = showapi_res_body.getJSONObject(key);
 			System.out.println(key);
 			
-			CmsMenuCategoryEntity cate1 = save(key, -1,0);
+			CmsMenuCategoryEntity cate1 = save(key, -1L,0);
 			
 			if (json2 != null) {
 				json2.keySet().forEach(key2 -> {
@@ -666,13 +666,11 @@ public class CategoryTest {
 		
 	}
 	
-	public CmsMenuCategoryEntity save(String name, Integer parntId, Integer hasNext) {
+	public CmsMenuCategoryEntity save(String name, Long parntId, Integer hasNext) {
 		CmsMenuCategoryEntity category = new CmsMenuCategoryEntity();
 		category.setCategoryName(name);
 		category.setIsDeleted(0);
 		category.setParentId(parntId);
-		category.setCreateTime(new Date());
-		category.setUpdateTime(new Date());
 		category.setHasNext(hasNext);
 		cmsMenuCategoryService.save(category);
 		return category;
@@ -680,7 +678,7 @@ public class CategoryTest {
 	
 	@Test
 	public void selectByParentIdTest() {
-		cmsMenuCategoryService.selectByParentId(-1);
+		cmsMenuCategoryService.selectByParentId(-1L);
 	}
 
 }

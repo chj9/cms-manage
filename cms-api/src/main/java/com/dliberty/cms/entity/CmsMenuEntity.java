@@ -3,6 +3,7 @@ package com.dliberty.cms.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.dliberty.cms.base.IdEntity;
+import com.dliberty.cms.common.constants.Constants;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class CmsMenuEntity extends IdEntity {
 
     private String refId;
 
-    private Integer isDeleted = 0;
+    private Integer isDeleted = Constants.COMMON_FLAG_NO;
 
     /**
      * 所属标签，暂时不会查出来

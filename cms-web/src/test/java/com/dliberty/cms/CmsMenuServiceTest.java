@@ -3,12 +3,13 @@ package com.dliberty.cms;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.dliberty.cms.entity.CmsMenuEntity;
+import com.dliberty.cms.entity.CmsMenuLabelEntity;
 import com.dliberty.cms.entity.CmsMenuMaterialEntity;
 import com.dliberty.cms.entity.CmsMenuStepEntity;
 import com.dliberty.cms.service.CmsMenuEsService;
+import com.dliberty.cms.service.CmsMenuLabelService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeanUtils;
@@ -20,91 +21,56 @@ import com.dliberty.cms.service.CmsMenuMaterialService;
 import com.dliberty.cms.service.CmsMenuService;
 import com.dliberty.cms.service.CmsMenuStepService;
 import com.dliberty.cms.vo.CmsMenuVo;
+import org.springframework.util.CollectionUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = MenuApplication.class)
 public class CmsMenuServiceTest {
 
-	@Autowired
-	private CmsMenuEsService cmsMenuEsService;
-	@Autowired
-	private CmsMenuService cmsMenuService;
-	@Autowired
-	private CmsMenuStepService cmsMenuStepService;
-	@Autowired
-	private CmsMenuMaterialService cmsMenuMaterialService;
+    @Autowired
+    private CmsMenuEsService cmsMenuEsService;
+    @Autowired
+    private CmsMenuService cmsMenuService;
+    @Autowired
+    private CmsMenuStepService cmsMenuStepService;
+    @Autowired
+    private CmsMenuMaterialService cmsMenuMaterialService;
+    @Autowired
+    private CmsMenuLabelService cmsMenuLabelService;
 
-	@Test
-	public void deleteTest() {
-		cmsMenuEsService.deleteById(1+"");
-	}
-
-	@Test
-	public void saveTest() {
-
-		List<CmsMenuVo> list = new ArrayList<>();
-		
-		IPage<CmsMenuEntity> ipage = new Page<>(11, 5000);
-
-		IPage<CmsMenuEntity> page = cmsMenuService.page(ipage);
-
-		page.getRecords().stream().forEach(menu -> {
-
-			boolean existsById = cmsMenuEsService.existsById(menu.getId()+"");
-			if (!existsById) {
-
-				CmsMenuVo vo = new CmsMenuVo();
-				BeanUtils.copyProperties(menu, vo);
-				List<CmsMenuStepEntity> stepList = cmsMenuStepService.selectByMenuId(menu.getId());
-				vo.setStepList(stepList);
-				List<CmsMenuMaterialEntity> materialList = cmsMenuMaterialService.selectByMenuId(menu.getId());
-				vo.setMaterialList(materialList);
-
-				list.add(vo);
-			}
-
-		});
-
-		cmsMenuEsService.saveAll(list);
-
-	}
-
-	@Test
-	public void getTest() {
-		//long count = cmsMenuEsService.count();
-		boolean existsById = cmsMenuEsService.existsById(1+"");
-		System.out.println(existsById);
-	}
-
-//	@Test
-//	public void queryPageTest() {
-//		Page<CmsMenuVo> pageQuery = cmsMenuEsService.pageQuery(1, 20, "西兰花");
-//		System.out.println(pageQuery);
-//
-//	}
-	
-//	@Test
-//	public void getByIdsTest() {
-//		List<CmsMenuVo> byIds = cmsMenuEsService.getByIds(java.util.Arrays.asList(14854,14855,14856));
-//		System.out.println(byIds);
-//	}
-	
-//	@Test
-//	public void queryPageCateTest() {
-//		Page<CmsMenuVo> pageQuery = cmsMenuEsService.pageQueryByCateId(1, 20, 26);
-//		System.out.println(pageQuery);
-//
-//	}
-	
-	@Test
-	public void selectCollectionByUserIdTest() {
-		List<CmsMenuVo> menuList = cmsMenuService.selectCollectionByUserId(18l);
-		System.out.println(menuList);
-	}
-	
-	@Test
-	public void browseTest() {
-		cmsMenuService.browse(1L);
-	}
+    @Test
+    public void saveTest() {
+        long lastId = 0;
+        int size = 10;
+        while (true) {
+            LambdaQueryWrapper<CmsMenuEntity> wrapper =
+                    new LambdaQueryWrapper<CmsMenuEntity>()
+                            .gt(CmsMenuEntity::getId, lastId)
+                            .orderByAsc(CmsMenuEntity::getId)
+                            .last("LIMIT " + size);
+            List<CmsMenuEntity> cmsMenuEntityList = cmsMenuService.list(wrapper);
+            if (CollectionUtils.isEmpty(cmsMenuEntityList)) {
+                break;
+            }
+            lastId = cmsMenuEntityList.get(cmsMenuEntityList.size() - 1).getId();
+            System.out.println("最后ID" + lastId);
+            List<CmsMenuVo> cmsMenuVoList = new ArrayList<>();
+            cmsMenuEntityList.forEach(menu -> {
+                CmsMenuVo vo = new CmsMenuVo();
+                BeanUtils.copyProperties(menu, vo);
+                vo.setId(Long.toString(menu.getId()));
+                vo.setCreateTime(menu.getCreateTime());
+                vo.setUpdateTime(menu.getUpdateTime());
+                List<CmsMenuStepEntity> stepList = cmsMenuStepService.selectByMenuId(menu.getId());
+                vo.setStepList(stepList);
+                List<CmsMenuMaterialEntity> materialList = cmsMenuMaterialService.selectByMenuId(menu.getId());
+                vo.setMaterialList(materialList);
+                List<CmsMenuLabelEntity> labelList = cmsMenuLabelService.selectByMenuId(menu.getId());
+                vo.setLabelList(labelList);
+                cmsMenuVoList.add(vo);
+            });
+            cmsMenuEsService.saveAll(cmsMenuVoList);
+        }
+    }
 
 }

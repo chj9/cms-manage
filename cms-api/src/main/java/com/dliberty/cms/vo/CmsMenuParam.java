@@ -28,7 +28,7 @@ public class CmsMenuParam extends BaseVo {
 
 	private String menuTip;
 	
-	private Integer categoryId;
+	private Long categoryId;
     
     private String categoryName;
 
@@ -128,11 +128,11 @@ public class CmsMenuParam extends BaseVo {
 		this.labelList = labelList;
 	}
 
-	public Integer getCategoryId() {
+	public Long getCategoryId() {
 		return categoryId;
 	}
 
-	public void setCategoryId(Integer categoryId) {
+	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
 

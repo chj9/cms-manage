@@ -27,7 +27,6 @@ public class UmsRoleServiceImpl implements UmsRoleService {
 
     @Override
     public int create(UmsRoleEntity role) {
-        role.setCreateTime(new Date());
         role.setStatus(1);
         role.setAdminCount(0);
         role.setSort(0);

@@ -214,8 +214,7 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenuEntity
                 List<CmsMenuMaterialEntity> materialList = cmsMenuMaterialService.selectByMenuId(menu.getId());
                 vo.setMaterialList(materialList);
                 List<CmsMenuLabelEntity> labelList = cmsMenuLabelService.selectByMenuId(menu.getId());
-                vo.setLabels(labelList);
-
+                vo.setLabelList(labelList);
                 cmsMenuEsService.save(vo);
             }
         });

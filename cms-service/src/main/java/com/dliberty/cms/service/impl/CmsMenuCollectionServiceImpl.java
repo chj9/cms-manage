@@ -41,9 +41,6 @@ public class CmsMenuCollectionServiceImpl extends ServiceImpl<CmsMenuCollectionM
         CmsMenuCollectionEntity coll = new CmsMenuCollectionEntity();
         coll.setMenuId(menuId);
         coll.setUserId(userId);
-        coll.setCreateTime(new Date());
-        coll.setUpdateTime(new Date());
-        coll.setIsDeleted(Constants.COMMON_FLAG_NO);
         save(coll);
         cmsMenuService.collection(menuId, 1);
         return coll;
@@ -54,7 +51,6 @@ public class CmsMenuCollectionServiceImpl extends ServiceImpl<CmsMenuCollectionM
         List<CmsMenuCollectionEntity> collList = selectByMenuId(userId, menuId);
         if (collList != null && collList.size() > 0) {
             collList.forEach(item -> {
-                item.setUpdateTime(new Date());
                 item.setIsDeleted(Constants.COMMON_FLAG_YES);
             });
             updateBatchById(collList);

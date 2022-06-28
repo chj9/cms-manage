@@ -1,7 +1,11 @@
 package com.dliberty.cms.entity;
 
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
+@JsonIgnoreProperties(ignoreUnknown = true)
+@TableName(value = "ums_admin_role_relation", autoResultMap = true)
 public class UmsAdminRoleRelationEntity implements Serializable {
     private Long id;
 

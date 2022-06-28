@@ -5,15 +5,16 @@ import com.dliberty.cms.entity.CmsMenuMaterialEntity;
 import com.dliberty.cms.entity.CmsMenuStepEntity;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
 
 public class CmsMenuVo implements Serializable {
 
-	private static final long serialVersionUID = 2996056237154364425L;
+    private static final long serialVersionUID = 2996056237154364425L;
 
-	private String id;
+    private String id;
 
     private String menuName;
 
@@ -28,141 +29,141 @@ public class CmsMenuVo implements Serializable {
     private Integer collectNum;
 
     private String menuTip;
-    
+
     private Integer categoryId;
-    
+
     private String categoryName;
 
 
-    private Date createTime;
+    private Instant createTime;
 
-    private Date updateTime;
-    
-    
+    private Instant updateTime;
+
+
     private List<CmsMenuStepEntity> stepList;
-    
+
     private List<CmsMenuMaterialEntity> materialList;
-    
-    private List<CmsMenuLabelEntity> labels;
 
-	public String getId() {
-		return id;
-	}
+    private List<CmsMenuLabelEntity> labelList;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public String getMenuName() {
-		return menuName;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public void setMenuName(String menuName) {
-		this.menuName = menuName;
-	}
+    public String getMenuName() {
+        return menuName;
+    }
 
-	public String getMenuDesc() {
-		return menuDesc;
-	}
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
+    }
 
-	public void setMenuDesc(String menuDesc) {
-		this.menuDesc = menuDesc;
-	}
+    public String getMenuDesc() {
+        return menuDesc;
+    }
 
-	public String getMenuImg() {
-		return menuImg;
-	}
+    public void setMenuDesc(String menuDesc) {
+        this.menuDesc = menuDesc;
+    }
 
-	public void setMenuImg(String menuImg) {
-		this.menuImg = menuImg;
-	}
+    public String getMenuImg() {
+        return menuImg;
+    }
 
-	public String getMenuAuth() {
-		return menuAuth;
-	}
+    public void setMenuImg(String menuImg) {
+        this.menuImg = menuImg;
+    }
 
-	public void setMenuAuth(String menuAuth) {
-		this.menuAuth = menuAuth;
-	}
+    public String getMenuAuth() {
+        return menuAuth;
+    }
 
-	public Integer getBrowseNum() {
-		return browseNum;
-	}
+    public void setMenuAuth(String menuAuth) {
+        this.menuAuth = menuAuth;
+    }
 
-	public void setBrowseNum(Integer browseNum) {
-		this.browseNum = browseNum;
-	}
+    public Integer getBrowseNum() {
+        return browseNum;
+    }
 
-	public Integer getCollectNum() {
-		return collectNum;
-	}
+    public void setBrowseNum(Integer browseNum) {
+        this.browseNum = browseNum;
+    }
 
-	public void setCollectNum(Integer collectNum) {
-		this.collectNum = collectNum;
-	}
+    public Integer getCollectNum() {
+        return collectNum;
+    }
 
-	public String getMenuTip() {
-		return menuTip;
-	}
+    public void setCollectNum(Integer collectNum) {
+        this.collectNum = collectNum;
+    }
 
-	public void setMenuTip(String menuTip) {
-		this.menuTip = menuTip;
-	}
+    public String getMenuTip() {
+        return menuTip;
+    }
 
-	public Integer getCategoryId() {
-		return categoryId;
-	}
+    public void setMenuTip(String menuTip) {
+        this.menuTip = menuTip;
+    }
 
-	public void setCategoryId(Integer categoryId) {
-		this.categoryId = categoryId;
-	}
+    public Integer getCategoryId() {
+        return categoryId;
+    }
 
-	public String getCategoryName() {
-		return categoryName;
-	}
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
 
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
+    public String getCategoryName() {
+        return categoryName;
+    }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public Instant getCreateTime() {
+        return createTime;
+    }
 
-	public Date getUpdateTime() {
-		return updateTime;
-	}
+    public void setCreateTime(Instant createTime) {
+        this.createTime = createTime;
+    }
 
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
+    public Instant getUpdateTime() {
+        return updateTime;
+    }
 
-	public List<CmsMenuLabelEntity> getLabels() {
-		return labels;
-	}
+    public void setUpdateTime(Instant updateTime) {
+        this.updateTime = updateTime;
+    }
 
-	public void setLabels(List<CmsMenuLabelEntity> labels) {
-		this.labels = labels;
-	}
+    public List<CmsMenuLabelEntity> getLabelList() {
+        return labelList;
+    }
 
-	public List<CmsMenuStepEntity> getStepList() {
-		return stepList;
-	}
+    public void setLabelList(List<CmsMenuLabelEntity> labelList) {
+        this.labelList = labelList;
+    }
 
-	public void setStepList(List<CmsMenuStepEntity> stepList) {
-		this.stepList = stepList;
-	}
+    public List<CmsMenuStepEntity> getStepList() {
+        return stepList;
+    }
 
-	public List<CmsMenuMaterialEntity> getMaterialList() {
-		return materialList;
-	}
+    public void setStepList(List<CmsMenuStepEntity> stepList) {
+        this.stepList = stepList;
+    }
 
-	public void setMaterialList(List<CmsMenuMaterialEntity> materialList) {
-		this.materialList = materialList;
-	}
+    public List<CmsMenuMaterialEntity> getMaterialList() {
+        return materialList;
+    }
+
+    public void setMaterialList(List<CmsMenuMaterialEntity> materialList) {
+        this.materialList = materialList;
+    }
 
 }

@@ -2,6 +2,7 @@ package com.dliberty.cms.compont;
 
 import com.dliberty.cms.common.util.JwtTokenUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,11 +33,12 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 	private UserDetailsService myUserDetailsService;
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+	protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain chain)
 			throws ServletException, IOException {
-		
-		
-		String auth_token = request.getHeader(token_header);
+
+        String url = request.getRequestURI();
+        logger.info(String.format("请求的URI %s.", url));
+        String auth_token = request.getHeader(token_header);
 		
 		Enumeration<String> headerNames = request.getHeaderNames();
 		System.out.println(headerNames);

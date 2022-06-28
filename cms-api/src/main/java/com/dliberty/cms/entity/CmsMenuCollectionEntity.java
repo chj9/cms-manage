@@ -1,43 +1,32 @@
 package com.dliberty.cms.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.dliberty.cms.base.IdEntity;
+import com.dliberty.cms.common.constants.Constants;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author LG
  * @since 2019-06-14
  */
-public class CmsMenuCollectionEntity implements Serializable {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@TableName(value = "cms_menu_collection", autoResultMap = true)
+public class CmsMenuCollectionEntity extends IdEntity {
 
-    private static final long serialVersionUID = 1L;
-
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
 
     private Long userId;
 
     private Long menuId;
 
-    private Date createTime;
+    private Integer isDeleted = Constants.COMMON_FLAG_NO;
 
-    private Date updateTime;
-
-    private Integer isDeleted;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
     public Long getUserId() {
         return userId;
     }
@@ -45,6 +34,7 @@ public class CmsMenuCollectionEntity implements Serializable {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
     public Long getMenuId() {
         return menuId;
     }
@@ -52,20 +42,7 @@ public class CmsMenuCollectionEntity implements Serializable {
     public void setMenuId(Long menuId) {
         this.menuId = menuId;
     }
-    public Date getCreateTime() {
-        return createTime;
-    }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
     public Integer getIsDeleted() {
         return isDeleted;
     }
@@ -77,12 +54,9 @@ public class CmsMenuCollectionEntity implements Serializable {
     @Override
     public String toString() {
         return "CmsMenuCollection{" +
-        "id=" + id +
-        ", userId=" + userId +
-        ", menuId=" + menuId +
-        ", createTime=" + createTime +
-        ", updateTime=" + updateTime +
-        ", isDeleted=" + isDeleted +
-        "}";
+                ", userId=" + userId +
+                ", menuId=" + menuId +
+                ", isDeleted=" + isDeleted +
+                "}";
     }
 }

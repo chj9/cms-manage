@@ -59,9 +59,7 @@ public class RowsResultModel<T> {
 
     public RowsResultModel() {
         super();
-        if (this.pageInfo == null) {
-            this.pageInfo = new PageInfo();
-        }
+        this.pageInfo = new PageInfo();
     }
 
 	public String getCode() {

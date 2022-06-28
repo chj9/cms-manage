@@ -146,7 +146,6 @@ public class FileServiceImpl implements FileService {
 			ossClient.deleteObject(bucketName, objectName);
 			// 关闭Client。
 			ossClient.shutdown();
-			docFile.setIsDeleted("1");
 			docFileService.update(docFile);
 		} catch(Exception e) {
 			logger.warn("删除oss文件发生异常{}",e.getMessage());

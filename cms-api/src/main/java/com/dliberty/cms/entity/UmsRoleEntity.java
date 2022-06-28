@@ -1,8 +1,14 @@
 package com.dliberty.cms.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Date;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@TableName(value = "ums_role", autoResultMap = true)
 public class UmsRoleEntity implements Serializable {
     private Long id;
 
@@ -19,7 +25,7 @@ public class UmsRoleEntity implements Serializable {
      * @mbggenerated
      */
     private String description;
-    
+
     /**
      * 角色code
      */
@@ -37,7 +43,7 @@ public class UmsRoleEntity implements Serializable {
      *
      * @mbggenerated
      */
-    private Date createTime;
+    private Instant createTime;
 
     /**
      * 启用状态：0->禁用；1->启用
@@ -82,11 +88,11 @@ public class UmsRoleEntity implements Serializable {
         this.adminCount = adminCount;
     }
 
-    public Date getCreateTime() {
+    public Instant getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(Instant createTime) {
         this.createTime = createTime;
     }
 
@@ -105,17 +111,17 @@ public class UmsRoleEntity implements Serializable {
     public void setSort(Integer sort) {
         this.sort = sort;
     }
-    
+
 
     public String getCode() {
-		return code;
-	}
+        return code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	@Override
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());

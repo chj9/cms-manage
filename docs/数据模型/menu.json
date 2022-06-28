@@ -1,0 +1,70 @@
+{
+  "settings": {
+    "number_of_replicas": 0,
+    "number_of_shards": 1
+  },
+  "mappings": {
+    "properties": {
+      "searchText": {
+        "type": "text"
+      },
+      "id": {
+        "type": "keyword"
+      },
+      "categoryId": {
+        "type": "keyword"
+      },
+      "menuTip": {
+        "type": "keyword"
+      },
+      "createTime": {
+        "type": "keyword"
+      },
+      "menuName": {
+        "type": "keyword",
+        "copy_to": "searchText"
+      },
+      "menuDesc": {
+        "type": "keyword",
+        "copy_to": "searchText"
+      },
+      "categoryName": {
+        "type": "keyword",
+        "copy_to": "searchText"
+      },
+      "stepList": {
+        "type": "nested",
+        "dynamic": false,
+        "properties": {
+          "stepDesc": {
+            "type": "keyword",
+            "copy_to": "searchText"
+          }
+        }
+      },
+      "materialList": {
+        "type": "nested",
+        "dynamic": false,
+        "properties": {
+          "materialName": {
+            "type": "keyword",
+            "copy_to": "searchText"
+          }
+        }
+      },
+      "labelList": {
+        "type": "nested",
+        "dynamic": false,
+        "properties": {
+          "labelName": {
+            "type": "keyword",
+            "copy_to": "searchText"
+          },
+          "id": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  }
+}

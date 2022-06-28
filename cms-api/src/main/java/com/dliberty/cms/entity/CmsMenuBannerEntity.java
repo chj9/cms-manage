@@ -2,24 +2,25 @@ package com.dliberty.cms.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.dliberty.cms.base.IdEntity;
+import com.dliberty.cms.common.constants.Constants;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author LG
  * @since 2019-09-03
  */
-public class CmsMenuBannerEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+@JsonIgnoreProperties(ignoreUnknown = true)
+@TableName(value = "cms_menu_banner", autoResultMap = true)
+public class CmsMenuBannerEntity extends IdEntity {
 
     /**
      * banner名称
@@ -40,27 +41,16 @@ public class CmsMenuBannerEntity implements Serializable {
      * banner图片
      */
     private String bannerImg;
-
     /**
      * 排序
      */
     private Integer sort;
-    
+
     private Integer bannerType;
 
-    private Integer isDeleted;
+    private Integer isDeleted = Constants.COMMON_FLAG_NO;
 
-    private Date createTime;
 
-    private Date updateTime;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
     public String getBannerName() {
         return bannerName;
     }
@@ -68,6 +58,7 @@ public class CmsMenuBannerEntity implements Serializable {
     public void setBannerName(String bannerName) {
         this.bannerName = bannerName;
     }
+
     public String getBannerUrl() {
         return bannerUrl;
     }
@@ -75,6 +66,7 @@ public class CmsMenuBannerEntity implements Serializable {
     public void setBannerUrl(String bannerUrl) {
         this.bannerUrl = bannerUrl;
     }
+
     public Integer getRedirectType() {
         return redirectType;
     }
@@ -82,6 +74,7 @@ public class CmsMenuBannerEntity implements Serializable {
     public void setRedirectType(Integer redirectType) {
         this.redirectType = redirectType;
     }
+
     public String getBannerImg() {
         return bannerImg;
     }
@@ -89,6 +82,7 @@ public class CmsMenuBannerEntity implements Serializable {
     public void setBannerImg(String bannerImg) {
         this.bannerImg = bannerImg;
     }
+
     public Integer getSort() {
         return sort;
     }
@@ -96,6 +90,7 @@ public class CmsMenuBannerEntity implements Serializable {
     public void setSort(Integer sort) {
         this.sort = sort;
     }
+
     public Integer getIsDeleted() {
         return isDeleted;
     }
@@ -104,29 +99,13 @@ public class CmsMenuBannerEntity implements Serializable {
         this.isDeleted = isDeleted;
     }
 
-	public Date getCreateTime() {
-		return createTime;
-	}
+    public Integer getBannerType() {
+        return bannerType;
+    }
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
+    public void setBannerType(Integer bannerType) {
+        this.bannerType = bannerType;
+    }
 
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
-	public Integer getBannerType() {
-		return bannerType;
-	}
-
-	public void setBannerType(Integer bannerType) {
-		this.bannerType = bannerType;
-	}
-    
 
 }

@@ -25,7 +25,6 @@ public class UmsPermissionServiceImpl implements UmsPermissionService {
     @Override
     public int create(UmsPermissionEntity permission) {
         permission.setStatus(1);
-        permission.setCreateTime(new Date());
         permission.setSort(0);
         return permissionMapper.insert(permission);
     }
