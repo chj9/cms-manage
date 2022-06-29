@@ -5,13 +5,13 @@ server:
 debug: false
 spring:
   datasource:
-    url: jdbc:mysql://172.17.20.116:3306/menu?useUnicode=true&characterEncoding=utf8&useSSL=true&verifyServerCertificate=false
+    url: jdbc:mysql://10.0.16.15:3306/menu?useUnicode=true&characterEncoding=utf8&useSSL=true&verifyServerCertificate=false
     username: root
     password: _aeU8O0lAWi3
     driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
     database: 0
-    host: 124.223.78.203:6379
+    host: 10.0.16.15:6379
     port: 6379
     password: _aeU8O0lAWi3
     timeout: 2000
@@ -22,7 +22,7 @@ spring:
         max-wait:
 
 elasticsearch:
-  hosts: 172.17.20.116:9200
+  hosts: 10.0.16.15:9200
   username: elastic
   password: XcxcPfKAaNdpBVIqTY9k
 
