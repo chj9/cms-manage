@@ -1,0 +1,5 @@
+FROM openjdk:11.0.15-jdk-slim
+CMD ["/bin/sh","-c","mkdir","-p","/opt/run"]
+COPY ./cms-menu/target/cms-menu.jar /opt/run/app.jar
+WORKDIR /opt/run
+ENTRYPOINT ["java","-jar","app.jar"]
