@@ -16,8 +16,7 @@ jobs:
           distribution: 'adopt'
       - name: Build with Maven
         run: |
-              pwd
-              mvn -B clean package  -pl cms-menu -am -D maven.test.skip=true
+              mvn -B clean package  -pl com.chen9:cms-menu -am -D maven.test.skip=true
 
       - name: Check out the repo
         uses: actions/checkout@v3
