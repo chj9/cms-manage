@@ -16,7 +16,7 @@
 	<modules>
 		<module>cms-dao</module>
 		<module>cms-api</module>
-		<module>cms-web</module>
+		<module>cms-menu</module>
 		<module>cms-service</module>
     	<module>cms-admin</module>
         <module>cms-core</module>
