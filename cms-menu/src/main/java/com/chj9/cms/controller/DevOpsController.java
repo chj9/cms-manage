@@ -56,7 +56,7 @@ public class DevOpsController extends BaseController {
             lastId = cmsMenuEntityList.get(cmsMenuEntityList.size() - 1).getId();
             LOGGER.message("数据同步").context("lastId",lastId).info();
             List<CmsMenuVo> cmsMenuVoList = new ArrayList<>();
-            cmsMenuEntityList.forEach(menu -> {
+            cmsMenuEntityList.parallelStream().forEach(menu -> {
                 CmsMenuVo vo = new CmsMenuVo();
                 BeanUtils.copyProperties(menu, vo);
                 vo.setId(Long.toString(menu.getId()));
