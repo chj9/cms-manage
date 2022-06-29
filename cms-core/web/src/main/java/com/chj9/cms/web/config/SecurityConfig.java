@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/menu/**","/menu/view/*","/menu/cate/view/*","/hello/home","/user/login","/admin/register","/favicon.ico","/admin/login","/admin/getSessionKeyOropenid").permitAll()
+                .antMatchers("/devops/syncMenuTEs","/menu/**","/menu/view/*","/menu/cate/view/*","/hello/home","/user/login","/admin/register","/favicon.ico","/admin/login","/admin/getSessionKeyOropenid").permitAll()
                 .anyRequest()// 除上面外的所有请求全部需要鉴权认证
                 .authenticated();
         // 禁用缓存
