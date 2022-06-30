@@ -105,7 +105,7 @@ public class CmsMenuCategoryServiceImpl extends ServiceImpl<CmsMenuCategoryMappe
     }
 
     @Override
-    public PageDTO<CmsMenuCategoryEntity> listPage(Integer parentId, PageParam pageParam, CmsMenuCategoryQueryParam param) {
+    public PageDTO<CmsMenuCategoryEntity> listPage(Long parentId, PageParam pageParam, CmsMenuCategoryQueryParam param) {
         QueryWrapper<CmsMenuCategoryEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("parent_id", parentId);
         queryWrapper.eq("is_deleted", Constants.COMMON_FLAG_NO);

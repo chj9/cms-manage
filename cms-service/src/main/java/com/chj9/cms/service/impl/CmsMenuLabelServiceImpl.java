@@ -60,7 +60,7 @@ public class CmsMenuLabelServiceImpl extends ServiceImpl<CmsMenuLabelMapper, Cms
 	}
 
 	@Override
-	public CmsMenuLabelEntity update(Integer id, CmsMenuLabelParam param) {
+	public CmsMenuLabelEntity update(Long id, CmsMenuLabelParam param) {
 		CmsMenuLabelEntity label = getById(id);
 		if (label != null) {
 			BeanUtils.copyProperties(param, label);
@@ -70,7 +70,7 @@ public class CmsMenuLabelServiceImpl extends ServiceImpl<CmsMenuLabelMapper, Cms
 	}
 
 	@Override
-	public void delete(Integer id) {
+	public void delete(Long id) {
 		CmsMenuLabelEntity label = getById(id);
 		if (label != null) {
 			label.setIsDeleted(Constants.COMMON_FLAG_YES);

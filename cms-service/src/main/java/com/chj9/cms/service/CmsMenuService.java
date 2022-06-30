@@ -28,7 +28,7 @@ public interface CmsMenuService extends IService<CmsMenuEntity> {
      * @param param
      * @return
      */
-    PageDTO<CmsMenuVo> listPageEs(CmsMenuQueryParam param, PageParam pageParam);
+    PageDTO<CmsMenuVo> listPageEs(CmsMenuQueryParam queryParam, PageParam pageParam);
 
     /**
      * 搜索引擎查询
@@ -44,7 +44,7 @@ public interface CmsMenuService extends IService<CmsMenuEntity> {
      * @param param
      * @return
      */
-    IPage<CmsMenuEntity> listPage(CmsMenuQueryParam param,PageParam pageParam);
+    PageDTO<CmsMenuEntity> listPage(CmsMenuQueryParam param,PageParam pageParam);
 
 
     /**

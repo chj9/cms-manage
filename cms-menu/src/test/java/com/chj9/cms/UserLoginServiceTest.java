@@ -1,6 +1,6 @@
 package com.chj9.cms;
 
-import com.chj9.cms.service.UserLoginService;
+import com.chj9.cms.service.impl.UserLoginService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

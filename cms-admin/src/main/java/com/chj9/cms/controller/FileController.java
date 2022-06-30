@@ -1,8 +1,10 @@
-package com.chj9.cms.web.controller;
+package com.chj9.cms.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chj9.cms.common.exception.CommonException;
+import com.chj9.cms.common.vo.JsonBean;
 import com.chj9.cms.service.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.dliberty.cms.exception.CommonException;
-import com.dliberty.cms.vo.JsonBean;
 
 @RestController
 @RequestMapping("/admin/file")
@@ -26,7 +26,7 @@ public class FileController {
     FileService fileService;
 	
 	@PostMapping("/upload")
-	public JsonBean upload(HttpServletRequest request,HttpServletResponse response) {
+	public JsonBean upload(HttpServletRequest request, HttpServletResponse response) {
 		
 		logger.info("上传文件");
 		MultipartHttpServletRequest req = (MultipartHttpServletRequest) request;

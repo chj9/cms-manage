@@ -51,13 +51,13 @@ public interface CmsMenuLabelService extends IService<CmsMenuLabelEntity> {
 	 * @param param
 	 * @return
 	 */
-	CmsMenuLabelEntity update(Integer id,CmsMenuLabelParam param);
+	CmsMenuLabelEntity update(Long id,CmsMenuLabelParam param);
 	
 	/**
 	 * 删除
 	 * @param id
 	 */
-	void delete(Integer id);
+	void delete(Long id);
 	
 
 }

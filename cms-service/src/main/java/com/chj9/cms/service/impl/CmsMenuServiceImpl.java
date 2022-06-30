@@ -97,7 +97,7 @@ public class CmsMenuServiceImpl extends ServiceImpl<CmsMenuMapper, CmsMenuEntity
      * @return
      */
     @Override
-    public IPage<CmsMenuEntity> listPage(CmsMenuQueryParam param,PageParam pageParam) {
+    public PageDTO<CmsMenuEntity> listPage(CmsMenuQueryParam param,PageParam pageParam) {
         LambdaQueryWrapper<CmsMenuEntity> wrapper = new LambdaQueryWrapper<>();
         if (StringUtils.isNotEmpty(param.getKeyword())) {
             wrapper.like(CmsMenuEntity::getMenuName, param.getKeyword());

@@ -1,5 +1,7 @@
 package com.chj9.cms.web.compont;
 
+import com.chj9.cms.common.logging.SouthernQuietLogger;
+import com.chj9.cms.common.logging.SouthernQuietLoggerFactory;
 import com.chj9.cms.common.util.JwtTokenUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -21,8 +23,12 @@ import java.io.IOException;
 import java.util.Enumeration;
 
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
-	
-	@Value("${jwt.header}")
+
+    private static final SouthernQuietLogger logger = SouthernQuietLoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
+
+
+
+    @Value("${jwt.header}")
     private String token_header;
 	@Value("${jwt.tokenHead}")
 	private String tokenHead;
@@ -37,24 +43,22 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 
         String url = request.getRequestURI();
-        logger.info(String.format("请求的URI %s.", url));
+        logger.message("请求的URI").context("uri",url).info();
+
         String auth_token = request.getHeader(token_header);
-		
-		Enumeration<String> headerNames = request.getHeaderNames();
-		System.out.println(headerNames);
         final String auth_token_start = tokenHead;
+
         if (StringUtils.isNotEmpty(auth_token) && auth_token.startsWith(auth_token_start)) {
             auth_token = auth_token.substring(auth_token_start.length());
             String username = jwtTokenUtil.getUserNameFromToken(auth_token);
-
-            logger.info(String.format("Checking authentication for user %s.", username));
+            logger.message("Checking authentication for user").context("username",username).debug();
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             	UserDetails userDetails = this.myUserDetailsService.loadUserByUsername(username);
                 if (jwtTokenUtil.validateToken(auth_token, userDetails)) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    logger.info(String.format("Authenticated user %s, setting security context", username));
+                    logger.message("setting security context").context("username",username).debug();
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }

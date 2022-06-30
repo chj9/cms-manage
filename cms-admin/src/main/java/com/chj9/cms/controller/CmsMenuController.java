@@ -1,5 +1,11 @@
-package com.chj9.cms.web.controller;
+package com.chj9.cms.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
+import com.chj9.cms.api.entity.CmsMenuEntity;
+import com.chj9.cms.common.page.PageParam;
+import com.chj9.cms.common.util.RowsResultModelBuilder;
+import com.chj9.cms.common.vo.JsonBean;
+import com.chj9.cms.common.vo.RowsResultModel;
 import com.chj9.cms.service.CmsMenuService;
 import com.chj9.cms.api.vo.CmsMenuAddOrModifyParam;
 import com.chj9.cms.api.vo.CmsMenuQueryParam;
@@ -15,12 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.dliberty.cms.dao.entity.CmsMenu;
-import com.dliberty.cms.util.RowsResultModelBuilder;
-import com.dliberty.cms.vo.JsonBean;
-import com.dliberty.cms.vo.PageInfo;
-import com.dliberty.cms.vo.RowsResultModel;
 
 @RestController
 @RequestMapping("/admin/menu")
@@ -32,15 +32,14 @@ public class CmsMenuController {
     CmsMenuService cmsMenuService;
 
 	@GetMapping("/list")
-	public RowsResultModel<CmsMenu> getList(CmsMenuQueryParam param, PageInfo pageInfo) {
-		param.setPageInfo(pageInfo);
-		IPage<CmsMenu> listPage = cmsMenuService.listPage(param);
+	public RowsResultModel<CmsMenuEntity> getList(CmsMenuQueryParam param, PageParam pageParam) {
+		PageDTO<CmsMenuEntity> listPage = cmsMenuService.listPage(param,pageParam);
 		return RowsResultModelBuilder.of(listPage);
 	}
 	
 	@GetMapping("/{id}")
 	public JsonBean get(@PathVariable("id")Integer id) {
-		CmsMenu menu = cmsMenuService.getById(id);
+		CmsMenuEntity menu = cmsMenuService.getById(id);
 		JsonBean json = new JsonBean();
 		json.put("menu", menu);
 		return json;
@@ -56,7 +55,7 @@ public class CmsMenuController {
 	@PostMapping("/update/{id}")
 	public JsonBean update(@PathVariable("id")Integer id,@Validated @RequestBody CmsMenuAddOrModifyParam param) {
 		logger.info("修改id={}的菜谱 param={}",id,JSONObject.toJSONString(param));
-		CmsMenu menu = cmsMenuService.update(id, param);
+		CmsMenuEntity menu = cmsMenuService.update(id, param);
 		JsonBean json = new JsonBean();
 		json.put("menu", menu);
 		return json;

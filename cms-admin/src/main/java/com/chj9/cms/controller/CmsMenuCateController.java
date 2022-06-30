@@ -1,7 +1,13 @@
-package com.chj9.cms.web.controller;
+package com.chj9.cms.controller;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
+import com.chj9.cms.api.entity.CmsMenuCategoryEntity;
+import com.chj9.cms.common.page.PageParam;
+import com.chj9.cms.common.util.RowsResultModelBuilder;
+import com.chj9.cms.common.vo.JsonBean;
+import com.chj9.cms.common.vo.RowsResultModel;
 import com.chj9.cms.service.CmsMenuCategoryService;
 import com.chj9.cms.api.vo.CmsMenuCateParam;
 import com.chj9.cms.api.vo.CmsMenuCategoryQueryParam;
@@ -17,12 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.dliberty.cms.dao.entity.CmsMenuCategory;
-import com.dliberty.cms.util.RowsResultModelBuilder;
-import com.dliberty.cms.vo.JsonBean;
-import com.dliberty.cms.vo.PageInfo;
-import com.dliberty.cms.vo.RowsResultModel;
 
 @RestController
 @RequestMapping("/admin/category")
@@ -34,19 +34,18 @@ public class CmsMenuCateController {
 	private CmsMenuCategoryService cmsMenuCategoryService;
 
 	@GetMapping("/list/{parentId}")
-	public JsonBean list(@PathVariable("parentId")Integer parentId) {
-		if (parentId == null) parentId = -1;
-		List<CmsMenuCategory> cateList = cmsMenuCategoryService.selectByParentId(parentId);
+	public JsonBean list(@PathVariable("parentId")Long parentId) {
+		if (parentId == null) parentId = -1L;
+		List<CmsMenuCategoryEntity> cateList = cmsMenuCategoryService.selectByParentId(parentId);
 		JsonBean json = new JsonBean();
 		json.put("cateList", cateList);
 		return json;
 	}
 	
 	@GetMapping("/productCategory/list/{parentId}")
-	public RowsResultModel<CmsMenuCategory> productCategory(@PathVariable("parentId")Integer parentId, CmsMenuCategoryQueryParam param, PageInfo pageInfo) {
-		if (parentId == null) parentId = -1;
-		param.setPageInfo(pageInfo);
-		IPage<CmsMenuCategory> listPage = cmsMenuCategoryService.listPage(parentId, param);
+	public RowsResultModel<CmsMenuCategoryEntity> productCategory(@PathVariable("parentId")Long parentId, CmsMenuCategoryQueryParam param, PageParam pageParam) {
+		if (parentId == null) parentId = -1L;
+		PageDTO<CmsMenuCategoryEntity> listPage = cmsMenuCategoryService.listPage(parentId,pageParam, param);
 		return RowsResultModelBuilder.of(listPage);
 	}
 	
@@ -58,9 +57,9 @@ public class CmsMenuCateController {
 	}
 	
 	@GetMapping("/select/{id}")
-	public JsonBean select(@PathVariable("id")Integer id) {
+	public JsonBean select(@PathVariable("id")Long id) {
 		logger.info("查找id={}的菜谱分类",id);
-		CmsMenuCategory category = cmsMenuCategoryService.getById(id);
+		CmsMenuCategoryEntity category = cmsMenuCategoryService.getById(id);
 		JsonBean json = new JsonBean();
 		json.put("category", category);
 		return json;
@@ -69,7 +68,7 @@ public class CmsMenuCateController {
 	@PostMapping("/create")
 	public JsonBean create(@Validated @RequestBody CmsMenuCateParam param) {
 		logger.info("创建菜谱分类param={}",JSONObject.toJSONString(param));
-		CmsMenuCategory category = cmsMenuCategoryService.create(param);
+		CmsMenuCategoryEntity category = cmsMenuCategoryService.create(param);
 		JsonBean json = new JsonBean();
 		json.put("category", category);
 		return json;
@@ -78,7 +77,7 @@ public class CmsMenuCateController {
 	@PostMapping("/update/{id}")
 	public JsonBean update(@PathVariable("id")Integer id,@Validated @RequestBody CmsMenuCateParam param) {
 		logger.info("修改id={}的菜谱分类param={}",id,JSONObject.toJSONString(param));
-		CmsMenuCategory category = cmsMenuCategoryService.update(id, param);
+		CmsMenuCategoryEntity category = cmsMenuCategoryService.update(id, param);
 		JsonBean json = new JsonBean();
 		json.put("category", category);
 		return json;

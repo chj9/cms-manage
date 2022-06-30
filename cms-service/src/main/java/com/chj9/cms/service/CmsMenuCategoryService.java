@@ -55,7 +55,7 @@ public interface CmsMenuCategoryService extends IService<CmsMenuCategoryEntity> 
 	 * @param param
 	 * @return
 	 */
-	public PageDTO<CmsMenuCategoryEntity> listPage(Integer parentId, PageParam pageParam, CmsMenuCategoryQueryParam param);
+	public PageDTO<CmsMenuCategoryEntity> listPage(Long parentId, PageParam pageParam, CmsMenuCategoryQueryParam param);
 	
 	/**
 	 * 删除

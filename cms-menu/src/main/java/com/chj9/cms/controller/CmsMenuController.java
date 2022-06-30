@@ -23,9 +23,7 @@ public class CmsMenuController extends BaseController {
 
     @GetMapping("list")
     public RowsResultModel<CmsMenuVo> list(CmsMenuQueryParam queryParam, PageParam pageParam) {
-        PageDTO<CmsMenuVo> listPage = cmsMenuService.listPageEs(queryParam, pageParam);
-//        PageResult<CmsMenuVo> pageResult =
-//                new PageResult<>(pageParam, listPage.getRecords(), listPage.getTotal(), listPage.getPages());
+        PageDTO<CmsMenuVo> listPage = cmsMenuService.listPageEs(queryParam,pageParam);
         return RowsResultModelBuilder.of(listPage);
     }
 

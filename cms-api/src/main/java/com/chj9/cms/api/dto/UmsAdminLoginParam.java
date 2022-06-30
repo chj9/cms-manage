@@ -13,6 +13,15 @@ public class UmsAdminLoginParam {
     @NotBlank(message = "密码不能为空")
     private String password;
 
+    public UmsAdminLoginParam() {
+    }
+
+    public UmsAdminLoginParam(String username, String password) {
+
+        this.password = password;
+        this.username = username;
+    }
+
     public String getUsername() {
         return username;
     }

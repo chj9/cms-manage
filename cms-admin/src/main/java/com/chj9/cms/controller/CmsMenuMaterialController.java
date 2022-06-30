@@ -1,7 +1,7 @@
-package com.chj9.cms.web.controller;
+package com.chj9.cms.controller;
 
-import java.util.List;
-
+import com.chj9.cms.api.entity.CmsMenuMaterialEntity;
+import com.chj9.cms.common.vo.JsonBean;
 import com.chj9.cms.service.CmsMenuMaterialService;
 import com.chj9.cms.api.vo.CmsMenuMaterialParam;
 import org.slf4j.Logger;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.dliberty.cms.dao.entity.CmsMenuMaterial;
-import com.dliberty.cms.vo.JsonBean;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin/material")
@@ -29,15 +29,15 @@ public class CmsMenuMaterialController {
     CmsMenuMaterialService cmsMenuMaterialService;
 
 	@GetMapping("/select/{menuId}")
-	public JsonBean getList(@PathVariable("menuId")Integer menuId) {
-		List<CmsMenuMaterial> materialList = cmsMenuMaterialService.selectByMenuId(menuId);
+	public JsonBean getList(@PathVariable("menuId")Long menuId) {
+		List<CmsMenuMaterialEntity> materialList = cmsMenuMaterialService.selectByMenuId(menuId);
 		JsonBean json = new JsonBean();
 		json.put("materialList", materialList);
 		return json;
 	}
 	
 	@PostMapping("/update/{id}")
-	public JsonBean update(@PathVariable("id")Integer id,@Validated @RequestBody CmsMenuMaterialParam param) {
+	public JsonBean update(@PathVariable("id")Long id,@Validated @RequestBody CmsMenuMaterialParam param) {
 		logger.info("修改id={}的菜谱用料param={}",id,JSONObject.toJSONString(param));
 		cmsMenuMaterialService.update(id, param);
 		return new JsonBean();

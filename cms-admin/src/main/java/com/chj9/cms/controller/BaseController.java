@@ -1,4 +1,4 @@
-package com.chj9.cms.web.controller;
+package com.chj9.cms.controller;
 
 import com.chj9.cms.api.entity.UsersEntity;
 import com.chj9.cms.service.UsersService;
