@@ -16,11 +16,11 @@ public class UserLoginServiceTest {
 	
 	@Test
 	public void loginTest() {
-		myUserService.login("o8FtK5GJ8ldqgSrv8wMPKli8mv5A", "o8FtK5GJ8ldqgSrv8wMPKli8mv5A");
+		//myUserService.login("o8FtK5GJ8ldqgSrv8wMPKli8mv5A", "o8FtK5GJ8ldqgSrv8wMPKli8mv5A");
 	}
 	
-	@Test
-	public void registerTest() {
-		myUserService.register("o8FtK5GJ8ldqgSrv8wMPKli8mv5A", "o8FtK5GJ8ldqgSrv8wMPKli8mv5A");
-	}
+	//@Test
+	//public void registerTest() {
+	//	myUserService.register("o8FtK5GJ8ldqgSrv8wMPKli8mv5A", "o8FtK5GJ8ldqgSrv8wMPKli8mv5A");
+	//}
 }

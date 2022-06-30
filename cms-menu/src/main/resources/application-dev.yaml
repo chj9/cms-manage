@@ -1,3 +1,6 @@
+jasypt:
+  encryptor:
+    password: ${JASYPT_ENCRYPTOR_PASSWORD}
 server:
   port: 8088
   servlet:
@@ -5,15 +8,16 @@ server:
 debug: false
 spring:
   datasource:
-    url: jdbc:mysql://172.17.20.116:30339/food?useUnicode=true&characterEncoding=utf8&useSSL=true&verifyServerCertificate=false
-    username: root
-    password: qwerty123
+    url: ENC(fDX0QxPuln7Q79Y/KKADCrdPS02hKetyjG7PrzV6JV3V0qBxar9vTlUafg+K938koKqQyF3fXy+ezvi8zIuMpQWRMvp75EuhsY2mPgEJ2sLJB9vA1PUi4avzTkCivhPwzahb1g6u3dbMrZ7Tg0ZdEDCwC3IG+cYzcZ0LsXSIWww=)
+    username: ENC(bfDXh4mNmp24i8KVzcFZcg==)
+    password: ENC(L2IbRsw6psWMuy/S4mtKTEch/miiQbC0)
     driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
   redis:
     database: 0
-    host: 172.17.20.45:6379
+    host: ENC(8wLiCFmNNDnmDrwpHbYqA++55CloK/tFmy0DBaViT8g=)
     port: 6379
-    password: _aeU8O0lAWi3
+    password: ENC(Lo8I59d/K8RjE0E2BW2fHancN8JV4pTL)
     timeout: 2000
     jedis:
       pool:
@@ -22,9 +26,9 @@ spring:
         max-wait:
 
 elasticsearch:
-  hosts: 172.17.20.45:9200
-  username: atai
-  password: 123456
+  hosts: ENC(bON/m1Yy2AU3WoWm+C7Ie4Y26sO9q9TUa5oIvG1wyGk=)
+  username: elastic
+  password: ENC(XA/CO4ewI1znptOnKJGouxCix7wGAkXaQsY92M9SkgE=)
 
 jwt:
   header: Authorization

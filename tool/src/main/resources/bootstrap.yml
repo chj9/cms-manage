@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: dev
+  main:
+    bannerMode: "off"
+  application:
+    name: @artifactId@
+
+
+

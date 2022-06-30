@@ -1,0 +1,41 @@
+jasypt:
+  encryptor:
+    password: 9o2zuJPJ4qCreChLgk0L
+spring:
+  datasource:
+    url: ENC(fDX0QxPuln7Q79Y/KKADCrdPS02hKetyjG7PrzV6JV3V0qBxar9vTlUafg+K938koKqQyF3fXy+ezvi8zIuMpQWRMvp75EuhsY2mPgEJ2sLJB9vA1PUi4avzTkCivhPwzahb1g6u3dbMrZ7Tg0ZdEDCwC3IG+cYzcZ0LsXSIWww=)
+    username: ENC(bfDXh4mNmp24i8KVzcFZcg==)
+    password: ENC(L2IbRsw6psWMuy/S4mtKTEch/miiQbC0)
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+jcode:
+  author: developer
+  base-package: com.chj9.cms
+  gen-controller: true
+  gen-service-interface: true
+  gen-service: true
+  gen-entity: true
+  gen-mapper-xml: true
+  gen-dao: true
+  gen-methods:
+    - page
+    - list
+    - get
+    - save
+    - delete
+  strip-prefix: t_
+  ignore-properties:
+    - id
+    - createdAt
+    - updatedAt
+    - schemeVersion
+    - createdByRuntime
+    - updatedByRuntime
+    - deletedByRuntime
+    - deletedAt
+    - deleted
+  catalog: cms
+  schema-name: cms
+  table-names: cms_wx_user

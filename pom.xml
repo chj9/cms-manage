@@ -20,7 +20,8 @@
 		<module>cms-service</module>
     	<module>cms-admin</module>
         <module>cms-core</module>
-	</modules>
+        <module>tool</module>
+    </modules>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
