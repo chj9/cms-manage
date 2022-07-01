@@ -158,7 +158,7 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
         LOGGER.message("Query")
                 .context("pageNo", pageParam.getCurrent())
                 .context("pageSize", pageParam.getSize())
-                .context("CmsMenuVo", param)
+                .context("pageOffset", pageParam.getOffset())
                 .info();
         try {
             Query finalSearchTextQuery = handleQuery(param);
@@ -167,7 +167,7 @@ public class CmsMenuEsServiceImpl implements CmsMenuEsService {
                     .query(finalSearchTextQuery)
                     .from(pageParam.getOffset())
                     .size(pageParam.getSize())
-                    .sort(handleSort())
+                    //.sort(handleSort())
             );
             SearchResponse<JsonNode> response = esService.search(searchRequest);
             TotalHits totalHits = response.hits().total();

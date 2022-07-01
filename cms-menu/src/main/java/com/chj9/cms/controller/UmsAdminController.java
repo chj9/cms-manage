@@ -2,6 +2,8 @@ package com.chj9.cms.controller;
 
 import java.util.List;
 
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.chj9.cms.common.exception.CommonException;
 import com.chj9.cms.common.util.HttpClientUtils;
 import com.chj9.cms.common.vo.JsonBean;
@@ -14,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.alibaba.fastjson.JSONObject;
-
 /**
  * 后台用户管理
  * Created by macro on 2018/4/26.
@@ -59,7 +58,7 @@ public class UmsAdminController extends BaseController {
 		String requestUrl = "https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code";
 		String wxUrl = String.format(requestUrl, appId, secret, code);
 		String responseContent = HttpClientUtils.responseGet(wxUrl);
-		JSONObject json = JSONObject.parseObject(responseContent);
+        JSONObject json = JSONUtil.parse(responseContent);
 		if (json != null) {
 			String openId = json.getString("openid");
 			String token = myUserService.loginWeixin(openId);

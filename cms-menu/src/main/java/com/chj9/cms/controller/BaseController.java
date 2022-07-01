@@ -23,7 +23,6 @@ public class BaseController {
 	
 	public String getUserName() {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
-		String userName = userDetails.getUsername();
-		return userName;
+		return userDetails.getUsername();
 	}
 }
