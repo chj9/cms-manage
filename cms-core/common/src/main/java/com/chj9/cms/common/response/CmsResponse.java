@@ -2,9 +2,9 @@ package com.chj9.cms.common.response;
 
 
 import com.chj9.cms.common.exception.BadRequestException;
+import com.chj9.cms.common.exception.CmsException;
 import com.chj9.cms.common.exception.ForbiddenException;
 import com.chj9.cms.common.exception.NotDevelopedException;
-import com.chj9.cms.common.exception.TurnRightException;
 
 import java.time.Instant;
 
@@ -21,7 +21,7 @@ public class CmsResponse {
     private Object payload;
     private Instant responseAt = Instant.now();
 
-    public <E extends TurnRightException> CmsResponse(E exception) {
+    public <E extends CmsException> CmsResponse(E exception) {
         this.code = exception.getCode();
         this.msg = exception.getMessage();
         this.payload = exception.getPayload();
