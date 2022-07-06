@@ -59,9 +59,9 @@ public class UmsAdminController extends BaseController {
 		String wxUrl = String.format(requestUrl, appId, secret, code);
 		String responseContent = HttpClientUtils.responseGet(wxUrl);
 
-        JSONObject json = JSONUtil.parse(responseContent);
+        JSONObject json = JSONUtil.parseObj(responseContent);
 		if (json != null) {
-			String openId = json.getString("openid");
+			String openId = json.getStr("openid");
 			String token = myUserService.loginWeixin(openId);
 			jsonBean.put("token", token);
 			jsonBean.put("tokenHead", tokenHead);
